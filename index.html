@@ -3,10 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Title Page</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.css"
+      integrity="sha512-71dG0r3e4H/L0RlpoF0fz0CQBoLOgkQRC8i1mw6uZT8t9EktI6gV71zGrdFejy0zAx1qZg3eWR/WKo8zFm0aPQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
     <style>
       .image-container {
@@ -22,22 +29,25 @@
       .column {
         flex: 0 1 auto;
         margin: 0 5px; /* Adjust margin to control the space between each image */
+        text-align: center;
       }
       .image {
         width: 100%;
         height: auto;
       }
+      .calendar {
+        height: 500px; /* Adjust the height as needed */
+      }
     </style>
   </head>
   <body>
+    <script>
+      console.log("Hello from FullCalendar");
+    </script>
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
-          <img
-            src="https://bulma.io/images/bulma-logo.png"
-            width="112"
-            height="28"
-          />
+        <a class="navbar-item" href="#">
+          <img src="https://via.placeholder.com/112x28" alt="Bulma" />
         </a>
 
         <a
@@ -55,31 +65,35 @@
 
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item"> Home </a>
-          <a class="navbar-item"> Documentation </a>
+          <a class="navbar-item" href="#">Home</a>
+          <a class="navbar-item" href="#">Documentation</a>
+
           <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link"> More </a>
+            <a class="navbar-link" href="#">More</a>
+
             <div class="navbar-dropdown">
-              <a class="navbar-item"> About </a>
-              <a class="navbar-item"> Jobs </a>
-              <a class="navbar-item"> Contact </a>
+              <a class="navbar-item" href="#">About</a>
+              <a class="navbar-item" href="#">Jobs</a>
+              <a class="navbar-item" href="#">Contact</a>
               <hr class="navbar-divider" />
-              <a class="navbar-item"> Report an issue </a>
+              <a class="navbar-item" href="#">Report an issue</a>
             </div>
           </div>
         </div>
+
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-primary">
+              <a class="button is-primary" href="#">
                 <strong>Sign up</strong>
               </a>
-              <a class="button is-light"> Log in </a>
+              <a class="button is-light" href="#">Log in</a>
             </div>
           </div>
         </div>
       </div>
     </nav>
+
     <!-- Images Section -->
     <section class="section">
       <div class="container">
@@ -91,6 +105,7 @@
                 alt="Placeholder image"
               />
             </figure>
+            <h5>Image 1</h5>
           </div>
           <div class="column">
             <figure class="image">
@@ -99,6 +114,7 @@
                 alt="Placeholder image"
               />
             </figure>
+            <h5>Image 2</h5>
           </div>
           <div class="column">
             <figure class="image">
@@ -107,6 +123,7 @@
                 alt="Placeholder image"
               />
             </figure>
+            <h5>Image 3</h5>
           </div>
           <div class="column">
             <figure class="image">
@@ -115,6 +132,7 @@
                 alt="Placeholder image"
               />
             </figure>
+            <h5>Image 4</h5>
           </div>
           <div class="column">
             <figure class="image">
@@ -123,10 +141,46 @@
                 alt="Placeholder image"
               />
             </figure>
+            <h5>Image 5</h5>
           </div>
           <!-- Add more columns if needed -->
         </div>
       </div>
     </section>
+
+    <!-- Calendar Section -->
+    <section class="section">
+      <div class="container">
+        <div id="calendar" class="calendar"></div>
+      </div>
+    </section>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.js"
+      integrity="sha512-BVRWZbwxVx2Qh1CQy00jKYQteGoUMOxOh0aZW0aIe/3R42PfhS++wI9dXzxQsCfA2L1k3BqO5MjMwI0n0vN0Ow=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: "dayGridMonth",
+          events: [
+            {
+              title: "Event 1",
+              start: "2024-03-01",
+            },
+            {
+              title: "Event 2",
+              start: "2024-03-07",
+              end: "2024-03-10",
+            },
+            // Add more events as needed
+          ],
+        });
+        calendar.render();
+      });
+    </script>
   </body>
 </html>

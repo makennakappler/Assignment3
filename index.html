@@ -41,9 +41,6 @@
     </style>
   </head>
   <body>
-    <script>
-      console.log("Hello from FullCalendar");
-    </script>
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="#">
@@ -87,7 +84,7 @@
               <a class="button is-primary" href="#">
                 <strong>Sign up</strong>
               </a>
-              <a class="button is-light" href="#">Log in</a>
+              <a id="loginButton" class="button is-light" href="#">Log in</a>
             </div>
           </div>
         </div>
@@ -154,14 +151,14 @@
         <div id="calendar" class="calendar"></div>
       </div>
     </section>
-
+    <!-- grab calendar library -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.js"
       integrity="sha512-BVRWZbwxVx2Qh1CQy00jKYQteGoUMOxOh0aZW0aIe/3R42PfhS++wI9dXzxQsCfA2L1k3BqO5MjMwI0n0vN0Ow=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-
-    <script src="js/site.js"></script>
+    <!-- reference js file -->
+    <script src="site.js"></script>
   </body>
 </html>

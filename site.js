@@ -20,3 +20,14 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   calendar.render();
 });
+
+//test to make sure js is linked correctly
+
+// Select the login button by its ID
+var loginButton = document.getElementById("loginButton");
+
+// Add an event listener to the login button
+loginButton.addEventListener("click", function () {
+  // Callback function to execute when the button is clicked
+  console.log("Login has been clicked");
+});

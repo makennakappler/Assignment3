@@ -1,5 +1,6 @@
 // site.js
 
+//add calendar content
 document.addEventListener("DOMContentLoaded", function () {
   // FullCalendar initialization code here
   var calendarEl = document.getElementById("calendar");
@@ -21,9 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
   calendar.render();
 });
 
-//test to make sure js is linked correctly
-
-// Select the login button by its ID
+// Login Button JS
 var loginButton = document.getElementById("loginButton");
 
 // Add an event listener to the login button

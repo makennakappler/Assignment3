@@ -38,8 +38,16 @@
       .calendar {
         height: 500px; /* Adjust the height as needed */
       }
-      .redbackground {
-        background-image: url("twitter-card.jpeg");
+      .title1 {
+        background-image: url("redlines.jpeg");
+        height: 5rem;
+        padding-left: 1rem;
+      }
+      .nice_color {
+        background-color: whitesmoke;
+      }
+      .textcolor {
+        color: red;
       }
     </style>
   </head>
@@ -97,12 +105,14 @@
       </div>
     </nav>
     <!-- Header Section -->
-    <div class="title2">
-      <h1 class="is-size-2 has-text-centered">Advocates for Rare Diseases</h1>
+    <div class="title1">
+      <h1 class="is-size-2 has-text-left textcolor">
+        Advocates for Rare Diseases
+      </h1>
     </div>
 
     <!-- Calendar Section -->
-    <section class="section">
+    <section class="section nice_color">
       <div class="container">
         <div id="calendar" class="calendar"></div>
       </div>

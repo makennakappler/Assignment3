@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/8a80b728dc.js"
+      crossorigin="anonymous"
+    ></script>
     <title>ARD Website</title>
     <link
       rel="stylesheet"
@@ -38,9 +44,23 @@
       .calendar {
         height: 500px; /* Adjust the height as needed */
       }
+      .title1 {
+        height: 5rem;
+        padding-left: 1rem;
+      }
+      .nice_color {
+        background-color: red;
+        color: white;
+      }
+      .textcolor {
+        color: red;
+      }
+      body {
+        font-family: Garamond, serif;
+      }
     </style>
   </head>
-  <body>
+  <body class="body">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="#">
@@ -84,7 +104,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-primary" href="#">
+              <a class="button nice_color" href="#">
                 <strong>Sign up</strong>
               </a>
               <a id="loginButton" class="button is-light" href="#">Log in</a>
@@ -93,14 +113,27 @@
         </div>
       </div>
     </nav>
-
-    <!-- Calendar Section -->
-    <section class="section">
-      <div class="container">
-        <div id="calendar" class="calendar"></div>
-      </div>
-    </section>
-
+    <!-- Header Section -->
+    <div class="title1">
+      <h1 class="is-size-2 has-text-left textcolor">
+        <b>Advocates for Rare Diseases</b>
+      </h1>
+    </div>
+    <div class="columns">
+      <!-- Calendar Section -->
+      <section class="column is-7 p-7">
+        <div class="container">
+          <div id="calendar" class="calendar"></div>
+        </div>
+      </section>
+      <!--Announcment Section-->
+      <section class="column is-3 p-7">
+        <div>
+          <p class="title">Announcements</p>
+          <p>add announcements here</p>
+        </div>
+      </section>
+    </div>
     <!-- Images Section -->
     <section class="section">
       <div class="container">
@@ -112,7 +145,7 @@
                 alt="Placeholder image"
               />
             </figure>
-            <h5>Image 1</h5>
+            <h5>Image 1 test again</h5>
           </div>
           <div class="column">
             <figure class="image">
@@ -154,7 +187,18 @@
         </div>
       </div>
     </section>
-
+    <!--Footer-->
+    <div class="footer has-background-white-bis">
+      <div class="content has-text-centered">
+        <p>&copy;Advocates for Rare Diseases</p>
+        <p>
+          <!-- links to social media pages -->
+          <a>
+            <i class="fa-brands fa-instagram fa-2x m-1"></i>
+          </a>
+        </p>
+      </div>
+    </div>
     <!-- grab calendar library - here is the doc link if we run into issues https://fullcalendar.io/docs/initialize-globals-->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 

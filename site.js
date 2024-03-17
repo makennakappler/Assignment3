@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     homePage.style.display = "block";
 
     // hide other html pages
-    executiveLeadersPage.style.display = "block";
+    executiveLeadersPage.style.display = "none";
   });
 
   executiveLeadersLink.addEventListener("click", function (event) {

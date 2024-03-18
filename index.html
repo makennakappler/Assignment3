@@ -86,20 +86,27 @@
 
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" href="#">Home</a>
-          <a class="navbar-item" href="#">Documentation</a>
+          <a class="navbar-item" href="#" id="homePageLink">Home</a>
+          <a class="navbar-item" href="#" id="executiveLeadersLink"
+            >Executive Leaders</a
+          >
+          <a class="navbar-item" href="#" id="votingLink">Voting</a>
+          <a class="navbar-item" href="#" id="pastEventsLink">Past Events</a>
+          <a class="navbar-item" href="#" id="aboutUsLink">About Us</a>
+          <a class="navbar-item" href="#" id="testLink">Test Page</a>
 
-          <div class="navbar-item has-dropdown is-hoverable">
+          <!-- commented out nav dropdown -->
+          <!-- <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link" href="#">More</a>
 
             <div class="navbar-dropdown">
               <a class="navbar-item" href="#">About</a>
-              <a class="navbar-item" href="#">Jobs</a>
+              <a class="navbar-item" href="#">Voting Page</a>
               <a class="navbar-item" href="#">Contact</a>
               <hr class="navbar-divider" />
               <a class="navbar-item" href="#">Report an issue</a>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div class="navbar-end">
@@ -120,74 +127,114 @@
         <b>Advocates for Rare Diseases</b>
       </h1>
     </div>
-    <div class="columns">
-      <!-- Calendar Section -->
-      <section class="column is-7 p-7">
-        <div class="container">
-          <div id="calendar" class="calendar"></div>
+
+    <!-- main page -->
+    <div id="content">
+      <section id="homePage">
+        <div class="columns">
+          <!-- Calendar Section -->
+          <section class="column is-7 p-7">
+            <div class="container">
+              <div id="calendar" class="calendar"></div>
+            </div>
+          </section>
+
+          <!-- Announcement Section -->
+          <section class="column is-3 p-7">
+            <div>
+              <p class="title">Announcements</p>
+              <p>add announcements here</p>
+            </div>
+          </section>
         </div>
+
+        <!-- Images Section -->
+        <div class="columns">
+          <!-- Add a div to contain the images section -->
+          <section class="section">
+            <!-- Move the section inside the div -->
+            <div class="container">
+              <div class="image-container">
+                <div class="column">
+                  <figure class="image">
+                    <img
+                      src="https://via.placeholder.com/256"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                  <h5>Image 1 test again</h5>
+                </div>
+                <div class="column">
+                  <figure class="image">
+                    <img
+                      src="https://via.placeholder.com/256"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                  <h5>Image 2</h5>
+                </div>
+                <div class="column">
+                  <figure class="image">
+                    <img
+                      src="https://via.placeholder.com/256"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                  <h5>Image 3</h5>
+                </div>
+                <div class="column">
+                  <figure class="image">
+                    <img
+                      src="https://via.placeholder.com/256"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                  <h5>Image 4</h5>
+                </div>
+                <div class="column">
+                  <figure class="image">
+                    <img
+                      src="https://via.placeholder.com/256"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                  <h5>Image 5</h5>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- image section class-->
+        </div>
+        <!-- Close the div containing the images section -->
       </section>
-      <!--Announcment Section-->
-      <section class="column is-3 p-7">
-        <div>
-          <p class="title">Announcements</p>
-          <p>add announcements here</p>
-        </div>
+
+      <!-- executive leaders page -->
+      <section id="executiveLeadersPage" style="display: none">
+        <p>content of executive leaders section</p>
+      </section>
+
+      <!-- voting page -->
+      <section id="votingPage" style="display: none">
+        <p>content of voting section</p>
+      </section>
+
+      <!-- past events page -->
+      <section id="pastEventsPage" style="display: none">
+        <p>content of past events section</p>
+      </section>
+
+      <!-- about us page -->
+      <section id="aboutUsPage" style="display: none">
+        <p>content of about us section</p>
+      </section>
+
+      <!-- test page -->
+      <section id="testPage" style="display: none">
+        <p>content of test page</p>
       </section>
     </div>
-    <!-- Images Section -->
-    <section class="section">
-      <div class="container">
-        <div class="image-container">
-          <div class="column">
-            <figure class="image">
-              <img
-                src="https://via.placeholder.com/256"
-                alt="Placeholder image"
-              />
-            </figure>
-            <h5>Image 1 test again</h5>
-          </div>
-          <div class="column">
-            <figure class="image">
-              <img
-                src="https://via.placeholder.com/256"
-                alt="Placeholder image"
-              />
-            </figure>
-            <h5>Image 2</h5>
-          </div>
-          <div class="column">
-            <figure class="image">
-              <img
-                src="https://via.placeholder.com/256"
-                alt="Placeholder image"
-              />
-            </figure>
-            <h5>Image 3</h5>
-          </div>
-          <div class="column">
-            <figure class="image">
-              <img
-                src="https://via.placeholder.com/256"
-                alt="Placeholder image"
-              />
-            </figure>
-            <h5>Image 4</h5>
-          </div>
-          <div class="column">
-            <figure class="image">
-              <img
-                src="https://via.placeholder.com/256"
-                alt="Placeholder image"
-              />
-            </figure>
-            <h5>Image 5</h5>
-          </div>
-          <!-- Add more columns if needed -->
-        </div>
-      </div>
-    </section>
+    <!-- div content id -->
+
     <!--Footer-->
     <div class="footer has-background-white-bis">
       <div class="content has-text-centered">

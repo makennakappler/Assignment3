@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     votingPage.style.display = "none";
     pastEventsPage.style.display = "none";
     aboutUsPage.style.display = "none";
+    testPage.style.display = "none";
   });
 
   // click executive leaders page nav actions
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     votingPage.style.display = "none";
     pastEventsPage.style.display = "none";
     aboutUsPage.style.display = "none";
+    testPage.style.display = "none";
   });
 
   // click voting page page nav actions
@@ -57,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     executiveLeadersPage.style.display = "none";
     pastEventsPage.style.display = "none";
     aboutUsPage.style.display = "none";
+    testPage.style.display = "none";
   });
 
   // click voting page page nav actions
@@ -69,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
     executiveLeadersPage.style.display = "none";
     votingPage.style.display = "none";
     aboutUsPage.style.display = "none";
+    testPage.style.display = "none";
   });
 
   // click about us page nav actions
@@ -81,6 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
     executiveLeadersPage.style.display = "none";
     votingPage.style.display = "none";
     executiveLeadersPage.style.display = "none";
+    testPage.style.display = "none";
   });
 
   // click about us page nav actions
@@ -92,8 +97,8 @@ document.addEventListener("DOMContentLoaded", function () {
     homePage.style.display = "none";
     executiveLeadersPage.style.display = "none";
     votingPage.style.display = "none";
+    aboutUsPage.style.display = "none";
   });
-
   // FullCalendar initialization
   var calendarEl = document.getElementById("calendar");
   var calendar = new FullCalendar.Calendar(calendarEl, {

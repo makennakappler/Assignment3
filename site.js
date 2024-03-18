@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
     homePage.style.display = "none";
     executiveLeadersPage.style.display = "none";
     votingPage.style.display = "none";
-    executiveLeadersPage.style.display = "none";
+    pastEventsPage.style.display = "none";
     testPage.style.display = "none";
   });
 

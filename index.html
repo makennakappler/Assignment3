@@ -14,13 +14,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.css"
-      integrity="sha512-71dG0r3e4H/L0RlpoF0fz0CQBoLOgkQRC8i1mw6uZT8t9EktI6gV71zGrdFejy0zAx1qZg3eWR/WKo8zFm0aPQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+
 
     <body>
       <header class="p-4">
@@ -50,7 +44,9 @@
         height: auto;
       }
       .calendar {
-        height: 500px; /* Adjust the height as needed */
+        position: relative;
+        max-width: 100%;
+        max-height: 100%;
       }
       .title1 {
         height: 5rem;
@@ -140,10 +136,13 @@
     <div id="content">
       <section id="homePage">
         <div class="columns">
+          
           <!-- Calendar Section -->
           <section class="column is-7 p-7">
             <div class="container">
-              <div id="calendar" class="calendar"></div>
+              <div class="calendar">
+                <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago&bgcolor=%23ffffff&src=YWR2b2NhdGVzZm9ycmFyZWRpc2Vhc2VzQGdtYWlsLmNvbQ&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%2333B679&color=%230B8043" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+              </div>
             </div>
           </section>
 
@@ -255,8 +254,6 @@
         </p>
       </div>
     </div>
-    <!-- grab calendar library - here is the doc link if we run into issues https://fullcalendar.io/docs/initialize-globals-->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
     <!-- reference js file -->
     <script src="site.js"></script>

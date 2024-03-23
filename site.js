@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
     executiveLeadersPage.style.display = "none";
     votingPage.style.display = "none";
     aboutUsPage.style.display = "none";
+    title1.style.display = "none";
   });
 
   // Login Button JS
@@ -105,4 +106,24 @@ document.addEventListener("DOMContentLoaded", function () {
   loginButton.addEventListener("click", function () {
     console.log("Login button clicked");
   });
+
+  // dymanic display of text on test page
+  const textToAnimate = "Welcome to Advocates for Rare Diseases!";
+
+  // Initialize variables
+  let index = 0;
+  const speed = 50; // Speed of typing in milliseconds
+
+  // Function to animate typing
+  function typeWriter() {
+    if (index < textToAnimate.length) {
+      document.getElementById("typing-text").innerHTML +=
+        textToAnimate.charAt(index);
+      index++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  // Call the function to start the typing animation
+  typeWriter();
 });

@@ -124,9 +124,59 @@ document.addEventListener("DOMContentLoaded", function () {
     title1.style.display = "none";
   });
 
-  // Login Button JS
-  var loginButton = document.getElementById("loginButton");
-  loginButton.addEventListener("click", function () {
-    console.log("Login button clicked");
+  // // Login Button JS
+  // var loginButton = document.getElementById("logIn");
+  // loginButton.addEventListener("click", function () {
+  //   console.log("Login button clicked");
+  // });
+
+  // sign up modal - using js for login modals - code below is here just in case
+  const signUp = document.querySelector("#signUp");
+  const modalSignUp = document.querySelector("#modalSignUp");
+  const signupBackground = document.querySelector("#signupBackground");
+
+  signUp.addEventListener("click", () => {
+    console.log("signup button has been clicked");
+    modalSignUp.classList.add("is-active");
   });
+
+  signupBackground.addEventListener("click", () => {
+    modalSignUp.classList.remove("is-active");
+  });
+
+  // sign up user
+
+  // signUp.addEventListener("submit", (e) => {
+  //   e.preventDefault(); //prevent default behaviour of browser (no page refresh)
+
+  //   // grab the email and password combination from the form
+
+  //   let email = docuement.querySelector("email").value;
+  //   let password = document.querySelector("password").value;
+
+  //   // call the Firebase function to create the user
+
+  //   auth
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then((user) => {
+  //       // console.log(`${user.user.email} is successfully created!`);
+
+  //       // show sign up successful message on message bar
+  //       configure_message_bar(`${user.user.email} is successfully created!`);
+
+  //       // reset the form
+
+  //       // close the modal
+  //       document.querySelector("modalSignUp").classList.remove("is-active");
+  //     })
+  //     .catch((err) => {
+  //       document.querySelector("modalSignUp").classList.remove("is-active");
+  //       configure_message_bar(`${err.message} Please try a different account.`);
+
+  // // reset the form
+  // docuement.querySelector("signUp").reset();
+
+  // modalSignUp.querySelector('.error').innerHTML = err.message;
 });
+// });
+// });

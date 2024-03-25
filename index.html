@@ -130,10 +130,10 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button nice_color" href="#">
+              <a class="button nice_color" id="signUp">
                 <strong>Sign up</strong>
               </a>
-              <a id="loginButton" class="button is-light" href="#">Log in</a>
+              <a class="button is-light">Log in</a>
             </div>
           </div>
         </div>
@@ -257,6 +257,53 @@
           <h3 class="is-size-3">One Human at a time.</h3>
         </div>
       </section>
+
+      <!-- modal sign up -->
+      <div class="modal" id="modalSignUp">
+        <div class="modal-background" id="signupBackground"> </div>
+        <section class="hero is-fullheight">
+            <div class="hero-body">
+                <div class="container">
+                    <div class="columns is-centered">
+                        <form action="" class="box" id="signUpFB">
+                            <div class="field">
+                                <label for="" class="label">Email</label>
+                                <div class="control has-icons-left">
+                                    <input type="email" placeholder="e.g. example@gmail.com" class="input" required
+                                        id="email">
+                                    <span class="icon is-small is-left">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="" class="label">Password</label>
+                                <div class="control has-icons-left">
+                                    <input type="password" placeholder="*******" class="input" required id="password">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="" class="checkbox">
+                                    <input type="checkbox">
+                                    Remember me
+                                </label>
+                            </div>
+                            <div class="field">
+                                <button class="button is-success">
+                                    Sign up
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+      </div>
     </div>
     <!-- div content id -->
 

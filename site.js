@@ -124,11 +124,20 @@ document.addEventListener("DOMContentLoaded", function () {
     title1.style.display = "none";
   });
 
-  // // Login Button JS
-  // var loginButton = document.getElementById("logIn");
-  // loginButton.addEventListener("click", function () {
-  //   console.log("Login button clicked");
-  // });
+  // login modal
+  const logIn = document.querySelector("#logIn");
+  const modalLogin = document.querySelector("#modalLogin");
+  const loginBackground = document.querySelector("#loginBackground");
+
+  logIn.addEventListener("click", () => {
+    console.log("login button has been clicked");
+    modalLogin.classList.add("is-active");
+  });
+
+  loginBackground.addEventListener("click", () => {
+    modalLogin.classList.remove("is-active");
+  });
+  //
 
   // sign up modal - using js for login modals - code below is here just in case
   const signUp = document.querySelector("#signUp");

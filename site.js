@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     navbarBurger.classList.toggle("is-active");
     navbarMenu.classList.toggle("is-active");
   });
+
   // Find the link elements by their IDs
   var homePageLink = document.getElementById("homePageLink");
   var executiveLeadersLink = document.getElementById("executiveLeadersLink");
@@ -88,10 +89,32 @@ document.addEventListener("DOMContentLoaded", function () {
     testPage.style.display = "none";
   });
 
-  // click about us page nav actions
+  // Function to animate typing
+  function typewriter(header, delay) {
+    var text = header.textContent.trim();
+    header.textContent = ""; // Clear existing text
+
+    for (var i = 0; i < text.length; i++) {
+      (function (i) {
+        setTimeout(function () {
+          header.textContent += text[i];
+        }, i * delay);
+      })(i);
+    }
+  }
+
+  // click test page nav actions
   testLink.addEventListener("click", function (event) {
     // Prevent the default link behavior
     testPage.style.display = "block";
+
+    // Call the typewriter function for each header
+    var headers = document.querySelectorAll("h1, h2, h3");
+    const delay = 100; // Delay between each character in milliseconds
+
+    headers.forEach(function (header) {
+      typewriter(header, delay);
+    });
 
     // hide other html page
     homePage.style.display = "none";
@@ -106,24 +129,4 @@ document.addEventListener("DOMContentLoaded", function () {
   loginButton.addEventListener("click", function () {
     console.log("Login button clicked");
   });
-
-  // dymanic display of text on test page
-  const textToAnimate = "Welcome to Advocates for Rare Diseases!";
-
-  // Initialize variables
-  let index = 0;
-  const speed = 50; // Speed of typing in milliseconds
-
-  // Function to animate typing
-  function typeWriter() {
-    if (index < textToAnimate.length) {
-      document.getElementById("typing-text").innerHTML +=
-        textToAnimate.charAt(index);
-      index++;
-      setTimeout(typeWriter, speed);
-    }
-  }
-
-  // Call the function to start the typing animation
-  typeWriter();
 });

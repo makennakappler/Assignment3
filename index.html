@@ -97,8 +97,8 @@
     .votingcontainer {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       border: 2px solid #777;
+      margin-bottom: 15px;
     }
 
     .votingcolumn {
@@ -107,6 +107,13 @@
       border: 2px solid #777;
       flex-grow: 1;
       margin: 5px;
+    }
+
+    .votingform {
+      border: 2px solid #f08080;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
   </style>
   </head>
@@ -244,6 +251,7 @@
         <p>content of executive leaders section</p>
       </section>
 
+
       <!-- voting page -->
       <section id="votingPage" style="display: none">
         <div>
@@ -251,51 +259,58 @@
 
           <!-- 2 columns for current polls -->
           <div class="container votingcontainer">
+
             <div class="column votingcolumn">
               <h1 class="is-size-2">Event Poll 1</h1>
-
               <form id="voting-form">
                 <p>
-                  <input type="radio" name="color" value="red">
-                  <label for="color-red">Red</label>
+                  <input type="radio" value="Choice 1">
+                  <label>Choice 1</label>
                 </p>
                 <p>
-                  <input type="radio" name="color" value="blue">
-                  <label for="color-blue">Blue</label>
+                  <input type="radio" value="Choice 2">
+                  <label>Choice 2</label>
                 </p>
                 <p>
-                  <input type="radio" id="color-green" name="color" value="green">
-                  <label for="color-green">Green</label>
+                  <input type="radio" value="Choice 3">
+                  <label>Choice 3</label>
                 </p>
                 <button type="submit">Submit Vote</button>
               </form>
-
             </div>
+
             <div class="column votingcolumn">
               <h1 class="is-size-2">Event Poll 2</h1>
               <form id="voting-form">
                 <p>
-                  <input type="radio" name="color" value="red">
-                  <label for="color-red">Red</label>
+                  <input type="radio" value="Choice 1">
+                  <label>Choice 1</label>
                 </p>
                 <p>
-                  <input type="radio" name="color" value="blue">
-                  <label for="color-blue">Blue</label>
+                  <input type="radio" value="Choice 2">
+                  <label>Choice 2</label>
                 </p>
                 <p>
-                  <input type="radio" id="color-green" name="color" value="green">
-                  <label for="color-green">Green</label>
+                  <input type="radio" value="Choice 3">
+                  <label>Choice 3</label>
                 </p>
                 <button type="submit">Submit Vote</button>
               </form>
             </div>
+
           </div>
+          <div class="container votingform">
+            <form class="votingform">
+              <label>Rate from 1 to 5:</label>
+              <input type="range" id="rating" name="rating" min="1" max="10" step="1" value="5">
+              <output id="rating-value">5</output>
 
-
-
+              <button type="submit">Submit</button>
+            </form>
+          </div>
         </div>
-
       </section>
+
 
       <!-- past events page -->
       <section id="pastEventsPage" style="display: none">

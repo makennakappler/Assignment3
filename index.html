@@ -1,83 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Font Awesome -->
-    <script
-      src="https://kit.fontawesome.com/8a80b728dc.js"
-      crossorigin="anonymous"
-    ></script>
-    <title>ARD Website</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/8a80b728dc.js" crossorigin="anonymous"></script>
+  <title>ARD Website</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
 
 
-    <body>
+<body>
 
-    <style>
-      .navbar {
-        /* background-image: url('A D V O C A T E R A R E D I S E A S E S (1) copy.png');
+  <style>
+    .navbar {
+      /* background-image: url('A D V O C A T E R A R E D I S E A S E S (1) copy.png');
         background-size: cover;
         background-position: center;
         height: 70px; 
         padding: 10px 0;  */
-      }
-      .image-container {
-        display: flex;
-        justify-content: space-around;
-        overflow-x: auto;
-        padding-bottom: 10px;
-        margin: 0 -5px; /* Adjust margin to control the space between edge and first/last image */
-      }
+    }
 
-      .fullscreen-image {
-      background-image: url("https://media.istockphoto.com/id/1255203350/photo/teamwork-friendship-hiking-help-each-other-trust-assistance-silhouette-in-mountains-sunrise.jpg?s=612x612&w=0&k=20&c=XU9MhkkMdyM59gAMDSUwltr-LhVyjWHLvTxQCPwVbF8="); 
+    .image-container {
+      display: flex;
+      justify-content: space-around;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin: 0 -5px;
+      /* Adjust margin to control the space between edge and first/last image */
+    }
+
+    .fullscreen-image {
+      background-image: url("https://media.istockphoto.com/id/1255203350/photo/teamwork-friendship-hiking-help-each-other-trust-assistance-silhouette-in-mountains-sunrise.jpg?s=612x612&w=0&k=20&c=XU9MhkkMdyM59gAMDSUwltr-LhVyjWHLvTxQCPwVbF8=");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      height: 100vh; /* 100% of the viewport height */
+      height: 100vh;
+      /* 100% of the viewport height */
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #fff; /* Text color for content inside the container */
+      color: #fff;
+      /* Text color for content inside the container */
     }
-      .image-container::-webkit-scrollbar {
-        display: none;
-      }
-      .column {
-        flex: 0 1 auto;
-        margin: 0 5px; /* Adjust margin to control the space between each image */
-        text-align: center;
-      }
-      .image {
-        width: 100%;
-        height: auto;
-      }
-      .calendar {
-        position: relative;
-        max-width: 100%;
-        max-height: 100%;
-      }
-      .title1 {
-        height: 5rem;
-        padding-left: 1rem;
-      }
-      .nice_color {
-        background-color: red;
-        color: white;
-      }
-      .textcolor {
-        color: black;
-      }
-      .body {
-        font-family: Garamond, serif;
-        background-color: white;
-      }
-    </style>
+
+    .image-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .column {
+      flex: 0 1 auto;
+      margin: 0 5px;
+      /* Adjust margin to control the space between each image */
+      text-align: center;
+    }
+
+    .image {
+      width: 100%;
+      height: auto;
+    }
+
+    .calendar {
+      position: relative;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .title1 {
+      height: 5rem;
+      padding-left: 1rem;
+    }
+
+    .nice_color {
+      background-color: red;
+      color: white;
+    }
+
+    .textcolor {
+      color: black;
+    }
+
+    .body {
+      font-family: Garamond, serif;
+      background-color: white;
+    }
+
+    .votinghead {
+      justify-content: center;
+      align-items: center;
+      background-color: whitesmoke;
+      text-align: center;
+      margin: 5px;
+    }
+
+    .votingcontainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 2px solid #777;
+    }
+
+    .votingcolumn {
+      align-items: center;
+      text-align: center;
+      border: 2px solid #777;
+      flex-grow: 1;
+      margin: 5px;
+    }
+  </style>
   </head>
 
   <body class="body">
@@ -89,13 +120,7 @@
 
         </a>
 
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
-        >
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -105,9 +130,7 @@
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
           <a class="navbar-item" href="#" id="homePageLink">Home</a>
-          <a class="navbar-item" href="#" id="executiveLeadersLink"
-            >Executive Leaders</a
-          >
+          <a class="navbar-item" href="#" id="executiveLeadersLink">Executive Leaders</a>
           <a class="navbar-item" href="#" id="votingLink">Voting</a>
           <a class="navbar-item" href="#" id="pastEventsLink">Past Events</a>
           <a class="navbar-item" href="#" id="aboutUsLink">About Us</a>
@@ -150,12 +173,14 @@
     <div id="content">
       <section id="homePage">
         <div class="columns">
-          
+
           <!-- Calendar Section -->
           <section class="column is-7 p-7">
             <div class="container">
               <div class="calendar">
-                <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago&bgcolor=%23ffffff&src=YWR2b2NhdGVzZm9ycmFyZWRpc2Vhc2VzQGdtYWlsLmNvbQ&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%2333B679&color=%230B8043" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+                <iframe
+                  src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago&bgcolor=%23ffffff&src=YWR2b2NhdGVzZm9ycmFyZWRpc2Vhc2VzQGdtYWlsLmNvbQ&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%2333B679&color=%230B8043"
+                  style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
               </div>
             </div>
           </section>
@@ -178,46 +203,31 @@
               <div class="image-container">
                 <div class="column">
                   <figure class="image">
-                    <img
-                      src="https://via.placeholder.com/256"
-                      alt="Placeholder image"
-                    />
+                    <img src="https://via.placeholder.com/256" alt="Placeholder image" />
                   </figure>
                   <h5>Image 1 test again</h5>
                 </div>
                 <div class="column">
                   <figure class="image">
-                    <img
-                      src="https://via.placeholder.com/256"
-                      alt="Placeholder image"
-                    />
+                    <img src="https://via.placeholder.com/256" alt="Placeholder image" />
                   </figure>
                   <h5>Image 2</h5>
                 </div>
                 <div class="column">
                   <figure class="image">
-                    <img
-                      src="https://via.placeholder.com/256"
-                      alt="Placeholder image"
-                    />
+                    <img src="https://via.placeholder.com/256" alt="Placeholder image" />
                   </figure>
                   <h5>Image 3</h5>
                 </div>
                 <div class="column">
                   <figure class="image">
-                    <img
-                      src="https://via.placeholder.com/256"
-                      alt="Placeholder image"
-                    />
+                    <img src="https://via.placeholder.com/256" alt="Placeholder image" />
                   </figure>
                   <h5>Image 4</h5>
                 </div>
                 <div class="column">
                   <figure class="image">
-                    <img
-                      src="https://via.placeholder.com/256"
-                      alt="Placeholder image"
-                    />
+                    <img src="https://via.placeholder.com/256" alt="Placeholder image" />
                   </figure>
                   <h5>Image 5</h5>
                 </div>
@@ -236,7 +246,55 @@
 
       <!-- voting page -->
       <section id="votingPage" style="display: none">
-        <p>content of voting section</p>
+        <div>
+          <h1 class="votinghead is-size-2">Vote on Upcoming Events</h1>
+
+          <!-- 2 columns for current polls -->
+          <div class="container votingcontainer">
+            <div class="column votingcolumn">
+              <h1 class="is-size-2">Event Poll 1</h1>
+
+              <form id="voting-form">
+                <p>
+                  <input type="radio" name="color" value="red">
+                  <label for="color-red">Red</label>
+                </p>
+                <p>
+                  <input type="radio" name="color" value="blue">
+                  <label for="color-blue">Blue</label>
+                </p>
+                <p>
+                  <input type="radio" id="color-green" name="color" value="green">
+                  <label for="color-green">Green</label>
+                </p>
+                <button type="submit">Submit Vote</button>
+              </form>
+
+            </div>
+            <div class="column votingcolumn">
+              <h1 class="is-size-2">Event Poll 2</h1>
+              <form id="voting-form">
+                <p>
+                  <input type="radio" name="color" value="red">
+                  <label for="color-red">Red</label>
+                </p>
+                <p>
+                  <input type="radio" name="color" value="blue">
+                  <label for="color-blue">Blue</label>
+                </p>
+                <p>
+                  <input type="radio" id="color-green" name="color" value="green">
+                  <label for="color-green">Green</label>
+                </p>
+                <button type="submit">Submit Vote</button>
+              </form>
+            </div>
+          </div>
+
+
+
+        </div>
+
       </section>
 
       <!-- past events page -->
@@ -262,45 +320,44 @@
       <div class="modal" id="modalSignUp">
         <div class="modal-background" id="signupBackground"> </div>
         <section class="hero is-fullheight">
-            <div class="hero-body">
-                <div class="container">
-                    <div class="columns is-centered">
-                        <form action="" class="box" id="signUpFB">
-                            <div class="field">
-                                <label for="" class="label">Email</label>
-                                <div class="control has-icons-left">
-                                    <input type="email" placeholder="e.g. example@gmail.com" class="input" required
-                                        id="email">
-                                    <span class="icon is-small is-left">
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label for="" class="label">Password</label>
-                                <div class="control has-icons-left">
-                                    <input type="password" placeholder="*******" class="input" required id="password">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-lock"></i>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label for="" class="checkbox">
-                                    <input type="checkbox">
-                                    Remember me
-                                </label>
-                            </div>
-                            <div class="field">
-                                <button class="button is-success">
-                                    Sign up
-                                </button>
-                            </div>
-                        </form>
-
+          <div class="hero-body">
+            <div class="container">
+              <div class="columns is-centered">
+                <form action="" class="box" id="signUpFB">
+                  <div class="field">
+                    <label for="" class="label">Email</label>
+                    <div class="control has-icons-left">
+                      <input type="email" placeholder="e.g. example@gmail.com" class="input" required id="email">
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-envelope"></i>
+                      </span>
                     </div>
-                </div>
+                  </div>
+                  <div class="field">
+                    <label for="" class="label">Password</label>
+                    <div class="control has-icons-left">
+                      <input type="password" placeholder="*******" class="input" required id="password">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="" class="checkbox">
+                      <input type="checkbox">
+                      Remember me
+                    </label>
+                  </div>
+                  <div class="field">
+                    <button class="button is-success">
+                      Sign up
+                    </button>
+                  </div>
+                </form>
+
+              </div>
             </div>
+          </div>
         </section>
 
       </div>
@@ -311,47 +368,46 @@
     <div class="modal" id="modalLogin">
       <div class="modal-background" id="loginBackground"> </div>
       <section class="hero is-fullheight">
-          <div class="hero-body">
-              <div class="container">
-                  <div class="columns is-centered">
-                      <form action="" class="box" id="signInFB">
-                          <div class="field">
-                              <label for="" class="label">Email</label>
-                              <div class="control has-icons-left">
-                                  <input type="email" placeholder="e.g. example@gmail.com" class="input" required
-                                      id="email_">
-                                  <span class="icon is-small is-left">
-                                      <i class="fa fa-envelope"></i>
-                                  </span>
-                              </div>
-                          </div>
-                          <div class="field">
-                              <label for="" class="label">Password</label>
-                              <div class="control has-icons-left">
-                                  <input type="password" placeholder="*******" class="input" required id="password_">
-                                  <span class="icon is-small is-left">
-                                      <i class="fas fa-lock"></i>
-                                  </span>
-                              </div>
-                          </div>
-                          <div class="field">
-                              <label for="" class="checkbox">
-                                  <input type="checkbox">
-                                  Remember me
-                              </label>
-                          </div>
-                          <div class="field">
-                              <button class="button is-success" id="LoginButton">
-                                  Login
-                              </button>
-                          </div>
-                      </form>
-
+        <div class="hero-body">
+          <div class="container">
+            <div class="columns is-centered">
+              <form action="" class="box" id="signInFB">
+                <div class="field">
+                  <label for="" class="label">Email</label>
+                  <div class="control has-icons-left">
+                    <input type="email" placeholder="e.g. example@gmail.com" class="input" required id="email_">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-envelope"></i>
+                    </span>
                   </div>
-              </div>
+                </div>
+                <div class="field">
+                  <label for="" class="label">Password</label>
+                  <div class="control has-icons-left">
+                    <input type="password" placeholder="*******" class="input" required id="password_">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="" class="checkbox">
+                    <input type="checkbox">
+                    Remember me
+                  </label>
+                </div>
+                <div class="field">
+                  <button class="button is-success" id="LoginButton">
+                    Login
+                  </button>
+                </div>
+              </form>
+
+            </div>
           </div>
+        </div>
       </section>
-  </div>
+    </div>
 
     <!--Footer-->
     <div class="footer has-background-white-bis">
@@ -369,4 +425,5 @@
     <!-- reference js file -->
     <script src="site.js"></script>
   </body>
+
 </html>

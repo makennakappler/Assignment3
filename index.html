@@ -14,14 +14,18 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.css"
-      integrity="sha512-71dG0r3e4H/L0RlpoF0fz0CQBoLOgkQRC8i1mw6uZT8t9EktI6gV71zGrdFejy0zAx1qZg3eWR/WKo8zFm0aPQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+
+
+    <body>
+
     <style>
+      .navbar {
+        /* background-image: url('A D V O C A T E R A R E D I S E A S E S (1) copy.png');
+        background-size: cover;
+        background-position: center;
+        height: 70px; 
+        padding: 10px 0;  */
+      }
       .image-container {
         display: flex;
         justify-content: space-around;
@@ -29,6 +33,18 @@
         padding-bottom: 10px;
         margin: 0 -5px; /* Adjust margin to control the space between edge and first/last image */
       }
+
+      .fullscreen-image {
+      background-image: url("https://media.istockphoto.com/id/1255203350/photo/teamwork-friendship-hiking-help-each-other-trust-assistance-silhouette-in-mountains-sunrise.jpg?s=612x612&w=0&k=20&c=XU9MhkkMdyM59gAMDSUwltr-LhVyjWHLvTxQCPwVbF8="); 
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh; /* 100% of the viewport height */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff; /* Text color for content inside the container */
+    }
       .image-container::-webkit-scrollbar {
         display: none;
       }
@@ -42,7 +58,9 @@
         height: auto;
       }
       .calendar {
-        height: 500px; /* Adjust the height as needed */
+        position: relative;
+        max-width: 100%;
+        max-height: 100%;
       }
       .title1 {
         height: 5rem;
@@ -80,14 +98,22 @@
       }
     </style>
   </head>
+
   <body class="body">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
+<<<<<<< HEAD
         <a class="navbar-item" href="#" style="height: 40px">
           <img
             src="A D V O C A T E R A R E D I S E A S E S (1).png"
             alt="ARD logo"
           />
+=======
+        <!-- logo background -->
+        <a class="navbar-item" href="#">
+          <img src="ARDjustlogo.png" alt="Rare Diseases Logo">
+
+>>>>>>> eb1db9cdaa98869af794834f7fb8c71c27d5f38a
         </a>
 
         <a
@@ -131,18 +157,27 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
+<<<<<<< HEAD
               <a class="button" href="#" style="background-color: red">
+=======
+              <a class="button nice_color" id="signUp">
+>>>>>>> eb1db9cdaa98869af794834f7fb8c71c27d5f38a
                 <strong>Sign up</strong>
               </a>
-              <a id="loginButton" class="button is-light" href="#">Log in</a>
+              <a class="button is-light" id="logIn">Log in</a>
             </div>
           </div>
         </div>
       </div>
     </nav>
     <!-- Header Section -->
+<<<<<<< HEAD
     <div class="title1">
       <h1 class="is-size-2 has-text-left" style="color: black">
+=======
+    <div class="title1" id="title1">
+      <h1 class="is-size-2 has-text-left textcolor">
+>>>>>>> eb1db9cdaa98869af794834f7fb8c71c27d5f38a
         <b>Advocates for Rare Diseases</b>
       </h1>
     </div>
@@ -151,10 +186,13 @@
     <div id="content">
       <section id="homePage">
         <div class="columns">
+          
           <!-- Calendar Section -->
           <section class="column is-7 p-7">
             <div class="container">
-              <div id="calendar" class="calendar"></div>
+              <div class="calendar">
+                <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago&bgcolor=%23ffffff&src=YWR2b2NhdGVzZm9ycmFyZWRpc2Vhc2VzQGdtYWlsLmNvbQ&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%2333B679&color=%230B8043" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+              </div>
             </div>
           </section>
 
@@ -357,11 +395,108 @@
       </section>
 
       <!-- test page -->
-      <section id="testPage" style="display: none">
-        <p>content of test page</p>
+      <section id="testPage" class="fullscreen-image">
+        <div class="ml-5" id="typing-text">
+          <h1 class="is-size-1 mb-2">Welcome to the Advocates for Rare Diseases Club Page!</h1>
+          <h3 class="is-size-3 mb-2">Join us on our mission to make the world a better place.</h3>
+          <h3 class="is-size-3">One Human at a time.</h3>
+        </div>
       </section>
+
+      <!-- modal sign up -->
+      <div class="modal" id="modalSignUp">
+        <div class="modal-background" id="signupBackground"> </div>
+        <section class="hero is-fullheight">
+            <div class="hero-body">
+                <div class="container">
+                    <div class="columns is-centered">
+                        <form action="" class="box" id="signUpFB">
+                            <div class="field">
+                                <label for="" class="label">Email</label>
+                                <div class="control has-icons-left">
+                                    <input type="email" placeholder="e.g. example@gmail.com" class="input" required
+                                        id="email">
+                                    <span class="icon is-small is-left">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="" class="label">Password</label>
+                                <div class="control has-icons-left">
+                                    <input type="password" placeholder="*******" class="input" required id="password">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="" class="checkbox">
+                                    <input type="checkbox">
+                                    Remember me
+                                </label>
+                            </div>
+                            <div class="field">
+                                <button class="button is-success">
+                                    Sign up
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+      </div>
     </div>
     <!-- div content id -->
+
+    <!-- modal login -->
+    <div class="modal" id="modalLogin">
+      <div class="modal-background" id="loginBackground"> </div>
+      <section class="hero is-fullheight">
+          <div class="hero-body">
+              <div class="container">
+                  <div class="columns is-centered">
+                      <form action="" class="box" id="signInFB">
+                          <div class="field">
+                              <label for="" class="label">Email</label>
+                              <div class="control has-icons-left">
+                                  <input type="email" placeholder="e.g. example@gmail.com" class="input" required
+                                      id="email_">
+                                  <span class="icon is-small is-left">
+                                      <i class="fa fa-envelope"></i>
+                                  </span>
+                              </div>
+                          </div>
+                          <div class="field">
+                              <label for="" class="label">Password</label>
+                              <div class="control has-icons-left">
+                                  <input type="password" placeholder="*******" class="input" required id="password_">
+                                  <span class="icon is-small is-left">
+                                      <i class="fas fa-lock"></i>
+                                  </span>
+                              </div>
+                          </div>
+                          <div class="field">
+                              <label for="" class="checkbox">
+                                  <input type="checkbox">
+                                  Remember me
+                              </label>
+                          </div>
+                          <div class="field">
+                              <button class="button is-success" id="LoginButton">
+                                  Login
+                              </button>
+                          </div>
+                      </form>
+
+                  </div>
+              </div>
+          </div>
+      </section>
+  </div>
 
     <!--Footer-->
     <div class="footer has-background-white-bis">
@@ -375,8 +510,6 @@
         </p>
       </div>
     </div>
-    <!-- grab calendar library - here is the doc link if we run into issues https://fullcalendar.io/docs/initialize-globals-->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
     <!-- reference js file -->
     <script src="site.js"></script>

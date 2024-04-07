@@ -66,16 +66,35 @@
         height: 5rem;
         padding-left: 1rem;
       }
-      .nice_color {
-        background-color: red;
-        color: white;
-      }
-      .textcolor {
-        color: black;
-      }
       .body {
         font-family: Garamond, serif;
         background-color: white;
+      }
+      .aboutcontainer {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+        background-color: #fff;
+        margin-top: 20px;
+        text-align: center;
+      }
+      .pasteventscontainer {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 90%;
+        margin: 20px auto;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      .pastevent {
+        width: 45%;
+        margin: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 10px;
+        max-height: 350px; /* Set max height for the box */
+        overflow-y: auto; /* Enable vertical scrollbar if content exceeds max height */
+        box-shadow: 0 2px 4px rgba(176, 3, 3, 0.933);
       }
     </style>
   </head>
@@ -130,7 +149,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button nice_color" id="signUp">
+              <a class="button" href="#" style="background-color: red">
                 <strong>Sign up</strong>
               </a>
               <a class="button is-light" id="logIn">Log in</a>
@@ -140,8 +159,8 @@
       </div>
     </nav>
     <!-- Header Section -->
-    <div class="title1" id="title1">
-      <h1 class="is-size-2 has-text-left textcolor">
+    <div class="title1">
+      <h1 class="is-size-2 has-text-left" style="color: black">
         <b>Advocates for Rare Diseases</b>
       </h1>
     </div>
@@ -241,12 +260,121 @@
 
       <!-- past events page -->
       <section id="pastEventsPage" style="display: none">
-        <p>content of past events section</p>
+        <p>
+          <h1 class="is-size-1 has-text-centered">
+            Past ARD Events
+        </h1>
+        <div class="pasteventscontainer">
+          <div class="pastevent">
+            <h2 class="is-size-2">Event Title 1</h2>
+            <p class="is-size-5"><strong>Date:</strong> January 10, 2024</p>
+            <p class="is-size-5"><strong>Location:</strong> Example Event</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit
+              amet leo non arcu mollis tincidunt. Sed vitae dapibus lorem. Integer
+              auctor metus at enim pretium, in posuere lectus aliquam. Morbi nec
+              nisl aliquet, volutpat neque eget, efficitur sapien. Aliquam a eros
+              eget risus fringilla eleifend. Donec luctus enim ut nisi gravida, non
+              dignissim nisi malesuada. Vestibulum dignissim, arcu id viverra
+              suscipit, tortor orci malesuada eros, non ullamcorper metus est id
+              purus. Vestibulum ac libero purus. Suspendisse et libero nec orci
+              rutrum vestibulum. Nam eu metus in mauris ultrices elementum non vel
+              elit. Integer sed erat et risus vestibulum faucibus a non tortor.
+              Fusce nec turpis vel libero placerat efficitur. Duis posuere
+              condimentum arcu, vel eleifend dui fringilla vel. Mauris eu ligula ac
+              urna maximus fermentum. Mauris id ante in justo finibus finibus.
+            </p>
+          </div>
+          <div class="pastevent">
+            <h2 class="is-size-2">Event Title 2</h2>
+            <p class="is-size-5"><strong>Date:</strong> February 15, 2024</p>
+            <p class="is-size-5"><strong>Location:</strong> Another Event</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit
+              amet leo non arcu mollis tincidunt. Sed vitae dapibus lorem. Integer
+              auctor metus at enim pretium, in posuere lectus aliquam. Morbi nec
+              nisl aliquet, volutpat neque eget, efficitur sapien. Aliquam a eros
+              eget risus fringilla eleifend. Donec luctus enim ut nisi gravida, non
+              dignissim nisi malesuada. Vestibulum dignissim, arcu id viverra
+              suscipit, tortor orci malesuada eros, non ullamcorper metus est id
+              purus. Vestibulum ac libero purus. Suspendisse et libero nec orci
+              rutrum vestibulum. Nam eu metus in mauris ultrices elementum non vel
+              elit. Integer sed erat et risus vestibulum faucibus a non tortor.
+              Fusce nec turpis vel libero placerat efficitur. Duis posuere
+              condimentum arcu, vel eleifend dui fringilla vel. Mauris eu ligula ac
+              urna maximus fermentum. Mauris id ante in justo finibus finibus.
+            </p>
+          </div>
+          <div class="pastevent">
+            <h2 class="is-size-2">Event Title 3</h2>
+            <p class="is-size-5"><strong>Date:</strong> May 10, 2024</p>
+            <p class="is-size-5"><strong>Location:</strong> other event</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit
+              amet leo non arcu mollis tincidunt. Sed vitae dapibus lorem. Integer
+              auctor metus at enim pretium, in posuere lectus aliquam. Morbi nec
+              nisl aliquet, volutpat neque eget, efficitur sapien. Aliquam a eros
+              eget risus fringilla eleifend. Donec luctus enim ut nisi gravida, non
+              dignissim nisi malesuada. Vestibulum dignissim, arcu id viverra
+              suscipit, tortor orci malesuada eros, non ullamcorper metus est id
+              purus. Vestibulum ac libero purus. Suspendisse et libero nec orci
+              rutrum vestibulum. Nam eu metus in mauris ultrices elementum non vel
+              elit. Integer sed erat et risus vestibulum faucibus a non tortor.
+              Fusce nec turpis vel libero placerat efficitur. Duis posuere
+              condimentum arcu, vel eleifend dui fringilla vel. Mauris eu ligula ac
+              urna maximus fermentum. Mauris id ante in justo finibus finibus.
+            </p>
+        </div>
+        </p>
       </section>
 
       <!-- about us page -->
       <section id="aboutUsPage" style="display: none">
-        <p>content of about us section</p>
+        <p>
+          <h1 class="is-size-1 has-text-centered">
+            About Advocates for Rare Diseases
+          </h1>
+          <div style="height: 50px"></div>
+          <div class="has-text-centered">
+            <h2 class="is-size-3">Our Mission</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+              accumsan libero vitae nunc fermentum congue. Nulla facilisi. Mauris
+              tincidunt auctor magna, vel eleifend arcu.
+            </p>
+          </div>
+          <div style="width: 80%; margin: 0 auto">
+            <hr
+              class="styled-hr"
+              style="border-top: 2px solid crimson; width: 100%"
+            />
+          </div>
+      
+          <div class="aboutcontainer">
+            <h2 class="is-size-3">Our Values</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+              accumsan libero vitae nunc fermentum congue. Nulla facilisi. Mauris
+              tincidunt auctor magna, vel eleifend arcu.
+            </p>
+          </div>
+      
+          <div class="aboutcontainer">
+            <h2 class="is-size-3">Our Story</h2>
+            <p>
+              Email: info@example.com<br />Phone: 123-456-7890<br />Address: 123
+              Street, City, Country
+            </p>
+          </div>
+      
+          <div class="aboutcontainer">
+            <h2 class="is-size-3">Contact Us</h2>
+            <p>
+              Email: info@example.com<br />Phone: 123-456-7890<br />Address: 123
+              Street, City, Country
+            </p>
+          </div>
+        </p>
       </section>
 
       <!-- test page -->

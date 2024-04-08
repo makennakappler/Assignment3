@@ -1,3 +1,22 @@
+function r_e(id) {
+  return document.querySelector(`#${id}`);
+}
+
+// configure the message bar
+function configure_message_bar(msg) {
+  // enforce message bar being visible
+  r_e("message_bar").classList.remove("is-hidden");
+
+  // alert(msg);
+  r_e("message_bar").innerHTML = msg;
+
+  // hide the message bar after 1 seconds
+  setTimeout(() => {
+    r_e("message_bar").innerHTML = ""; //clear the text from the message bar
+    r_e("message_bar").classList.add("is-hidden");
+  }, 4000);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   // Get navbar burger and menu
   const navbarBurger = document.querySelector(".navbar-burger");
@@ -147,16 +166,42 @@ document.addEventListener("DOMContentLoaded", function () {
   const logIn = document.querySelector("#logIn");
   const modalLogin = document.querySelector("#modalLogin");
   const loginBackground = document.querySelector("#loginBackground");
+  const logInButton = document.querySelector("#LoginButton");
 
-  logIn.addEventListener("click", () => {
-    console.log("login button has been clicked");
-    modalLogin.classList.add("is-active");
+  r_e("loginFB").addEventListener("submit", (e) => {
+    e.preventDefault(); //prevent default behaviour of browser (no page refresh)
+
+    // grab the email and password combination from the form
+
+    let email = r_e("email_").value;
+    let password = r_e("password_").value;
+
+    // call the Firebase function to sign-in the user
+
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        // console.log(`${user.user.email} is successfully logged in!`);
+
+        // reset the form
+        // r_e('loginFB').reset();
+
+        // close the modal
+        r_e("modalLogin").classList.remove("is-active");
+      })
+      .catch((err) => {
+        r_e("modalLogin").classList.remove("is-active");
+        configure_message_bar(`Email or password is incorrect.`);
+
+        r_e("loginFB").reset();
+      });
   });
 
-  loginBackground.addEventListener("click", () => {
-    modalLogin.classList.remove("is-active");
-  });
-  //
+  // sign out user
+
+  // r_e("signoutbtn").addEventListener("click", () => {
+  //   auth.signOut().then(() => {});
+  // });
 
   // sign up modal - using js for login modals - code below is here just in case
   const signUp = document.querySelector("#signUp");
@@ -164,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const signupBackground = document.querySelector("#signupBackground");
 
   signUp.addEventListener("click", () => {
-    console.log("signup button has been clicked");
+    // console.log("signup button has been clicked");
     modalSignUp.classList.add("is-active");
   });
 
@@ -172,39 +217,40 @@ document.addEventListener("DOMContentLoaded", function () {
     modalSignUp.classList.remove("is-active");
   });
 
-  // sign up user
+  r_e("signUpFB").addEventListener("submit", (e) => {
+    e.preventDefault(); //prevent default behaviour of browser (no page refresh)
 
-  // signUp.addEventListener("submit", (e) => {
-  //   e.preventDefault(); //prevent default behaviour of browser (no page refresh)
+    // grab the email and password combination from the form
 
-  //   // grab the email and password combination from the form
+    let email = r_e("email").value;
+    let password = r_e("password").value;
+    let auth = firebase.auth();
 
-  //   let email = docuement.querySelector("email").value;
-  //   let password = document.querySelector("password").value;
+    // call the Firebase function to create the user
 
-  //   // call the Firebase function to create the user
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        console.log(`${user.user.email} is successfully created!`);
 
-  //   auth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((user) => {
-  //       // console.log(`${user.user.email} is successfully created!`);
+        // show sign up successful message on message bar
+        configure_message_bar(`${user.user.email} is successfully created!`);
 
-  //       // show sign up successful message on message bar
-  //       configure_message_bar(`${user.user.email} is successfully created!`);
+        // reset the form
+        // r_e('signup_form').reset();
 
-  //       // reset the form
+        // close the modal + setup correct buttons
+        r_e("modalSignUp").classList.remove("is-active");
+        r_e("logOut").classList.remove("is-hidden");
+      })
+      .catch((err) => {
+        r_e("modalSignUp").classList.remove("is-active");
+        configure_message_bar(`${err.message} Please try a different account.`);
 
-  //       // close the modal
-  //       document.querySelector("modalSignUp").classList.remove("is-active");
-  //     })
-  //     .catch((err) => {
-  //       document.querySelector("modalSignUp").classList.remove("is-active");
-  //       configure_message_bar(`${err.message} Please try a different account.`);
+        // reset the form
+        r_e("signUpFB").reset();
 
-  // // reset the form
-  // docuement.querySelector("signUp").reset();
-
-  // modalSignUp.querySelector('.error').innerHTML = err.message;
+        // modalSignUp.querySelector('.error').innerHTML = err.message;
+      });
+  });
 });
-// });
-// });

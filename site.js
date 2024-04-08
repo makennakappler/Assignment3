@@ -89,39 +89,58 @@ document.addEventListener("DOMContentLoaded", function () {
     testPage.style.display = "none";
   });
 
-  // Function to animate typing
-  function typewriter(header, delay) {
-    var text = header.textContent.trim();
-    header.textContent = ""; // Clear existing text
+  // Function to animate typing with a delay between sentences and letter-by-letter appearance
+  async function typewriterWithDelay(textElement, delay) {
+    if (!textElement) {
+      console.error("Element not found:", textElement);
+      return;
+    }
 
-    for (var i = 0; i < text.length; i++) {
-      (function (i) {
-        setTimeout(function () {
-          header.textContent += text[i];
-        }, i * delay);
-      })(i);
+    var text = textElement.textContent.trim();
+    textElement.textContent = ""; // Clear existing text
+
+    for (let i = 0; i < text.length; i++) {
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          textElement.textContent += text[i]; // Append each character
+          resolve();
+        }, delay);
+      });
+    }
+  }
+
+  // Function to animate typing for each sentence with a delay between sentences
+  async function animateSentences(sentences, delay) {
+    for (const sentence of sentences) {
+      await typewriterWithDelay(sentence, delay);
+      await new Promise((resolve) => setTimeout(resolve, delay * 10)); // Delay between sentences
     }
   }
 
   // click test page nav actions
-  testLink.addEventListener("click", function (event) {
-    // Prevent the default link behavior
-    testPage.style.display = "block";
-
-    // Call the typewriter function for each header
-    var headers = document.querySelectorAll("h1, h2, h3");
-    const delay = 100; // Delay between each character in milliseconds
-
-    headers.forEach(function (header) {
-      typewriter(header, delay);
-    });
-
+  testLink.addEventListener("click", async function (event) {
     // hide other html page
     homePage.style.display = "none";
     executiveLeadersPage.style.display = "none";
     votingPage.style.display = "none";
     aboutUsPage.style.display = "none";
     title1.style.display = "none";
+
+    testPage.style.display = "block";
+
+    // Prevent the default link behavior
+    event.preventDefault();
+
+    var firstSentence = document.querySelector("#main1");
+    var secondSentence = document.querySelector("#main2");
+    var thirdSentence = document.querySelector("#main3");
+
+    const delay = 100; // Delay between each character in milliseconds
+
+    await animateSentences(
+      [firstSentence, secondSentence, thirdSentence],
+      delay
+    );
   });
 
   // login modal

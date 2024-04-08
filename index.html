@@ -9,6 +9,7 @@
       src="https://kit.fontawesome.com/8a80b728dc.js"
       crossorigin="anonymous"
     ></script>
+
     <title>ARD Website</title>
     <link
       rel="stylesheet"
@@ -149,7 +150,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button" href="#" style="background-color: red">
+              <a class="button" href="#" style="background-color: red" id="signUp">
                 <strong>Sign up</strong>
               </a>
               <a class="button is-light" id="logIn">Log in</a>
@@ -493,7 +494,50 @@
         </p>
       </div>
     </div>
+      <!-- link to firebase -->
 
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+
+      <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyAnzVjbX1OiPebfTx8CqrrJsKosFWGsaFA",
+          authDomain: "advocates-for-rare-diseases.firebaseapp.com",
+          projectId: "advocates-for-rare-diseases",
+          storageBucket: "advocates-for-rare-diseases.appspot.com",
+          messagingSenderId: "307355081997",
+          appId: "1:307355081997:web:24286a5ec2e683b1daa444",
+          measurementId: "G-JJP3E2T78P"
+        };
+  
+      
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        
+        // define authentication variable
+        let auth = firebase.auth();
+        let db = firebase.firestore();
+        console.log(app)
+      </script>
     <!-- reference js file -->
     <script src="site.js"></script>
   </body>

@@ -154,16 +154,24 @@
                 <strong>Sign up</strong>
               </a>
               <a class="button is-light" id="logIn">Log in</a>
+              <a class="button is-light is-hidden" id="logOut">Log out</a>
+              <a class="is-hidden" id="userName">username</a>
+
             </div>
           </div>
         </div>
       </div>
     </nav>
+
+    <!-- message bar when you create an account sucessfully or not -->
+    <div id="message_bar" class="p-3 has-background-warning has-text-centered is-hidden"></div>
+
     <!-- Header Section -->
     <div class="title1">
       <h1 class="is-size-2 has-text-left" style="color: black">
         <b>Advocates for Rare Diseases</b>
       </h1>
+    <!-- message bar when submit user sign up -->
     </div>
 
     <!-- main page -->
@@ -443,7 +451,7 @@
           <div class="hero-body">
               <div class="container">
                   <div class="columns is-centered">
-                      <form action="" class="box" id="signInFB">
+                      <form action="" class="box" id="loginFB">
                           <div class="field">
                               <label for="" class="label">Email</label>
                               <div class="control has-icons-left">
@@ -494,7 +502,8 @@
         </p>
       </div>
     </div>
-      <!-- link to firebase -->
+    
+    <!-- link to firebase -->
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>

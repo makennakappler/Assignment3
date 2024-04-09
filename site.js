@@ -254,38 +254,38 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 
-  // Get the currently authenticated user
-  var user = firebase.auth().currentUser;
+//   // Get the currently authenticated user
+//   var user = firebase.auth().currentUser;
 
-  // If a user is signed in
-  if (user) {
-    // Get the UID of the user
-    var uid = user.uid;
+//   // If a user is signed in
+//   if (user) {
+//     // Get the UID of the user
+//     var uid = user.uid;
 
-    // Reference to Firestore
-    var db = firebase.firestore();
+//     // Reference to Firestore
+//     var db = firebase.firestore();
 
-    // Example data to be saved
-    var documentData = {
-      email: "Example Email",
-      password: "Password",
-      user_type: "Admin",
-      vote: "Lead_Poisoning",
-    };
+//     // Example data to be saved
+//     var documentData = {
+//       email: "Example Email",
+//       password: "Password",
+//       user_type: "Admin",
+//       vote: "Lead_Poisoning",
+//     };
 
-    // Define the document reference using the UID
-    var docRef = db.collection("users").doc(uid).collection("documents").doc();
+//     // Define the document reference using the UID
+//     var docRef = db.collection("users").doc(uid);
 
-    // Save the data to Firestore
-    docRef
-      .set(documentData)
-      .then(function () {
-        console.log("Document successfully written!");
-      })
-      .catch(function (error) {
-        console.error("Error writing document: ", error);
-      });
-  } else {
-    console.log("No user signed in.");
-  }
-});
+//     // Save the data to Firestore
+//     docRef
+//       .set(documentData)
+//       .then(function () {
+//         console.log("Document successfully written!");
+//       })
+//       .catch(function (error) {
+//         console.error("Error writing document: ", error);
+//       });
+//   } else {
+//     console.log("No user signed in.");
+//   }
+// });

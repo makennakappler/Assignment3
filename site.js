@@ -210,11 +210,19 @@ document.addEventListener("DOMContentLoaded", function () {
     r_e("logOut").classList.remove("is-hidden");
   });
 
-  // sign out user
-
-  // r_e("signoutbtn").addEventListener("click", () => {
-  //   auth.signOut().then(() => {});
-  // });
+  // sign out button
+  r_e("logOut").addEventListener("click", () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        console.log("sucessfully signed out");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+    r_e("logOut").classList.add("is-hidden");
+  });
 
   // sign up modal - using js for login modals - code below is here just in case
   const signUp = document.querySelector("#signUp");

@@ -208,6 +208,8 @@ document.addEventListener("DOMContentLoaded", function () {
         r_e("loginFB").reset();
       });
     r_e("logOut").classList.remove("is-hidden");
+    r_e("userName").innerHTML = user.user.email;
+    r_e("userName").classList.remove("is-hidden");
   });
 
   // sign out button

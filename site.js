@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // sign out user
-
+  //test
   // r_e("signoutbtn").addEventListener("click", () => {
   //   auth.signOut().then(() => {});
   // });

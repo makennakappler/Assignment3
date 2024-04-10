@@ -167,6 +167,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const modalLogin = document.querySelector("#modalLogin");
   const loginBackground = document.querySelector("#loginBackground");
   const logInButton = document.querySelector("#LoginButton");
+  let auth = firebase.auth();
+
+  logIn.addEventListener("click", () => {
+    // console.log("signup button has been clicked");
+    modalLogin.classList.add("is-active");
+  });
+
+  loginBackground.addEventListener("click", () => {
+    modalLogin.classList.remove("is-active");
+  });
 
   r_e("loginFB").addEventListener("submit", (e) => {
     e.preventDefault(); //prevent default behaviour of browser (no page refresh)
@@ -175,13 +185,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let email = r_e("email_").value;
     let password = r_e("password_").value;
+    // set authorization variable
+    let auth = firebase.auth();
 
     // call the Firebase function to sign-in the user
 
     auth
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
-        // console.log(`${user.user.email} is successfully logged in!`);
+        console.log(`${user.user.email} is successfully logged in!`);
 
         // reset the form
         // r_e('loginFB').reset();
@@ -195,13 +207,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         r_e("loginFB").reset();
       });
+    r_e("logOut").classList.remove("is-hidden");
   });
 
-  // sign out user
-  //test
-  // r_e("signoutbtn").addEventListener("click", () => {
-  //   auth.signOut().then(() => {});
-  // });
+  // sign out button
+  r_e("logOut").addEventListener("click", () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        console.log("sucessfully signed out");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+    r_e("logOut").classList.add("is-hidden");
+  });
 
   // sign up modal - using js for login modals - code below is here just in case
   const signUp = document.querySelector("#signUp");
@@ -224,7 +245,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let email = r_e("email").value;
     let password = r_e("password").value;
-    let auth = firebase.auth();
 
     // call the Firebase function to create the user
 
@@ -253,39 +273,4 @@ document.addEventListener("DOMContentLoaded", function () {
         // modalSignUp.querySelector('.error').innerHTML = err.message;
       });
   });
-
-  //   // Get the currently authenticated user
-  //   var user = firebase.auth().currentUser;
-
-  //   // If a user is signed in
-  //   if (user) {
-  //     // Get the UID of the user
-  //     var uid = user.uid;
-
-  //     // Reference to Firestore
-  //     var db = firebase.firestore();
-
-  //     // Example data to be saved
-  //     var documentData = {
-  //       email: "Example Email",
-  //       password: "Password",
-  //       user_type: "Admin",
-  //       vote: "Lead_Poisoning",
-  //     };
-
-  //     // Define the document reference using the UID
-  //     var docRef = db.collection("users").doc(uid);
-
-  //     // Save the data to Firestore
-  //     docRef
-  //       .set(documentData)
-  //       .then(function () {
-  //         console.log("Document successfully written!");
-  //       })
-  //       .catch(function (error) {
-  //         console.error("Error writing document: ", error);
-  //       });
-  //   } else {
-  //     console.log("No user signed in.");
-  //   }
 });

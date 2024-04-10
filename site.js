@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // set authorization variable
     let auth = firebase.auth();
 
-    // call the Firebase function to sign-in the user
+    // call the Firebase function to login the user
 
     auth
       .signInWithEmailAndPassword(email, password)
@@ -200,6 +200,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // close the modal
         r_e("modalLogin").classList.remove("is-active");
+        r_e("logOut").classList.remove("is-hidden");
+        r_e("userName").innerHTML = user.user.email;
+        r_e("userName").classList.remove("is-hidden");
+        configure_message_bar(`${user.user.email} sucessfully logged in`);
       })
       .catch((err) => {
         r_e("modalLogin").classList.remove("is-active");
@@ -207,9 +211,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         r_e("loginFB").reset();
       });
-    r_e("logOut").classList.remove("is-hidden");
-    r_e("userName").innerHTML = user.user.email;
-    r_e("userName").classList.remove("is-hidden");
   });
 
   // sign out button
@@ -218,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .auth()
       .signOut()
       .then(() => {
-        console.log("sucessfully signed out");
+        r_e("userName").classList.add("is-hidden");
       })
       .catch((error) => {
         // An error happened.
@@ -257,6 +258,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // show sign up successful message on message bar
         configure_message_bar(`${user.user.email} is successfully created!`);
+        r_e("userName").innerHTML = user.user.email;
+        r_e("userName").classList.remove("is-hidden");
 
         // reset the form
         // r_e('signup_form').reset();

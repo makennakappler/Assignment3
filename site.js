@@ -279,3 +279,12 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+
+
+// not working, says cant find variable: db
+document.querySelector("#submitvote").addEventListener("click", () => {
+  let vote = {
+    vote: document.querySelector("#eventvote").value,
+  };
+  db.collection("voteresults").add(vote).then(() => alert("Vote counted!"));
+});

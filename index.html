@@ -7,6 +7,7 @@
 
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/8a80b728dc.js" crossorigin="anonymous"></script>
+
   <title>ARD Website</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
 
@@ -72,48 +73,40 @@
       padding-left: 1rem;
     }
 
-    .nice_color {
-      background-color: red;
-      color: white;
-    }
-
-    .textcolor {
-      color: black;
-    }
-
     .body {
       font-family: Garamond, serif;
       background-color: white;
     }
 
-    .votinghead {
-      justify-content: center;
-      align-items: center;
-      background-color: whitesmoke;
+    .aboutcontainer {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+      background-color: #fff;
+      margin-top: 20px;
       text-align: center;
-      margin: 5px;
     }
 
-    .votingcontainer {
+    .pasteventscontainer {
       display: flex;
-      justify-content: space-between;
-      border: 2px solid #777;
-      margin-bottom: 15px;
+      flex-wrap: wrap;
+      max-width: 90%;
+      margin: 20px auto;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
-    .votingcolumn {
-      align-items: center;
-      text-align: center;
-      border: 2px solid #777;
-      flex-grow: 1;
-      margin: 5px;
-    }
-
-    .votingform {
-      border: 2px solid #f08080;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+    .pastevent {
+      width: 45%;
+      margin: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 10px;
+      max-height: 350px;
+      /* Set max height for the box */
+      overflow-y: auto;
+      /* Enable vertical scrollbar if content exceeds max height */
+      box-shadow: 0 2px 4px rgba(176, 3, 3, 0.933);
     }
   </style>
   </head>
@@ -160,20 +153,28 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button nice_color" id="signUp">
+              <a class="button" href="#" style="background-color: red" id="signUp">
                 <strong>Sign up</strong>
               </a>
               <a class="button is-light" id="logIn">Log in</a>
+              <a class="button is-light is-hidden" id="logOut">Log out</a>
+              <a class="is-hidden" id="userName">username</a>
+
             </div>
           </div>
         </div>
       </div>
     </nav>
+
+    <!-- message bar when you create an account sucessfully or not -->
+    <div id="message_bar" class="p-3 has-background-warning has-text-centered is-hidden"></div>
+
     <!-- Header Section -->
-    <div class="title1" id="title1">
-      <h1 class="is-size-2 has-text-left textcolor">
+    <div class="title1">
+      <h1 class="is-size-2 has-text-left" style="color: black">
         <b>Advocates for Rare Diseases</b>
       </h1>
+      <!-- message bar when submit user sign up -->
     </div>
 
     <!-- main page -->
@@ -248,134 +249,330 @@
 
       <!-- executive leaders page -->
       <section id="executiveLeadersPage" style="display: none">
-        <p>content of executive leaders section</p>
-      </section>
-
-
-      <!-- voting page -->
-      <section id="votingPage" style="display: none">
-        <div>
-          <h1 class="votinghead is-size-2">Vote on Upcoming Events</h1>
-
-          <!-- 2 columns for current polls -->
-          <div class="container votingcontainer">
-
-            <div class="column votingcolumn">
-              <h1 class="is-size-2">Event Poll 1</h1>
-              <form id="voting-form">
-                <p>
-                  <input type="radio" value="Choice 1">
-                  <label>Choice 1</label>
-                </p>
-                <p>
-                  <input type="radio" value="Choice 2">
-                  <label>Choice 2</label>
-                </p>
-                <p>
-                  <input type="radio" value="Choice 3">
-                  <label>Choice 3</label>
-                </p>
-                <button type="submit">Submit Vote</button>
-              </form>
-            </div>
-
-            <div class="column votingcolumn">
-              <h1 class="is-size-2">Event Poll 2</h1>
-              <form id="voting-form">
-                <p>
-                  <input type="radio" value="Choice 1">
-                  <label>Choice 1</label>
-                </p>
-                <p>
-                  <input type="radio" value="Choice 2">
-                  <label>Choice 2</label>
-                </p>
-                <p>
-                  <input type="radio" value="Choice 3">
-                  <label>Choice 3</label>
-                </p>
-                <button type="submit">Submit Vote</button>
-              </form>
-            </div>
-
-          </div>
-          <div class="container votingform">
-            <form class="votingform">
-              <label>Rate from 1 to 5:</label>
-              <input type="range" id="rating" name="rating" min="1" max="10" step="1" value="5">
-              <output id="rating-value">5</output>
-
-              <button type="submit">Submit</button>
-            </form>
-          </div>
-        </div>
-      </section>
-
-
-      <!-- past events page -->
-      <section id="pastEventsPage" style="display: none">
-        <p>content of past events section</p>
-      </section>
-
-      <!-- about us page -->
-      <section id="aboutUsPage" style="display: none">
-        <p>content of about us section</p>
-      </section>
-
-      <!-- test page -->
-      <section id="testPage" class="fullscreen-image">
-        <div class="ml-5" id="typing-text">
-          <h1 class="is-size-1 mb-2">Welcome to the Advocates for Rare Diseases Club Page!</h1>
-          <h3 class="is-size-3 mb-2">Join us on our mission to make the world a better place.</h3>
-          <h3 class="is-size-3">One Human at a time.</h3>
-        </div>
-      </section>
-
-      <!-- modal sign up -->
-      <div class="modal" id="modalSignUp">
-        <div class="modal-background" id="signupBackground"> </div>
-        <section class="hero is-fullheight">
-          <div class="hero-body">
+        <div class="columns">
+          <!-- Add a div to contain the images section -->
+          <section class="section">
+            <!-- Move the section inside the div -->
             <div class="container">
-              <div class="columns is-centered">
-                <form action="" class="box" id="signUpFB">
-                  <div class="field">
-                    <label for="" class="label">Email</label>
-                    <div class="control has-icons-left">
-                      <input type="email" placeholder="e.g. example@gmail.com" class="input" required id="email">
-                      <span class="icon is-small is-left">
-                        <i class="fa fa-envelope"></i>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label for="" class="label">Password</label>
-                    <div class="control has-icons-left">
-                      <input type="password" placeholder="*******" class="input" required id="password">
-                      <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label for="" class="checkbox">
-                      <input type="checkbox">
-                      Remember me
-                    </label>
-                  </div>
-                  <div class="field">
-                    <button class="button is-success">
-                      Sign up
-                    </button>
-                  </div>
-                </form>
+              <div class="image-container">
+                <div class="column">
+                  <figure class="image">
+                    <img src="https://via.placeholder.com/256" alt="Placeholder image" />
+                  </figure>
+                  <h5>President</h5>
+                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sequi eius et perspiciatis eligendi nihil
+                    earum.</p>
+                </div>
+                <div class="column">
+                  <figure class="image">
+                    <img src="https://via.placeholder.com/256" alt="Placeholder image" />
+                  </figure>
+                  <h5>VP of Operations & Communication</h5>
+                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in
+                    dicta!</p>
+                </div>
+                <div class="column">
+                  <figure class="image">
+                    <img src="https://via.placeholder.com/256" alt="Placeholder image" />
+                  </figure>
+                  <h5>VP of Event Management</h5>
+                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in
+                    dicta!</p>
+                </div>
+                <div class="column">
+                  <figure class="image">
+                    <img src="https://via.placeholder.com/256" alt="Placeholder image" />
+                  </figure>
+                  <h5>Treasurer</h5>
+                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in
+                    dicta!</p>
+                </div>
+              </div>
+            </div>
+        </div>
+      </section>
+      <!-- image section class-->
+    </div>
+    </section>
 
+    <!-- executive leaders page -->
+    <section id="executiveLeadersPage" style="display: none">
+      <div class="columns">
+        <!-- Add a div to contain the images section -->
+        <section class="section">
+          <!-- Move the section inside the div -->
+          <div class="container">
+            <div class="image-container">
+              <div class="column">
+                <figure class="image">
+                  <img src="https://via.placeholder.com/256" alt="Placeholder image" />
+                </figure>
+                <h5>President</h5>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sequi eius et perspiciatis eligendi nihil
+                  earum.</p>
+              </div>
+              <div class="column">
+                <figure class="image">
+                  <img src="https://via.placeholder.com/256" alt="Placeholder image" />
+                </figure>
+                <h5>VP of Operations & Communication</h5>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in
+                  dicta!</p>
+              </div>
+              <div class="column">
+                <figure class="image">
+                  <img src="https://via.placeholder.com/256" alt="Placeholder image" />
+                </figure>
+                <h5>VP of Event Management</h5>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in
+                  dicta!</p>
+              </div>
+              <div class="column">
+                <figure class="image">
+                  <img src="https://via.placeholder.com/256" alt="Placeholder image" />
+                </figure>
+                <h5>Treasurer</h5>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in
+                  dicta!</p>
               </div>
             </div>
           </div>
-        </section>
-
       </div>
+    </section>
+    <!-- image section class-->
+    </div>
+    </section>
+
+    <!-- voting page -->
+    <section id="votingPage" style="display: none">
+      <div>
+        <h1 class="votinghead is-size-2">Vote on Upcoming Events</h1>
+
+        <!-- 2 columns for current polls -->
+        <div class="container votingcontainer">
+
+          <div class="column votingcolumn">
+            <h1 class="is-size-2">Event Poll 1</h1>
+            <form id="voting-form">
+              <p>
+                <input type="radio" value="Choice 1">
+                <label>Choice 1</label>
+              </p>
+              <p>
+                <input type="radio" value="Choice 2">
+                <label>Choice 2</label>
+              </p>
+              <p>
+                <input type="radio" value="Choice 3">
+                <label>Choice 3</label>
+              </p>
+              <button type="submit">Submit Vote</button>
+            </form>
+          </div>
+
+          <div class="column votingcolumn">
+            <h1 class="is-size-2">Event Poll 2</h1>
+            <form id="voting-form">
+              <p>
+                <input type="radio" value="Choice 1">
+                <label>Choice 1</label>
+              </p>
+              <p>
+                <input type="radio" value="Choice 2">
+                <label>Choice 2</label>
+              </p>
+              <p>
+                <input type="radio" value="Choice 3">
+                <label>Choice 3</label>
+              </p>
+              <button type="submit">Submit Vote</button>
+            </form>
+          </div>
+
+        </div>
+        <div class="container votingform">
+          <form class="votingform">
+            <label>Rate from 1 to 5:</label>
+            <input type="range" id="rating" name="rating" min="1" max="10" step="1" value="5">
+            <output id="rating-value">5</output>
+
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- past events page -->
+    <section id="pastEventsPage" style="display: none">
+      <p>
+        <h1 class="is-size-1 has-text-centered">
+          Past ARD Events
+        </h1>
+        <div class="pasteventscontainer">
+          <div class="pastevent">
+            <h2 class="is-size-2">Event Title 1</h2>
+            <p class="is-size-5"><strong>Date:</strong> January 10, 2024</p>
+            <p class="is-size-5"><strong>Location:</strong> Example Event</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit
+              amet leo non arcu mollis tincidunt. Sed vitae dapibus lorem. Integer
+              auctor metus at enim pretium, in posuere lectus aliquam. Morbi nec
+              nisl aliquet, volutpat neque eget, efficitur sapien. Aliquam a eros
+              eget risus fringilla eleifend. Donec luctus enim ut nisi gravida, non
+              dignissim nisi malesuada. Vestibulum dignissim, arcu id viverra
+              suscipit, tortor orci malesuada eros, non ullamcorper metus est id
+              purus. Vestibulum ac libero purus. Suspendisse et libero nec orci
+              rutrum vestibulum. Nam eu metus in mauris ultrices elementum non vel
+              elit. Integer sed erat et risus vestibulum faucibus a non tortor.
+              Fusce nec turpis vel libero placerat efficitur. Duis posuere
+              condimentum arcu, vel eleifend dui fringilla vel. Mauris eu ligula ac
+              urna maximus fermentum. Mauris id ante in justo finibus finibus.
+            </p>
+          </div>
+          <div class="pastevent">
+            <h2 class="is-size-2">Event Title 2</h2>
+            <p class="is-size-5"><strong>Date:</strong> February 15, 2024</p>
+            <p class="is-size-5"><strong>Location:</strong> Another Event</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit
+              amet leo non arcu mollis tincidunt. Sed vitae dapibus lorem. Integer
+              auctor metus at enim pretium, in posuere lectus aliquam. Morbi nec
+              nisl aliquet, volutpat neque eget, efficitur sapien. Aliquam a eros
+              eget risus fringilla eleifend. Donec luctus enim ut nisi gravida, non
+              dignissim nisi malesuada. Vestibulum dignissim, arcu id viverra
+              suscipit, tortor orci malesuada eros, non ullamcorper metus est id
+              purus. Vestibulum ac libero purus. Suspendisse et libero nec orci
+              rutrum vestibulum. Nam eu metus in mauris ultrices elementum non vel
+              elit. Integer sed erat et risus vestibulum faucibus a non tortor.
+              Fusce nec turpis vel libero placerat efficitur. Duis posuere
+              condimentum arcu, vel eleifend dui fringilla vel. Mauris eu ligula ac
+              urna maximus fermentum. Mauris id ante in justo finibus finibus.
+            </p>
+          </div>
+          <div class="pastevent">
+            <h2 class="is-size-2">Event Title 3</h2>
+            <p class="is-size-5"><strong>Date:</strong> May 10, 2024</p>
+            <p class="is-size-5"><strong>Location:</strong> other event</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit
+              amet leo non arcu mollis tincidunt. Sed vitae dapibus lorem. Integer
+              auctor metus at enim pretium, in posuere lectus aliquam. Morbi nec
+              nisl aliquet, volutpat neque eget, efficitur sapien. Aliquam a eros
+              eget risus fringilla eleifend. Donec luctus enim ut nisi gravida, non
+              dignissim nisi malesuada. Vestibulum dignissim, arcu id viverra
+              suscipit, tortor orci malesuada eros, non ullamcorper metus est id
+              purus. Vestibulum ac libero purus. Suspendisse et libero nec orci
+              rutrum vestibulum. Nam eu metus in mauris ultrices elementum non vel
+              elit. Integer sed erat et risus vestibulum faucibus a non tortor.
+              Fusce nec turpis vel libero placerat efficitur. Duis posuere
+              condimentum arcu, vel eleifend dui fringilla vel. Mauris eu ligula ac
+              urna maximus fermentum. Mauris id ante in justo finibus finibus.
+            </p>
+          </div>
+      </p>
+    </section>
+
+    <!-- about us page -->
+    <section id="aboutUsPage" style="display: none">
+      <p>
+        <h1 class="is-size-1 has-text-centered">
+          About Advocates for Rare Diseases
+        </h1>
+        <div style="height: 50px"></div>
+        <div class="has-text-centered">
+          <h2 class="is-size-3">Our Mission</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+            accumsan libero vitae nunc fermentum congue. Nulla facilisi. Mauris
+            tincidunt auctor magna, vel eleifend arcu.
+          </p>
+        </div>
+        <div style="width: 80%; margin: 0 auto">
+          <hr class="styled-hr" style="border-top: 2px solid crimson; width: 100%" />
+        </div>
+
+        <div class="aboutcontainer">
+          <h2 class="is-size-3">Our Values</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+            accumsan libero vitae nunc fermentum congue. Nulla facilisi. Mauris
+            tincidunt auctor magna, vel eleifend arcu.
+          </p>
+        </div>
+
+        <div class="aboutcontainer">
+          <h2 class="is-size-3">Our Story</h2>
+          <p>
+            Email: info@example.com<br />Phone: 123-456-7890<br />Address: 123
+            Street, City, Country
+          </p>
+        </div>
+
+        <div class="aboutcontainer">
+          <h2 class="is-size-3">Contact Us</h2>
+          <p>
+            Email: info@example.com<br />Phone: 123-456-7890<br />Address: 123
+            Street, City, Country
+          </p>
+        </div>
+      </p>
+    </section>
+
+    <!-- test page -->
+    <section id="testPage" class="fullscreen-image">
+      <div class="ml-5 mt-5" id="typing-text">
+        <h1 id="main1" class="is-size-1 mb-2">Welcome to the Advocates for Rare Diseases Club Page!</h1>
+        <h3 id="main2" class="is-size-3 mb-2">Join us on our mission to make the world a better place.</h3>
+        <h3 id="main3" class="is-size-3">One Human at a time.</h3>
+      </div>
+    </section>
+
+    <!-- modal sign up -->
+    <div class="modal" id="modalSignUp">
+      <div class="modal-background" id="signupBackground"> </div>
+      <section class="hero is-fullheight">
+        <div class="hero-body">
+          <div class="container">
+            <div class="columns is-centered">
+              <form action="" class="box" id="signUpFB">
+                <div class="field">
+                  <label for="" class="label">Email</label>
+                  <div class="control has-icons-left">
+                    <input type="email" placeholder="e.g. example@gmail.com" class="input" required id="email">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-envelope"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="" class="label">Password</label>
+                  <div class="control has-icons-left">
+                    <input type="password" placeholder="*******" class="input" required id="password">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="" class="checkbox">
+                    <input type="checkbox">
+                    Remember me
+                  </label>
+                </div>
+                <div class="field">
+                  <button class="button is-success">
+                    Sign up
+                  </button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
     </div>
     <!-- div content id -->
 
@@ -386,7 +583,7 @@
         <div class="hero-body">
           <div class="container">
             <div class="columns is-centered">
-              <form action="" class="box" id="signInFB">
+              <form action="" class="box" id="loginFB">
                 <div class="field">
                   <label for="" class="label">Email</label>
                   <div class="control has-icons-left">
@@ -437,6 +634,50 @@
       </div>
     </div>
 
+    <!-- link to firebase -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyAnzVjbX1OiPebfTx8CqrrJsKosFWGsaFA",
+          authDomain: "advocates-for-rare-diseases.firebaseapp.com",
+          projectId: "advocates-for-rare-diseases",
+          storageBucket: "advocates-for-rare-diseases.appspot.com",
+          messagingSenderId: "307355081997",
+          appId: "1:307355081997:web:24286a5ec2e683b1daa444",
+          measurementId: "G-JJP3E2T78P"
+        };
+  
+      
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        
+        // define authentication variable
+        let auth = firebase.auth();
+        let db = firebase.firestore();
+        console.log(app)
+      </script>
     <!-- reference js file -->
     <script src="site.js"></script>
   </body>

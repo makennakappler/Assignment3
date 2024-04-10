@@ -166,16 +166,42 @@ document.addEventListener("DOMContentLoaded", function () {
   const logIn = document.querySelector("#logIn");
   const modalLogin = document.querySelector("#modalLogin");
   const loginBackground = document.querySelector("#loginBackground");
+  const logInButton = document.querySelector("#LoginButton");
 
-  logIn.addEventListener("click", () => {
-    console.log("login button has been clicked");
-    modalLogin.classList.add("is-active");
+  r_e("loginFB").addEventListener("submit", (e) => {
+    e.preventDefault(); //prevent default behaviour of browser (no page refresh)
+
+    // grab the email and password combination from the form
+
+    let email = r_e("email_").value;
+    let password = r_e("password_").value;
+
+    // call the Firebase function to sign-in the user
+
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        // console.log(`${user.user.email} is successfully logged in!`);
+
+        // reset the form
+        // r_e('loginFB').reset();
+
+        // close the modal
+        r_e("modalLogin").classList.remove("is-active");
+      })
+      .catch((err) => {
+        r_e("modalLogin").classList.remove("is-active");
+        configure_message_bar(`Email or password is incorrect.`);
+
+        r_e("loginFB").reset();
+      });
   });
 
-  loginBackground.addEventListener("click", () => {
-    modalLogin.classList.remove("is-active");
-  });
-  //
+  // sign out user
+  //test
+  // r_e("signoutbtn").addEventListener("click", () => {
+  //   auth.signOut().then(() => {});
+  // });
 
   // sign up modal - using js for login modals - code below is here just in case
   const signUp = document.querySelector("#signUp");
@@ -196,10 +222,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // grab the email and password combination from the form
 
-  //   let email = docuement.querySelector("email").value;
-  //   let password = document.querySelector("password").value;
+    let email = r_e("email").value;
+    let password = r_e("password").value;
+    let auth = firebase.auth();
 
-  //   // call the Firebase function to create the user
+    // call the Firebase function to create the user
 
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -223,7 +250,42 @@ document.addEventListener("DOMContentLoaded", function () {
         // reset the form
         r_e("signUpFB").reset();
 
-  // modalSignUp.querySelector('.error').innerHTML = err.message;
-});
-// });
+        // modalSignUp.querySelector('.error').innerHTML = err.message;
+      });
+  });
+
+//   // Get the currently authenticated user
+//   var user = firebase.auth().currentUser;
+
+//   // If a user is signed in
+//   if (user) {
+//     // Get the UID of the user
+//     var uid = user.uid;
+
+//     // Reference to Firestore
+//     var db = firebase.firestore();
+
+//     // Example data to be saved
+//     var documentData = {
+//       email: "Example Email",
+//       password: "Password",
+//       user_type: "Admin",
+//       vote: "Lead_Poisoning",
+//     };
+
+//     // Define the document reference using the UID
+//     var docRef = db.collection("users").doc(uid);
+
+//     // Save the data to Firestore
+//     docRef
+//       .set(documentData)
+//       .then(function () {
+//         console.log("Document successfully written!");
+//       })
+//       .catch(function (error) {
+//         console.error("Error writing document: ", error);
+//       });
+//   } else {
+//     console.log("No user signed in.");
+//   }
 // });

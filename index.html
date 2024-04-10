@@ -154,16 +154,24 @@
                 <strong>Sign up</strong>
               </a>
               <a class="button is-light" id="logIn">Log in</a>
+              <a class="button is-light is-hidden" id="logOut">Log out</a>
+              <a class="is-hidden" id="userName">username</a>
+
             </div>
           </div>
         </div>
       </div>
     </nav>
+
+    <!-- message bar when you create an account sucessfully or not -->
+    <div id="message_bar" class="p-3 has-background-warning has-text-centered is-hidden"></div>
+
     <!-- Header Section -->
     <div class="title1">
       <h1 class="is-size-2 has-text-left" style="color: black">
         <b>Advocates for Rare Diseases</b>
       </h1>
+    <!-- message bar when submit user sign up -->
     </div>
 
     <!-- main page -->
@@ -251,7 +259,58 @@
 
       <!-- executive leaders page -->
       <section id="executiveLeadersPage" style="display: none">
-        <p>content of executive leaders section</p>
+        <div class="columns">
+          <!-- Add a div to contain the images section -->
+          <section class="section">
+            <!-- Move the section inside the div -->
+            <div class="container">
+              <div class="image-container">
+                <div class="column">
+                  <figure class="image">
+                    <img
+                      src="https://via.placeholder.com/256"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                  <h5>President</h5>
+                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sequi eius et perspiciatis eligendi nihil earum.</p>
+                </div>
+                <div class="column">
+                  <figure class="image">
+                    <img
+                      src="https://via.placeholder.com/256"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                  <h5>VP of Operations & Communication</h5>
+                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in dicta!</p>
+                </div>
+                <div class="column">
+                  <figure class="image">
+                    <img
+                      src="https://via.placeholder.com/256"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                  <h5>VP of Event Management</h5>
+                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in dicta!</p>
+                </div>
+                <div class="column">
+                  <figure class="image">
+                    <img
+                      src="https://via.placeholder.com/256"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                  <h5>Treasurer</h5>
+                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in dicta!</p>
+                </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- image section class-->
+        </div>
       </section>
 
       <!-- voting page -->
@@ -458,7 +517,7 @@
           <div class="hero-body">
               <div class="container">
                   <div class="columns is-centered">
-                      <form action="" class="box" id="signInFB">
+                      <form action="" class="box" id="loginFB">
                           <div class="field">
                               <label for="" class="label">Email</label>
                               <div class="control has-icons-left">
@@ -509,7 +568,8 @@
         </p>
       </div>
     </div>
-      <!-- link to firebase -->
+    
+    <!-- link to firebase -->
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>

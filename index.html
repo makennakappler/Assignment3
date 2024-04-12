@@ -116,28 +116,6 @@
       text-align: center;
       margin: 5px;
     }
-
-    .votingcontainer {
-      display: flex;
-      justify-content: space-between;
-      border: 2px solid #777;
-      margin-bottom: 15px;
-    }
-
-    .votingcolumn {
-      align-items: center;
-      text-align: center;
-      border: 2px solid #777;
-      flex-grow: 1;
-      margin: 5px;
-    }
-
-    .votingform {
-      border: 2px solid #f08080;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
   </style>
   </head>
 
@@ -150,13 +128,7 @@
 
         </a>
 
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbar"
-        >
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -384,57 +356,33 @@
     <section id="votingPage" style="display: none">
       <div>
         <h1 class="votinghead is-size-2">Vote on Upcoming Events</h1>
-
         <!-- 2 columns for current polls -->
-        <div class="container votingcontainer">
-
-          <div class="column votingcolumn">
+        <div id="voteresults" class="container pasteventscontainer">
+          <div class="column pastevent">
             <h1 class="is-size-2">Event Poll 1</h1>
-            <form id="voting-form">
-              <p>
-                <input type="radio" value="Choice 1">
-                <label>Choice 1</label>
-              </p>
-              <p>
-                <input type="radio" value="Choice 2">
-                <label>Choice 2</label>
-              </p>
-              <p>
-                <input type="radio" value="Choice 3">
-                <label>Choice 3</label>
-              </p>
-              <button type="submit">Submit Vote</button>
-            </form>
+            <p class="is-size-5"><strong>Date:</strong> June 15, 2024</p>
+            <br>
+            <p>
+              <select id="eventvote" class="is-size-5" style="width: 40%;">
+                <option class="vote" value="Event 1">Event 1</option>
+                <option class="vote" value="Event 2">Event 2</option>
+              </select>
+            </p>
+            <button id="submitvote">Submit Vote</button>
           </div>
 
-          <div class="column votingcolumn">
+          <div class="column pastevent">
             <h1 class="is-size-2">Event Poll 2</h1>
-            <form id="voting-form">
-              <p>
-                <input type="radio" value="Choice 1">
-                <label>Choice 1</label>
-              </p>
-              <p>
-                <input type="radio" value="Choice 2">
-                <label>Choice 2</label>
-              </p>
-              <p>
-                <input type="radio" value="Choice 3">
-                <label>Choice 3</label>
-              </p>
-              <button type="submit">Submit Vote</button>
-            </form>
+            <p class="is-size-5"><strong>Date:</strong> September 8, 2024</p>
+            <br>
+            <p>
+              <select class="is-size-5" id="eventvote" style="width: 40%;">
+                <option class="vote" value="Event 1">Event 1</option>
+                <option class="vote" value="Event 2">Event 2</option>
+              </select>
+            </p>
+            <button id="submitvote">Submit Vote</button>
           </div>
-
-        </div>
-        <div class="container votingform">
-          <form class="votingform">
-            <label>Rate from 1 to 5:</label>
-            <input type="range" id="rating" name="rating" min="1" max="10" step="1" value="5">
-            <output id="rating-value">5</output>
-
-            <button type="submit">Submit</button>
-          </form>
         </div>
       </div>
     </section>

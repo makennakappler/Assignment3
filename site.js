@@ -274,3 +274,17 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+
+// show doc of past events
+
+document.querySelector("#showFormButton").addEventListener("click", () => {
+  let html = ``;
+  html += `<form id="myForm">
+    <!-- Your form fields go here -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br><br>
+    <input type="submit" value="Submit"> </form>`;
+  document.querySelector("#event_form").innerHTML += html;
+});

@@ -354,31 +354,19 @@
 
     <!-- voting page -->
     <section id="votingPage" style="display: none">
+      <h1 class="votinghead is-size-2 pb-4">Which disease should we focus on next?</h1>
+
       <div>
-        <h1 class="votinghead is-size-2">Vote on Upcoming Events</h1>
-        <!-- 2 columns for current polls -->
-        <div id="voteresults" class="container pasteventscontainer">
+        <!-- for poll -->
+        <div id="voteresults" class="container pasteventscontainer" style="display: flex; justify-content: center;">
           <div class="column pastevent">
-            <h1 class="is-size-2">Event Poll 1</h1>
+            <h1 class="is-size-2">Disease A or Disease B</h1>
             <p class="is-size-5"><strong>Date:</strong> June 15, 2024</p>
             <br>
             <p>
               <select id="eventvote" class="is-size-5" style="width: 40%;">
-                <option class="vote" value="Event 1">Event 1</option>
-                <option class="vote" value="Event 2">Event 2</option>
-              </select>
-            </p>
-            <button id="submitvote">Submit Vote</button>
-          </div>
-
-          <div class="column pastevent">
-            <h1 class="is-size-2">Event Poll 2</h1>
-            <p class="is-size-5"><strong>Date:</strong> September 8, 2024</p>
-            <br>
-            <p>
-              <select class="is-size-5" id="eventvote" style="width: 40%;">
-                <option class="vote" value="Event 1">Event 1</option>
-                <option class="vote" value="Event 2">Event 2</option>
+                <option class="vote" value="Event 1">Disease A</option>
+                <option class="vote" value="Event 2">Disease B</option>
               </select>
             </p>
             <button id="submitvote">Submit Vote</button>

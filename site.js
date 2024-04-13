@@ -280,11 +280,13 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// not working, says cant find variable: db
-document.querySelector("#submitvote").addEventListener('click', () => {
+// add vote to db from voting page
+document.querySelector("#submitvote").addEventListener("click", () => {
   let db = firebase.firestore();
   let vote = {
     vote: document.querySelector("#eventvote").value,
   };
-  db.collection("voteresults").add(vote).then(() => alert("Vote counted!"));
+  db.collection("voteresults")
+    .add(vote)
+    .then(() => alert("Vote counted!"));
 });

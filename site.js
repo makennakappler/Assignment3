@@ -281,10 +281,14 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
   let html = ``;
   html += `<form id="myForm">
     <!-- Your form fields go here -->
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name"><br><br>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email"><br><br>
+    <label> Event Name </label>
+    <input type="text" id="event_name"><br><br>
+    <label>Date:</label>
+    <input type="date" id="event_date"><br><br>
+    <label>Location:</label>
+    <input type="location" id="event_location"><br><br>
+    <label>Description:</label>
+    <input type="text" id="event_description"><br><br>
     <input type="submit" value="Submit"> </form>`;
-  document.querySelector("#event_form").innerHTML += html;
+  document.querySelector("#event_form").innerHTML = html;
 });

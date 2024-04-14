@@ -18,6 +18,17 @@ function configure_message_bar(msg) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  // sign out any old sessions
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      // Sign-out successful.
+    })
+    .catch((error) => {
+      // An error happened.
+    });
+
   // Get navbar burger and menu
   const navbarBurger = document.querySelector(".navbar-burger");
   const navbarMenu = document.querySelector(".navbar-menu");
@@ -56,12 +67,11 @@ document.addEventListener("DOMContentLoaded", function () {
     testPage.style.display = "none";
   });
 
-  // click executive leaders page nav actions
+  // Event listener for executive leaders link
   executiveLeadersLink.addEventListener("click", function (event) {
-    // Prevent the default link behavior
     executiveLeadersPage.style.display = "block";
 
-    // hide other html page
+    // Hide other HTML pages
     homePage.style.display = "none";
     votingPage.style.display = "none";
     pastEventsPage.style.display = "none";
@@ -69,17 +79,32 @@ document.addEventListener("DOMContentLoaded", function () {
     testPage.style.display = "none";
   });
 
-  // click voting page page nav actions
+  // Event listener for voting page link
   votingLink.addEventListener("click", function (event) {
-    // Prevent the default link behavior
-    votingPage.style.display = "block";
+    // Check if a user is logged in when the link is clicked
+    var user = auth.currentUser;
 
-    // hide other html page
-    homePage.style.display = "none";
-    executiveLeadersPage.style.display = "none";
-    pastEventsPage.style.display = "none";
-    aboutUsPage.style.display = "none";
-    testPage.style.display = "none";
+    if (user) {
+      // User is logged in
+      console.log("User is signed in:", user);
+      // Show executive leaders page
+      votingLink.addEventListener("click", function (event) {
+        // Prevent the default link behavior
+        votingPage.style.display = "block";
+
+        // hide other html page
+        homePage.style.display = "none";
+        executiveLeadersPage.style.display = "none";
+        pastEventsPage.style.display = "none";
+        aboutUsPage.style.display = "none";
+        testPage.style.display = "none";
+      });
+    } else {
+      // No user signed in
+      console.log("No user is signed in");
+      // Optionally, you can display a message or redirect to a login page
+      configure_message_bar("You need to be logged in to access this page.");
+    }
   });
 
   // click voting page page nav actions
@@ -290,3 +315,26 @@ document.querySelector("#submitvote").addEventListener("click", () => {
     .add(vote)
     .then(() => alert("Vote counted!"));
 });
+
+// // Function to toggle navbar visibility based on authentication status
+// function toggleNavbarVisibility(isLoggedIn) {
+//   const navbar = document.querySelector("#navbar");
+//   console.log("togglenavbarvisibility was executed");
+//   if (isLoggedIn) {
+//     navbar.classList.remove("is-hidden");
+//   } else {
+//     navbar.classList.add("is-hidden");
+//   }
+// }
+
+// // Check authentication status on page load
+// firebase.auth().onAuthStateChanged(function (user) {
+//   console.log("firebase.auth line was executed");
+//   if (user) {
+//     // User is signed in.
+//     toggleNavbarVisibility(true);
+//   } else {
+//     // No user is signed in.
+//     toggleNavbarVisibility(false);
+// }
+// });

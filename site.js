@@ -229,6 +229,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // close the modal
         r_e("modalLogin").classList.remove("is-active");
+        r_e("logOut").classList.remove("is-hidden");
+        r_e("userName").innerHTML = user.user.email;
+        r_e("userName").classList.remove("is-hidden");
+        configure_message_bar(`${user.user.email} sucessfully logged in`);
       })
       .catch((err) => {
         r_e("modalLogin").classList.remove("is-active");

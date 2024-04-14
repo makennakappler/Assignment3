@@ -240,8 +240,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         r_e("loginFB").reset();
       });
-    r_e("logOut").classList.remove("is-hidden");
+
+    // sign out button
+    r_e("logOut").addEventListener("click", () => {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          r_e("userName").classList.add("is-hidden");
+        })
+        .catch((error) => {
+          // An error happened.
+        });
+      r_e("logOut").classList.add("is-hidden");
+    });
+
     var user = firebase.auth().currentUser;
+
     if (user) {
       // Get the Email of the user
       var user_email = user.email;

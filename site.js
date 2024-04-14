@@ -208,6 +208,39 @@ document.addEventListener("DOMContentLoaded", function () {
         r_e("loginFB").reset();
       });
     r_e("logOut").classList.remove("is-hidden");
+    var user = firebase.auth().currentUser;
+    if (user) {
+      // Get the Email of the user
+      var user_email = user.email;
+      //console.log(user);
+
+      // Reference to Firestore
+      var db = firebase.firestore();
+
+      // Example data to be saved
+      var documentData = {
+        email: user_email,
+        user_type: "Admin",
+        vote: "Medical Malpractice",
+      };
+
+      // Define the document reference using the UID
+      var docRef = db.collection("users").doc(user_email);
+      //.collection("documents")
+      //.doc();
+
+      // Save the data to Firestore
+      docRef
+        .set(documentData)
+        .then(function () {
+          console.log("Document successfully written!");
+        })
+        .catch(function (error) {
+          console.error("Error writing document: ", error);
+        });
+    } else {
+      console.log("No user signed in.");
+    }
   });
 
   // sign out button
@@ -273,4 +306,39 @@ document.addEventListener("DOMContentLoaded", function () {
         // modalSignUp.querySelector('.error').innerHTML = err.message;
       });
   });
+
+  // Get the currently authenticated user
+  // var user = firebase.auth().currentUser;
+  // console.log(user);
+  // // If a user is signed in
+  // if (user) {
+  //   // Get the UID of the user
+  //   var uid = user.uid;
+
+  //   // Reference to Firestore
+  //   var db = firebase.firestore();
+
+  //   // Example data to be saved
+  //   var documentData = {
+  //     email: "erik@wisc.edu",
+  //     password: "password",
+  //     user_type: "Admin",
+  //     vote: "Medical Malpractice",
+  //   };
+
+  //   // Define the document reference using the UID
+  //   var docRef = db.collection("users").doc(uid).collection("documents").doc();
+
+  //   // Save the data to Firestore
+  //   docRef
+  //     .set(documentData)
+  //     .then(function () {
+  //       console.log("Document successfully written!");
+  //     })
+  //     .catch(function (error) {
+  //       console.error("Error writing document: ", error);
+  //     });
+  // } else {
+  //   console.log("No user signed in.");
+  // }
 });

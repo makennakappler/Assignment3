@@ -289,6 +289,40 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
     <input type="location" id="event_location"><br><br>
     <label>Description:</label>
     <input type="text" id="event_description"><br><br>
-    <input type="submit" value="Submit"> </form>`;
+    <button id="submit">Submit</button>`;
   document.querySelector("#event_form").innerHTML = html;
+});
+
+// document.querySelector("#submit").addEventListener("click", (e) => {
+//   e.preventDefault(); //prevent default behaviour of browser (no page refresh)
+//   // construct perosn object
+//   let event = {
+//     name: document.querySelector("#event_name").value,
+//     date: document.querySelector("#event_date").value,
+//     location: document.querySelector("#event_location").value,
+//     description: document.querySelector("#event_description").value,
+//   };
+//   //store person obj into collection
+//   db.collection("events")
+//     .add(event)
+//     .then(() => alert("event added"));
+// });
+
+//Submit form to dbv
+document.querySelector("#event_form").addEventListener("click", (e) => {
+  let db = firebase.firestore();
+  if (e.target && e.target.id === "submit") {
+    e.preventDefault(); // Prevent default behavior of browser (no page refresh)
+    // Construct event object
+    let event = {
+      name: document.querySelector("#event_name").value,
+      date: document.querySelector("#event_date").value,
+      location: document.querySelector("#event_location").value,
+      description: document.querySelector("#event_description").value,
+    };
+    // Store event object into collection
+    db.collection("events")
+      .add(event)
+      .then(() => alert("Event added"));
+  }
 });

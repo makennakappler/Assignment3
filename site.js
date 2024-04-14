@@ -284,7 +284,7 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
     <label> Event Name </label>
     <input type="text" id="event_name"><br><br>
     <label>Date:</label>
-    <input type="date" id="event_date"><br><br>
+    <input type="timestamp" id="event_date"><br><br>
     <label>Location:</label>
     <input type="location" id="event_location"><br><br>
     <label>Description:</label>
@@ -316,7 +316,7 @@ document.querySelector("#event_form").addEventListener("click", (e) => {
     // Construct event object
     let event = {
       name: document.querySelector("#event_name").value,
-      date: document.querySelector("#event_date").value,
+      date: date(document.querySelector("#event_date").value),
       location: document.querySelector("#event_location").value,
       description: document.querySelector("#event_description").value,
     };

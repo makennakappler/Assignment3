@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // set authorization variable
     let auth = firebase.auth();
 
-    // call the Firebase function to login the user
+    // call the Firebase function to sign-in the user
 
     auth
       .signInWithEmailAndPassword(email, password)
@@ -225,10 +225,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // close the modal
         r_e("modalLogin").classList.remove("is-active");
-        r_e("logOut").classList.remove("is-hidden");
-        r_e("userName").innerHTML = user.user.email;
-        r_e("userName").classList.remove("is-hidden");
-        configure_message_bar(`${user.user.email} sucessfully logged in`);
       })
       .catch((err) => {
         r_e("modalLogin").classList.remove("is-active");
@@ -236,6 +232,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
         r_e("loginFB").reset();
       });
+    r_e("logOut").classList.remove("is-hidden");
+    var user = firebase.auth().currentUser;
+    if (user) {
+      // Get the Email of the user
+      var user_email = user.email;
+      //console.log(user);
+
+      // Reference to Firestore
+      var db = firebase.firestore();
+
+      // Example data to be saved
+      var documentData = {
+        email: user_email,
+        user_type: "Admin",
+        vote: "Medical Malpractice",
+      };
+
+      // Define the document reference using the UID
+      var docRef = db.collection("users").doc(user_email);
+      //.collection("documents")
+      //.doc();
+
+      // Save the data to Firestore
+      docRef
+        .set(documentData)
+        .then(function () {
+          console.log("Document successfully written!");
+        })
+        .catch(function (error) {
+          console.error("Error writing document: ", error);
+        });
+    } else {
+      console.log("No user signed in.");
+    }
   });
 
   // sign out button
@@ -244,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .auth()
       .signOut()
       .then(() => {
-        r_e("userName").classList.add("is-hidden");
+        console.log("sucessfully signed out");
       })
       .catch((error) => {
         // An error happened.
@@ -283,8 +313,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // show sign up successful message on message bar
         configure_message_bar(`${user.user.email} is successfully created!`);
-        r_e("userName").innerHTML = user.user.email;
-        r_e("userName").classList.remove("is-hidden");
 
         // reset the form
         // r_e('signup_form').reset();
@@ -305,7 +333,111 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// add vote to db from voting page
+// show doc of past events
+
+document.querySelector("#showFormButton").addEventListener("click", () => {
+  let html = ``;
+  html += `<form id="myForm">
+    <!-- Your form fields go here -->
+    <label> Event Name </label>
+    <input type="text" id="event_name"><br><br>
+    <label>Date:</label>
+    <input type="timestamp" id="event_date"><br><br>
+    <label>Location:</label>
+    <input type="location" id="event_location"><br><br>
+    <label>Description:</label>
+    <input type="text" id="event_description"><br><br>
+    <button id="submit">Submit</button>`;
+  document.querySelector("#event_form").innerHTML = html;
+});
+
+// document.querySelector("#submit").addEventListener("click", (e) => {
+//   e.preventDefault(); //prevent default behaviour of browser (no page refresh)
+//   // construct perosn object
+//   let event = {
+//     name: document.querySelector("#event_name").value,
+//     date: document.querySelector("#event_date").value,
+//     location: document.querySelector("#event_location").value,
+//     description: document.querySelector("#event_description").value,
+//   };
+//   //store person obj into collection
+//   db.collection("events")
+//     .add(event)
+//     .then(() => alert("event added"));
+// });
+
+//Submit form to dbv
+document.querySelector("#event_form").addEventListener("click", (e) => {
+  let db = firebase.firestore();
+  if (e.target && e.target.id === "submit") {
+    e.preventDefault(); // Prevent default behavior of browser (no page refresh)
+    // Construct event object
+    let event = {
+      name: document.querySelector("#event_name").value,
+      date: date(document.querySelector("#event_date").value),
+      location: document.querySelector("#event_location").value,
+      description: document.querySelector("#event_description").value,
+    };
+    // Store event object into collection
+    db.collection("events")
+      .add(event)
+      .then(() => alert("Event added"));
+  }
+});
+
+// show doc of past events
+
+document.querySelector("#showFormButton").addEventListener("click", () => {
+  let html = ``;
+  html += `<form id="myForm">
+    <!-- Your form fields go here -->
+    <label> Event Name </label>
+    <input type="text" id="event_name"><br><br>
+    <label>Date:</label>
+    <input type="timestamp" id="event_date"><br><br>
+    <label>Location:</label>
+    <input type="location" id="event_location"><br><br>
+    <label>Description:</label>
+    <input type="text" id="event_description"><br><br>
+    <button id="submit">Submit</button>`;
+  document.querySelector("#event_form").innerHTML = html;
+});
+
+// document.querySelector("#submit").addEventListener("click", (e) => {
+//   e.preventDefault(); //prevent default behaviour of browser (no page refresh)
+//   // construct perosn object
+//   let event = {
+//     name: document.querySelector("#event_name").value,
+//     date: document.querySelector("#event_date").value,
+//     location: document.querySelector("#event_location").value,
+//     description: document.querySelector("#event_description").value,
+//   };
+//   //store person obj into collection
+//   db.collection("events")
+//     .add(event)
+//     .then(() => alert("event added"));
+// });
+
+//Submit form to dbv
+document.querySelector("#event_form").addEventListener("click", (e) => {
+  let db = firebase.firestore();
+  if (e.target && e.target.id === "submit") {
+    e.preventDefault(); // Prevent default behavior of browser (no page refresh)
+    // Construct event object
+    let event = {
+      name: document.querySelector("#event_name").value,
+      date: date(document.querySelector("#event_date").value),
+      location: document.querySelector("#event_location").value,
+      description: document.querySelector("#event_description").value,
+    };
+    // Store event object into collection
+    db.collection("events")
+      .add(event)
+      .then(() => alert("Event added"));
+  }
+});
+
+// not working, says cant find variable: db
 document.querySelector("#submitvote").addEventListener("click", () => {
   let db = firebase.firestore();
   let vote = {

@@ -128,14 +128,20 @@
 
         </a>
 
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
 
-      <div id="navbar" class="navbar-menu">
+      <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
           <a class="navbar-item" href="#" id="homePageLink">Home</a>
           <a class="navbar-item" href="#" id="executiveLeadersLink">Executive Leaders</a>
@@ -161,13 +167,14 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <div class="is-hidden" id="userName"></div>
+              <div class="is-hidden pr-3" id="userName"></div>
 
               <a class="button" href="#" style="background-color: red" id="signUp">
                 <strong>Sign up</strong>
               </a>
               <a class="button is-light" id="logIn">Log in</a>
               <a class="button is-light is-hidden" id="logOut">Log out</a>
+              <p class="is-hidden" id="userName">ahhhhh</p>
 
             </div>
           </div>
@@ -354,31 +361,19 @@
 
     <!-- voting page -->
     <section id="votingPage" style="display: none">
+      <h1 class="votinghead is-size-2 pb-4">Which disease should we focus on next?</h1>
+
       <div>
-        <h1 class="votinghead is-size-2">Vote on Upcoming Events</h1>
-        <!-- 2 columns for current polls -->
-        <div id="voteresults" class="container pasteventscontainer">
+        <!-- for poll -->
+        <div id="voteresults" class="container pasteventscontainer" style="display: flex; justify-content: center;">
           <div class="column pastevent">
-            <h1 class="is-size-2">Event Poll 1</h1>
+            <h1 class="is-size-2">Disease A or Disease B</h1>
             <p class="is-size-5"><strong>Date:</strong> June 15, 2024</p>
             <br>
             <p>
               <select id="eventvote" class="is-size-5" style="width: 40%;">
-                <option class="vote" value="Event 1">Event 1</option>
-                <option class="vote" value="Event 2">Event 2</option>
-              </select>
-            </p>
-            <button id="submitvote">Submit Vote</button>
-          </div>
-
-          <div class="column pastevent">
-            <h1 class="is-size-2">Event Poll 2</h1>
-            <p class="is-size-5"><strong>Date:</strong> September 8, 2024</p>
-            <br>
-            <p>
-              <select class="is-size-5" id="eventvote" style="width: 40%;">
-                <option class="vote" value="Event 1">Event 1</option>
-                <option class="vote" value="Event 2">Event 2</option>
+                <option class="vote" value="Disease A">Disease A</option>
+                <option class="vote" value="Disease B">Disease B</option>
               </select>
             </p>
             <button id="submitvote">Submit Vote</button>

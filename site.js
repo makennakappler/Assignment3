@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // set authorization variable
     let auth = firebase.auth();
 
-    // call the Firebase function to login the user
+    // call the Firebase function to sign-in the user
 
     auth
       .signInWithEmailAndPassword(email, password)
@@ -200,10 +200,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // close the modal
         r_e("modalLogin").classList.remove("is-active");
-        r_e("logOut").classList.remove("is-hidden");
-        r_e("userName").innerHTML = user.user.email;
-        r_e("userName").classList.remove("is-hidden");
-        configure_message_bar(`${user.user.email} sucessfully logged in`);
       })
       .catch((err) => {
         r_e("modalLogin").classList.remove("is-active");
@@ -211,6 +207,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
         r_e("loginFB").reset();
       });
+    r_e("logOut").classList.remove("is-hidden");
+    var user = firebase.auth().currentUser;
+    if (user) {
+      // Get the Email of the user
+      var user_email = user.email;
+      //console.log(user);
+
+      // Reference to Firestore
+      var db = firebase.firestore();
+
+      // Example data to be saved
+      var documentData = {
+        email: user_email,
+        user_type: "Admin",
+        vote: "Medical Malpractice",
+      };
+
+      // Define the document reference using the UID
+      var docRef = db.collection("users").doc(user_email);
+      //.collection("documents")
+      //.doc();
+
+      // Save the data to Firestore
+      docRef
+        .set(documentData)
+        .then(function () {
+          console.log("Document successfully written!");
+        })
+        .catch(function (error) {
+          console.error("Error writing document: ", error);
+        });
+    } else {
+      console.log("No user signed in.");
+    }
   });
 
   // sign out button
@@ -219,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .auth()
       .signOut()
       .then(() => {
-        r_e("userName").classList.add("is-hidden");
+        console.log("sucessfully signed out");
       })
       .catch((error) => {
         // An error happened.
@@ -258,8 +288,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // show sign up successful message on message bar
         configure_message_bar(`${user.user.email} is successfully created!`);
-        r_e("userName").innerHTML = user.user.email;
-        r_e("userName").classList.remove("is-hidden");
 
         // reset the form
         // r_e('signup_form').reset();

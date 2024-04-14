@@ -101,7 +101,11 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     } else {
       // No user signed in
-      console.log("No user is signed in");
+      homePage.style.display = "none";
+      executiveLeadersPage.style.display = "none";
+      pastEventsPage.style.display = "none";
+      aboutUsPage.style.display = "none";
+      testPage.style.display = "none";
       // Optionally, you can display a message or redirect to a login page
       configure_message_bar("You need to be logged in to access this page.");
     }

@@ -499,27 +499,62 @@ document.querySelector("#submitvote").addEventListener("click", () => {
     // User is not logged in, prompt them to log in or sign up
     alert("Please log in or sign up to vote.");
   }
+
+  // voting chart
+
+  // Reference to the canvas element
+  const voteChartCanvas = document.getElementById("voteChart");
+
+  // Initialize an empty chart
+  const voteChart = new Chart(voteChartCanvas, {
+    type: "bar",
+    data: {
+      labels: ["Disease A", "Disease B"],
+      datasets: [
+        {
+          label: "Votes",
+          data: [0, 0], // Initial vote counts for each disease
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.6)",
+            "rgba(54, 162, 235, 0.6)",
+          ],
+          borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  // Function to update the chart with live vote data
+  function updateChart(voteData) {
+    // Update the chart dataset with the new vote counts
+    voteChart.data.datasets[0].data = [
+      voteData.DiseaseA || 0,
+      voteData.DiseaseB || 0,
+    ];
+    voteChart.update(); // Update the chart
+  }
+
+  // Real-time listener for vote data changes
+  db.collection("voteresults").onSnapshot((snapshot) => {
+    const voteData = {}; // Object to store vote counts
+    snapshot.forEach((doc) => {
+      const vote = doc.data();
+      // Increment vote count for each disease
+      if (vote.vote === "Disease A") {
+        voteData.DiseaseA = (voteData.DiseaseA || 0) + 1;
+      } else if (vote.vote === "Disease B") {
+        voteData.DiseaseB = (voteData.DiseaseB || 0) + 1;
+      }
+    });
+    // Update the chart with the latest vote data
+    updateChart(voteData);
+  });
 });
-
-// // Function to toggle navbar visibility based on authentication status
-// function toggleNavbarVisibility(isLoggedIn) {
-//   const navbar = document.querySelector("#navbar");
-//   console.log("togglenavbarvisibility was executed");
-//   if (isLoggedIn) {
-//     navbar.classList.remove("is-hidden");
-//   } else {
-//     navbar.classList.add("is-hidden");
-//   }
-// }
-
-// // Check authentication status on page load
-// firebase.auth().onAuthStateChanged(function (user) {
-//   console.log("firebase.auth line was executed");
-//   if (user) {
-//     // User is signed in.
-//     toggleNavbarVisibility(true);
-//   } else {
-//     // No user is signed in.
-//     toggleNavbarVisibility(false);
-// }
-// });

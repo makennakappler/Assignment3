@@ -460,15 +460,45 @@ document.querySelector("#event_form").addEventListener("click", (e) => {
   }
 });
 
-// not working, says cant find variable: db
 document.querySelector("#submitvote").addEventListener("click", () => {
-  let db = firebase.firestore();
-  let vote = {
-    vote: document.querySelector("#eventvote").value,
-  };
-  db.collection("voteresults")
-    .add(vote)
-    .then(() => alert("Vote counted!"));
+  // Check if the user is logged in
+  db = firebase.firestore();
+  const user = firebase.auth().currentUser;
+  if (user) {
+    // User is logged in
+    const userId = user.uid; // Get the user's unique ID
+
+    // Check if the user has already voted
+    const voteRef = db.collection("voteresults").doc(userId);
+    voteRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          // User has already voted
+          alert("You have already voted.");
+        } else {
+          // User has not voted yet, proceed to add the vote
+          const vote = {
+            userId: userId,
+            vote: document.querySelector("#eventvote").value,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          };
+
+          // Add the vote to the voteresults collection
+          db.collection("voteresults")
+            .doc(userId)
+            .set(vote)
+            .then(() => alert("Vote counted!"))
+            .catch((error) => console.error("Error adding vote:", error));
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking vote:", error);
+      });
+  } else {
+    // User is not logged in, prompt them to log in or sign up
+    alert("Please log in or sign up to vote.");
+  }
 });
 
 // // Function to toggle navbar visibility based on authentication status

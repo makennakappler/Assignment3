@@ -18,6 +18,17 @@ function configure_message_bar(msg) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  // sign out any old sessions
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      // Sign-out successful.
+    })
+    .catch((error) => {
+      // An error happened.
+    });
+
   // Get navbar burger and menu
   const navbarBurger = document.querySelector(".navbar-burger");
   const navbarMenu = document.querySelector(".navbar-menu");
@@ -56,12 +67,11 @@ document.addEventListener("DOMContentLoaded", function () {
     testPage.style.display = "none";
   });
 
-  // click executive leaders page nav actions
+  // Event listener for executive leaders link
   executiveLeadersLink.addEventListener("click", function (event) {
-    // Prevent the default link behavior
     executiveLeadersPage.style.display = "block";
 
-    // hide other html page
+    // Hide other HTML pages
     homePage.style.display = "none";
     votingPage.style.display = "none";
     pastEventsPage.style.display = "none";
@@ -69,17 +79,36 @@ document.addEventListener("DOMContentLoaded", function () {
     testPage.style.display = "none";
   });
 
-  // click voting page page nav actions
+  // Event listener for voting page link
   votingLink.addEventListener("click", function (event) {
-    // Prevent the default link behavior
-    votingPage.style.display = "block";
+    // Check if a user is logged in when the link is clicked
+    var user = auth.currentUser;
 
-    // hide other html page
-    homePage.style.display = "none";
-    executiveLeadersPage.style.display = "none";
-    pastEventsPage.style.display = "none";
-    aboutUsPage.style.display = "none";
-    testPage.style.display = "none";
+    if (user) {
+      // User is logged in
+      console.log("User is signed in:", user);
+      // Show executive leaders page
+      votingLink.addEventListener("click", function (event) {
+        // Prevent the default link behavior
+        votingPage.style.display = "block";
+
+        // hide other html page
+        homePage.style.display = "none";
+        executiveLeadersPage.style.display = "none";
+        pastEventsPage.style.display = "none";
+        aboutUsPage.style.display = "none";
+        testPage.style.display = "none";
+      });
+    } else {
+      // No user signed in
+      homePage.style.display = "none";
+      executiveLeadersPage.style.display = "none";
+      pastEventsPage.style.display = "none";
+      aboutUsPage.style.display = "none";
+      testPage.style.display = "none";
+      // Optionally, you can display a message or redirect to a login page
+      configure_message_bar("You need to be logged in to access this page.");
+    }
   });
 
   // click voting page page nav actions
@@ -200,6 +229,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // close the modal
         r_e("modalLogin").classList.remove("is-active");
+        r_e("logOut").classList.remove("is-hidden");
+        r_e("userName").innerHTML = user.user.email;
+        r_e("userName").classList.remove("is-hidden");
+        configure_message_bar(`${user.user.email} sucessfully logged in`);
       })
       .catch((err) => {
         r_e("modalLogin").classList.remove("is-active");
@@ -207,8 +240,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         r_e("loginFB").reset();
       });
-    r_e("logOut").classList.remove("is-hidden");
+
+    // sign out button
+    r_e("logOut").addEventListener("click", () => {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          r_e("userName").classList.add("is-hidden");
+        })
+        .catch((error) => {
+          // An error happened.
+        });
+      r_e("logOut").classList.add("is-hidden");
+    });
+
     var user = firebase.auth().currentUser;
+
     if (user) {
       // Get the Email of the user
       var user_email = user.email;
@@ -306,39 +354,207 @@ document.addEventListener("DOMContentLoaded", function () {
         // modalSignUp.querySelector('.error').innerHTML = err.message;
       });
   });
+});
 
-  // Get the currently authenticated user
-  // var user = firebase.auth().currentUser;
-  // console.log(user);
-  // // If a user is signed in
-  // if (user) {
-  //   // Get the UID of the user
-  //   var uid = user.uid;
+// show doc of past events
 
-  //   // Reference to Firestore
-  //   var db = firebase.firestore();
+document.querySelector("#showFormButton").addEventListener("click", () => {
+  let html = ``;
+  html += `<form id="myForm">
+    <!-- Your form fields go here -->
+    <label> Event Name </label>
+    <input type="text" id="event_name"><br><br>
+    <label>Date:</label>
+    <input type="timestamp" id="event_date"><br><br>
+    <label>Location:</label>
+    <input type="location" id="event_location"><br><br>
+    <label>Description:</label>
+    <input type="text" id="event_description"><br><br>
+    <button id="submit">Submit</button>`;
+  document.querySelector("#event_form").innerHTML = html;
+});
 
-  //   // Example data to be saved
-  //   var documentData = {
-  //     email: "erik@wisc.edu",
-  //     password: "password",
-  //     user_type: "Admin",
-  //     vote: "Medical Malpractice",
-  //   };
+// document.querySelector("#submit").addEventListener("click", (e) => {
+//   e.preventDefault(); //prevent default behaviour of browser (no page refresh)
+//   // construct perosn object
+//   let event = {
+//     name: document.querySelector("#event_name").value,
+//     date: document.querySelector("#event_date").value,
+//     location: document.querySelector("#event_location").value,
+//     description: document.querySelector("#event_description").value,
+//   };
+//   //store person obj into collection
+//   db.collection("events")
+//     .add(event)
+//     .then(() => alert("event added"));
+// });
 
-  //   // Define the document reference using the UID
-  //   var docRef = db.collection("users").doc(uid).collection("documents").doc();
+//Submit form to dbv
+document.querySelector("#event_form").addEventListener("click", (e) => {
+  let db = firebase.firestore();
+  if (e.target && e.target.id === "submit") {
+    e.preventDefault(); // Prevent default behavior of browser (no page refresh)
+    // Construct event object
+    let event = {
+      name: document.querySelector("#event_name").value,
+      date: date(document.querySelector("#event_date").value),
+      location: document.querySelector("#event_location").value,
+      description: document.querySelector("#event_description").value,
+    };
+    // Store event object into collection
+    db.collection("events")
+      .add(event)
+      .then(() => alert("Event added"));
+  }
+});
 
-  //   // Save the data to Firestore
-  //   docRef
-  //     .set(documentData)
-  //     .then(function () {
-  //       console.log("Document successfully written!");
-  //     })
-  //     .catch(function (error) {
-  //       console.error("Error writing document: ", error);
-  //     });
-  // } else {
-  //   console.log("No user signed in.");
-  // }
+// show doc of past events
+
+document.querySelector("#showFormButton").addEventListener("click", () => {
+  let html = ``;
+  html += `<form id="myForm">
+    <!-- Your form fields go here -->
+    <label> Event Name </label>
+    <input type="text" id="event_name"><br><br>
+    <label>Date:</label>
+    <input type="timestamp" id="event_date"><br><br>
+    <label>Location:</label>
+    <input type="location" id="event_location"><br><br>
+    <label>Description:</label>
+    <input type="text" id="event_description"><br><br>
+    <button id="submit">Submit</button>`;
+  document.querySelector("#event_form").innerHTML = html;
+});
+
+// document.querySelector("#submit").addEventListener("click", (e) => {
+//   e.preventDefault(); //prevent default behaviour of browser (no page refresh)
+//   // construct perosn object
+//   let event = {
+//     name: document.querySelector("#event_name").value,
+//     date: document.querySelector("#event_date").value,
+//     location: document.querySelector("#event_location").value,
+//     description: document.querySelector("#event_description").value,
+//   };
+//   //store person obj into collection
+//   db.collection("events")
+//     .add(event)
+//     .then(() => alert("event added"));
+// });
+
+//Submit form to dbv
+document.querySelector("#event_form").addEventListener("click", (e) => {
+  let db = firebase.firestore();
+  if (e.target && e.target.id === "submit") {
+    e.preventDefault(); // Prevent default behavior of browser (no page refresh)
+    // Construct event object
+    let event = {
+      name: document.querySelector("#event_name").value,
+      date: date(document.querySelector("#event_date").value),
+      location: document.querySelector("#event_location").value,
+      description: document.querySelector("#event_description").value,
+    };
+    // Store event object into collection
+    db.collection("events")
+      .add(event)
+      .then(() => alert("Event added"));
+  }
+});
+
+document.querySelector("#submitvote").addEventListener("click", () => {
+  // Check if the user is logged in
+  db = firebase.firestore();
+  const user = firebase.auth().currentUser;
+  if (user) {
+    // User is logged in
+    const userId = user.uid; // Get the user's unique ID
+
+    // Check if the user has already voted
+    const voteRef = db.collection("voteresults").doc(userId);
+    voteRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          // User has already voted
+          configure_message_bar("You have already voted.");
+        } else {
+          // User has not voted yet, proceed to add the vote
+          const vote = {
+            userId: userId,
+            vote: document.querySelector("#eventvote").value,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          };
+
+          // Add the vote to the voteresults collection
+          db.collection("voteresults")
+            .doc(userId)
+            .set(vote)
+            .then(() => alert("Vote counted!"))
+            .catch((error) => console.error("Error adding vote:", error));
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking vote:", error);
+      });
+  } else {
+    // User is not logged in, prompt them to log in or sign up
+    alert("Please log in or sign up to vote.");
+  }
+
+  // voting chart
+
+  // Reference to the canvas element
+  const voteChartCanvas = document.getElementById("voteChart");
+
+  // Initialize an empty chart
+  const voteChart = new Chart(voteChartCanvas, {
+    type: "bar",
+    data: {
+      labels: ["Disease A", "Disease B"],
+      datasets: [
+        {
+          label: "Votes",
+          data: [0, 0], // Initial vote counts for each disease
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.6)",
+            "rgba(54, 162, 235, 0.6)",
+          ],
+          borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  // Function to update the chart with live vote data
+  function updateChart(voteData) {
+    // Update the chart dataset with the new vote counts
+    voteChart.data.datasets[0].data = [
+      voteData.DiseaseA || 0,
+      voteData.DiseaseB || 0,
+    ];
+    voteChart.update(); // Update the chart
+  }
+
+  // Real-time listener for vote data changes
+  db.collection("voteresults").onSnapshot((snapshot) => {
+    const voteData = {}; // Object to store vote counts
+    snapshot.forEach((doc) => {
+      const vote = doc.data();
+      // Increment vote count for each disease
+      if (vote.vote === "Disease A") {
+        voteData.DiseaseA = (voteData.DiseaseA || 0) + 1;
+      } else if (vote.vote === "Disease B") {
+        voteData.DiseaseB = (voteData.DiseaseB || 0) + 1;
+      }
+    });
+    // Update the chart with the latest vote data
+    updateChart(voteData);
+  });
 });

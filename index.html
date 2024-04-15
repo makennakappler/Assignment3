@@ -395,7 +395,7 @@
             
           </div>
         </div>
-        <div class="pasteventscontainer">
+        <div class="pasteventscontainer" id="eventscontainer">
           <div class="pastevent">
             <h2 class="is-size-2">Event Title 1</h2>
             <p class="is-size-5"><strong>Date:</strong> January 10, 2024</p>
@@ -656,6 +656,7 @@
       
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
+
 
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);

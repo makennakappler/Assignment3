@@ -326,21 +326,6 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
   document.querySelector("#event_form").innerHTML = html;
 });
 
-// document.querySelector("#submit").addEventListener("click", (e) => {
-//   e.preventDefault(); //prevent default behaviour of browser (no page refresh)
-//   // construct perosn object
-//   let event = {
-//     name: document.querySelector("#event_name").value,
-//     date: document.querySelector("#event_date").value,
-//     location: document.querySelector("#event_location").value,
-//     description: document.querySelector("#event_description").value,
-//   };
-//   //store person obj into collection
-//   db.collection("events")
-//     .add(event)
-//     .then(() => alert("event added"));
-// });
-
 //Submit form to dbv
 document.querySelector("#event_form").addEventListener("click", (e) => {
   let db = firebase.firestore();
@@ -378,21 +363,6 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
   <button id="submit">Submit</button></div>`;
   document.querySelector("#event_form").innerHTML = html;
 });
-
-// document.querySelector("#submit").addEventListener("click", (e) => {
-//   e.preventDefault(); //prevent default behaviour of browser (no page refresh)
-//   // construct perosn object
-//   let event = {
-//     name: document.querySelector("#event_name").value,
-//     date: document.querySelector("#event_date").value,
-//     location: document.querySelector("#event_location").value,
-//     description: document.querySelector("#event_description").value,
-//   };
-//   //store person obj into collection
-//   db.collection("events")
-//     .add(event)
-//     .then(() => alert("event added"));
-// });
 
 //Submit form to dbv
 document.querySelector("#event_form").addEventListener("click", (e) => {

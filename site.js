@@ -475,7 +475,7 @@ document.querySelector("#submitvote").addEventListener("click", () => {
       .then((doc) => {
         if (doc.exists) {
           // User has already voted
-          alert("You have already voted.");
+          configure_message_bar("You have already voted.");
         } else {
           // User has not voted yet, proceed to add the vote
           const vote = {

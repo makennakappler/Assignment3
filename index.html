@@ -384,9 +384,11 @@
                 <option class="vote" value="Disease B">Disease B</option>
               </select>
             </p>
-            <button id="submitvote">Submit Vote</button>
+            <button id="submitvote" class="button">Submit Vote</button>
           </div>
         </div>
+        <!-- graph -->
+        <canvas id="voteChart" width="400" height="200" style="display: flex; justify-content: right;"></canvas>
       </div>
     </section>
 
@@ -405,10 +407,12 @@
         </div>
         <div class="pasteventscontainer" id="eventscontainer">
           <div class="pastevent">
-            <h2 class="is-size-2">Event Title 1</h2>
-            <p class="is-size-5"><strong>Date:</strong> January 10, 2024</p>
-            <p class="is-size-5"><strong>Location:</strong> Example Event</p>
-            <p>
+            <h2 class="is-size-2">Nitty Gritty Cup Night</h2>
+            <p class="is-size-5"><strong>Date:</strong> April 4, 2024</p>
+            <p class="is-size-5"><strong>Location:</strong> Nitty Gritty</p>
+            <p class="is-size-5"><strong>Time:</strong> 9:00pm</p>
+            <img src="event1.png" alt="Event 1">
+            <!-- <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit
               amet leo non arcu mollis tincidunt. Sed vitae dapibus lorem. Integer
               auctor metus at enim pretium, in posuere lectus aliquam. Morbi nec
@@ -422,13 +426,15 @@
               Fusce nec turpis vel libero placerat efficitur. Duis posuere
               condimentum arcu, vel eleifend dui fringilla vel. Mauris eu ligula ac
               urna maximus fermentum. Mauris id ante in justo finibus finibus.
-            </p>
+            </p> -->
           </div>
           <div class="pastevent">
-            <h2 class="is-size-2">Event Title 2</h2>
-            <p class="is-size-5"><strong>Date:</strong> February 15, 2024</p>
-            <p class="is-size-5"><strong>Location:</strong> Another Event</p>
-            <p>
+            <h2 class="is-size-2">Spring Social & Potlock</h2>
+            <p class="is-size-5"><strong>Date:</strong> April 3, 2024</p>
+            <p class="is-size-5"><strong>Location:</strong> Humanities 1221</p>
+            <p class="is-size-5"><strong>Time:</strong> 6:30pm</p>
+            <img src="event2.png" alt="Event 2">
+            <!-- <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit
               amet leo non arcu mollis tincidunt. Sed vitae dapibus lorem. Integer
               auctor metus at enim pretium, in posuere lectus aliquam. Morbi nec
@@ -442,13 +448,15 @@
               Fusce nec turpis vel libero placerat efficitur. Duis posuere
               condimentum arcu, vel eleifend dui fringilla vel. Mauris eu ligula ac
               urna maximus fermentum. Mauris id ante in justo finibus finibus.
-            </p>
+            </p> -->
           </div>
           <div class="pastevent">
-            <h2 class="is-size-2">Event Title 3</h2>
-            <p class="is-size-5"><strong>Date:</strong> May 10, 2024</p>
-            <p class="is-size-5"><strong>Location:</strong> other event</p>
-            <p>
+            <h2 class="is-size-2">Awareness Meeting</h2>
+            <p class="is-size-5"><strong>Date:</strong> March 13, 2024</p>
+            <p class="is-size-5"><strong>Location:</strong> Union South Agriculture Room</p>
+            <p class="is-size-5"><strong>Time:</strong> 6:30pm</p>
+            <img src="event3.png" alt="Event 3">
+            <!-- <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit
               amet leo non arcu mollis tincidunt. Sed vitae dapibus lorem. Integer
               auctor metus at enim pretium, in posuere lectus aliquam. Morbi nec
@@ -462,7 +470,29 @@
               Fusce nec turpis vel libero placerat efficitur. Duis posuere
               condimentum arcu, vel eleifend dui fringilla vel. Mauris eu ligula ac
               urna maximus fermentum. Mauris id ante in justo finibus finibus.
-            </p>
+            </p> -->
+          </div>
+          <div class="pastevent">
+            <h2 class="is-size-2">Town Hall Meeting</h2>
+            <p class="is-size-5"><strong>Date:</strong> February 28, 2024</p>
+            <p class="is-size-5"><strong>Location:</strong> Union South Northwoods Room</p>
+            <p class="is-size-5"><strong>Time:</strong> 6:30pm</p>
+            <img src="event4.png" alt="Event 3">
+            <!-- <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit
+              amet leo non arcu mollis tincidunt. Sed vitae dapibus lorem. Integer
+              auctor metus at enim pretium, in posuere lectus aliquam. Morbi nec
+              nisl aliquet, volutpat neque eget, efficitur sapien. Aliquam a eros
+              eget risus fringilla eleifend. Donec luctus enim ut nisi gravida, non
+              dignissim nisi malesuada. Vestibulum dignissim, arcu id viverra
+              suscipit, tortor orci malesuada eros, non ullamcorper metus est id
+              purus. Vestibulum ac libero purus. Suspendisse et libero nec orci
+              rutrum vestibulum. Nam eu metus in mauris ultrices elementum non vel
+              elit. Integer sed erat et risus vestibulum faucibus a non tortor.
+              Fusce nec turpis vel libero placerat efficitur. Duis posuere
+              condimentum arcu, vel eleifend dui fringilla vel. Mauris eu ligula ac
+              urna maximus fermentum. Mauris id ante in justo finibus finibus.
+            </p> -->
           </div>
       </p>
     </section>
@@ -667,6 +697,10 @@
         let db = firebase.firestore();
         console.log(app)
       </script>
+
+    <!-- get graph for voting page -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- reference js file -->
     <script src="site.js"></script>
   </body>

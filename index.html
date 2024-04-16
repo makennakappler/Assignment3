@@ -10,10 +10,39 @@
 
   <title>ARD Website</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+ 
+ <!-- Font -->
+ <style>
+    /* Your embedded styles here */
+    .navbar-item {
+      font-family: 'Poppins', sans-serif;
+    }
 
+    .column{
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .custom-font {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 100;
+}
+
+  </style>
 
 <body>
 
+    <header>
+      <!-- Navigation Bar -->
+      <img
+        class="mb-4"
+        src="A D V O C A T E R A R E D I S E A S E S (1) copy.png"
+        alt="ARD Logo"
+        style="height: 60px"
+      />
+    </header>
+
+
+    </style>
     <style>
       /*.navbar {
         /* background-image: url('A D V O C A T E R A R E D I S E A S E S (1) copy.png');
@@ -123,10 +152,10 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <!-- logo background -->
-        <a class="navbar-item" href="#">
-          <img src="ARDjustlogo.png" alt="Rare Diseases Logo">
+        <!-- <a class="navbar-item" href="#"> -->
+          <!-- <img src="ARDjustlogo.png" alt="Rare Diseases Logo"> -->
 
-        </a>
+        <!-- </a> -->
 
         <a
           role="button"
@@ -143,6 +172,7 @@
 
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
+          <nav class="navbar" role="navigation" aria-label="main navigation" >
           <a class="navbar-item" href="#" id="homePageLink">Home</a>
           <a class="navbar-item" href="#" id="executiveLeadersLink">Executive Leaders</a>
           <a class="navbar-item" href="#" id="votingLink">Voting</a>
@@ -169,12 +199,16 @@
             <div class="buttons">
               <div class="is-hidden pr-3" id="userName"></div>
 
-              <a class="button" href="#" style="background-color: red" id="signUp">
+              <a class="button" href="#" style="background-color: rgb(235, 244, 248)" id="signUp">
+                
                 <strong>Sign up</strong>
               </a>
               <a class="button is-light" id="logIn">Log in</a>
               <a class="button is-light is-hidden" id="logOut">Log out</a>
               <p class="is-hidden" id="userName">ahhhhh</p>
+
+
+
 
             </div>
           </div>
@@ -185,17 +219,57 @@
     <!-- message bar when you create an account sucessfully or not -->
     <div id="message_bar" class="p-3 has-background-warning has-text-centered is-hidden"></div>
 
+    
     <!-- Header Section -->
-    <div class="title1">
-      <h1 class="is-size-2 has-text-left" style="color: black">
-        <b>Advocates for Rare Diseases</b>
-      </h1>
+    <!-- <div class="title1"> -->
+      <!-- <h1 class="is-size-2 has-text-left" style="color: black"> -->
+        <!-- <b>Advocates for Rare Diseases</b> -->
+      <!-- </h1> -->
       <!-- message bar when submit user sign up -->
     </div>
 
     <!-- main page -->
+    
     <div id="content">
+
+
       <section id="homePage">
+        <header>
+          <div class="w3-container">
+            <img
+              class="mb-4"
+              src="AdobeStock_98406038-1.jpeg"
+              alt="helpers"
+              style="height: 450px"
+            />
+          </div>
+        </header>
+        
+
+
+
+          <section class="section">
+            <div class="container">
+              <div class="columns">
+                <div class="column is-6">
+                  <h1 class="is-size-1">Welcome to the Advocates for Rare Diseases website!</h1>
+                  <p class="custom-font">Join the challenge and become a part of the solution: 
+                    raise awareness of rare diseases and actively engage with your community. </p>
+                  
+                    <a href="#" style="display: inline-block;">
+                      <img src="1640_function-arrow.png" alt="" style="width: 70px; height: 70px; vertical-align: middle;">
+                      <span style="vertical-align: middle;">Learn More</span>
+                  </a>
+                  
+                </div>
+                <div class="column is-6">
+                  <img src="360_F_295347584_WlZaFlTwEe9muZzmlahHASQfEqz3GOcc.jpg"
+                  alt="">
+                </div>
+              </div>
+            </div>
+          </section>
+
         <div class="columns">
 
           <!-- Calendar Section -->
@@ -471,7 +545,7 @@
           <div style="width: 80%; margin: 0 auto; text-align: center;">
             <h2 class="is-size-3">Our Mission</h2>
             <p>
-              For every 10 people on earth, one (1) person has a rare disease, and the exact cause is often still unknown. The purpose of Advocates for Rare Diseases is to raise awarness aboout these diseases and to fundraise for more research. This will Aid new cures and better treatment for paitents.
+              For every 10 people on earth, one (1) person has a rare disease, and the exact cause is often still unknown. The purpose of Advocates for Rare Diseases is to raise awareness aboout these diseases and to fundraise for more research. This will Aid new cures and better treatment for paitents.
             </p>
           </div>
           <div style="width: 80%; margin: 0 auto">

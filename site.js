@@ -529,3 +529,5 @@ document.querySelector("#submitvote").addEventListener("click", () => {
     updateChart(voteData);
   });
 });
+
+//add announcments

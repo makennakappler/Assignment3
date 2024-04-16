@@ -359,6 +359,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // show doc of past events
 
 document.querySelector("#showFormButton").addEventListener("click", () => {
+  r_e("showFormButton").classList.add("is-hidden");
+  r_e("hideFormButton").classList.remove("is-hidden");
+  r_e("event_form").classList.remove("is-hidden");
+
   let html = ``;
   html += `<form id="myForm">
     <!-- Your form fields go here -->
@@ -410,6 +414,13 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
   <input type="text" id="event_description"><br><br>
   <button id="submit">Submit</button></div>`;
   document.querySelector("#event_form").innerHTML = html;
+});
+
+// hide past events button
+document.querySelector("#hideFormButton").addEventListener("click", () => {
+  r_e("showFormButton").classList.remove("is-hidden");
+  r_e("hideFormButton").classList.add("is-hidden");
+  r_e("event_form").classList.add("is-hidden");
 });
 
 //Submit form to dbv
@@ -468,7 +479,7 @@ document.querySelector("#submitvote").addEventListener("click", () => {
       });
   } else {
     // User is not logged in, prompt them to log in or sign up
-    alert("Please log in or sign up to vote.");
+    configure_message_bar("Please log in or sign up to vote.");
   }
 
   // voting chart

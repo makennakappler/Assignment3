@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var votingPage = document.getElementById("votingPage");
   var pastEventsPage = document.getElementById("pastEventsPage");
   var aboutUsPage = document.getElementById("aboutUsPage");
-  var testPage = document.getElementById("testPage");
+  // var testPage = document.getElementById("testPage");
 
   // Click home page nav actions
   homePageLink.addEventListener("click", function (event) {
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
     votingPage.style.display = "none";
     pastEventsPage.style.display = "none";
     aboutUsPage.style.display = "none";
-    testPage.style.display = "none";
+    // testPage.style.display = "none";
   });
 
   // Event listener for executive leaders link
@@ -76,12 +76,81 @@ document.addEventListener("DOMContentLoaded", function () {
     votingPage.style.display = "none";
     pastEventsPage.style.display = "none";
     aboutUsPage.style.display = "none";
-    testPage.style.display = "none";
+    // testPage.style.display = "none";
   });
 
   // Event listener for voting page link
   votingLink.addEventListener("click", function (event) {
     // Prevent the default link behavior
+
+    // voting chart
+    db = firebase.firestore();
+    const user = firebase.auth().currentUser;
+    if (user) {
+      // User is logged in
+      const userId = user.uid; // Get the user's unique ID
+
+      // Initialize the chart or update existing chart if it already exists
+      const voteChartCanvas = document.getElementById("voteChart");
+      let voteChart = voteChartCanvas.chart;
+
+      if (voteChart) {
+        // If chart already exists, destroy it before creating a new one
+        voteChart.destroy();
+      }
+    }
+    // Initialize an empty chart
+    const voteChart = new Chart(voteChartCanvas, {
+      type: "bar",
+      data: {
+        labels: ["Disease A", "Disease B"],
+        datasets: [
+          {
+            label: "Votes",
+            data: [0, 0], // Initial vote counts for each disease
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.6)",
+              "rgba(54, 162, 235, 0.6)",
+            ],
+            borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+
+    // Function to update the chart with live vote data
+    function updateChart(voteData) {
+      // Update the chart dataset with the new vote counts
+      voteChart.data.datasets[0].data = [
+        voteData.DiseaseA || 0,
+        voteData.DiseaseB || 0,
+      ];
+      voteChart.update(); // Update the chart
+    }
+
+    // Real-time listener for vote data changes
+    db.collection("voteresults").onSnapshot((snapshot) => {
+      const voteData = {}; // Object to store vote counts
+      snapshot.forEach((doc) => {
+        const vote = doc.data();
+        // Increment vote count for each disease
+        if (vote.vote === "Disease A") {
+          voteData.DiseaseA = (voteData.DiseaseA || 0) + 1;
+        } else if (vote.vote === "Disease B") {
+          voteData.DiseaseB = (voteData.DiseaseB || 0) + 1;
+        }
+      });
+      // Update the chart with the latest vote data
+      updateChart(voteData);
+    });
     votingPage.style.display = "block";
 
     // hide other html page
@@ -89,9 +158,11 @@ document.addEventListener("DOMContentLoaded", function () {
     executiveLeadersPage.style.display = "none";
     pastEventsPage.style.display = "none";
     aboutUsPage.style.display = "none";
-    testPage.style.display = "none";
+    // testPage.style.display = "none";
   });
+
   // if we want vote page to only be visable if logged in
+
   // var user = auth.currentUser;
 
   // if (user) {
@@ -130,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
     executiveLeadersPage.style.display = "none";
     votingPage.style.display = "none";
     aboutUsPage.style.display = "none";
-    testPage.style.display = "none";
+    // testPage.style.display = "none";
   });
 
   // click about us page nav actions
@@ -143,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
     executiveLeadersPage.style.display = "none";
     votingPage.style.display = "none";
     pastEventsPage.style.display = "none";
-    testPage.style.display = "none";
+    // testPage.style.display = "none";
   });
 
   // Function to animate typing with a delay between sentences and letter-by-letter appearance
@@ -490,64 +561,6 @@ document.querySelector("#submitvote").addEventListener("click", () => {
     // User is not logged in, prompt them to log in or sign up
     configure_message_bar("Please log in or sign up to vote.");
   }
-
-  // voting chart
-
-  // Reference to the canvas element
-  const voteChartCanvas = document.getElementById("voteChart");
-
-  // Initialize an empty chart
-  const voteChart = new Chart(voteChartCanvas, {
-    type: "bar",
-    data: {
-      labels: ["Disease A", "Disease B"],
-      datasets: [
-        {
-          label: "Votes",
-          data: [0, 0], // Initial vote counts for each disease
-          backgroundColor: [
-            "rgba(255, 99, 132, 0.6)",
-            "rgba(54, 162, 235, 0.6)",
-          ],
-          borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  });
-
-  // Function to update the chart with live vote data
-  function updateChart(voteData) {
-    // Update the chart dataset with the new vote counts
-    voteChart.data.datasets[0].data = [
-      voteData.DiseaseA || 0,
-      voteData.DiseaseB || 0,
-    ];
-    voteChart.update(); // Update the chart
-  }
-
-  // Real-time listener for vote data changes
-  db.collection("voteresults").onSnapshot((snapshot) => {
-    const voteData = {}; // Object to store vote counts
-    snapshot.forEach((doc) => {
-      const vote = doc.data();
-      // Increment vote count for each disease
-      if (vote.vote === "Disease A") {
-        voteData.DiseaseA = (voteData.DiseaseA || 0) + 1;
-      } else if (vote.vote === "Disease B") {
-        voteData.DiseaseB = (voteData.DiseaseB || 0) + 1;
-      }
-    });
-    // Update the chart with the latest vote data
-    updateChart(voteData);
-  });
 
   // Reference to the voting title element and update form
   const votingTitleElement = document.getElementById("votingTitle");

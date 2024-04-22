@@ -676,3 +676,9 @@ window.addEventListener("load", () => {
       });
     });
 });
+
+r_e("hideAnnouncementButton").addEventListener("click", () => {
+  r_e("showAnnouncementButton").classList.remove("is-hidden");
+  r_e("hideAnnouncementButton").classList.add("is-hidden");
+  r_e("announcements_form").classList.add("is-hidden");
+});

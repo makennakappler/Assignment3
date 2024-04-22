@@ -399,22 +399,22 @@ document.querySelector("#event_form").addEventListener("click", (e) => {
 
 // show doc of past events
 
-document.querySelector("#showFormButton").addEventListener("click", () => {
-  let html = ``;
-  html += `<div class= "pastevent has-text-centered"><form id="myForm">
-  <!-- Your form fields go here -->
-  <h1 class="is-size-2"> Add a New Event </h1>
-  <label> Event Name </label>
-  <input type="text" id="event_name"><br><br>
-  <label>Date:</label>
-  <input type="timestamp" id="event_date"><br><br>
-  <label>Location:</label>
-  <input type="location" id="event_location"><br><br>
-  <label>Description:</label>
-  <input type="text" id="event_description"><br><br>
-  <button id="submit">Submit</button></div>`;
-  document.querySelector("#event_form").innerHTML = html;
-});
+// document.querySelector("#showFormButton").addEventListener("click", () => {
+//   let html = ``;
+//   html += `<div class= "pastevent has-text-centered"><form id="myForm">
+//   <!-- Your form fields go here -->
+//   <h1 class="is-size-2"> Add a New Event </h1>
+//   <label> Event Name </label>
+//   <input type="text" id="event_name"><br><br>
+//   <label>Date:</label>
+//   <input type="timestamp" id="event_date"><br><br>
+//   <label>Location:</label>
+//   <input type="location" id="event_location"><br><br>
+//   <label>Description:</label>
+//   <input type="text" id="event_description"><br><br>
+//   <button id="submit">Submit</button></div>`;
+//   document.querySelector("#event_form").innerHTML = html;
+// });
 
 // hide past events button
 document.querySelector("#hideFormButton").addEventListener("click", () => {

@@ -81,35 +81,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Event listener for voting page link
   votingLink.addEventListener("click", function (event) {
-    // Check if a user is logged in when the link is clicked
-    var user = auth.currentUser;
+    // Prevent the default link behavior
+    votingPage.style.display = "block";
 
-    if (user) {
-      // User is logged in
-      console.log("User is signed in:", user);
-      // Show executive leaders page
-      votingLink.addEventListener("click", function (event) {
-        // Prevent the default link behavior
-        votingPage.style.display = "block";
-
-        // hide other html page
-        homePage.style.display = "none";
-        executiveLeadersPage.style.display = "none";
-        pastEventsPage.style.display = "none";
-        aboutUsPage.style.display = "none";
-        testPage.style.display = "none";
-      });
-    } else {
-      // No user signed in
-      homePage.style.display = "none";
-      executiveLeadersPage.style.display = "none";
-      pastEventsPage.style.display = "none";
-      aboutUsPage.style.display = "none";
-      testPage.style.display = "none";
-      // Optionally, you can display a message or redirect to a login page
-      configure_message_bar("You need to be logged in to access this page.");
-    }
+    // hide other html page
+    homePage.style.display = "none";
+    executiveLeadersPage.style.display = "none";
+    pastEventsPage.style.display = "none";
+    aboutUsPage.style.display = "none";
+    testPage.style.display = "none";
   });
+  // if we want vote page to only be visable if logged in
+  // var user = auth.currentUser;
+
+  // if (user) {
+  //   // User is logged in
+  //   console.log("User is signed in:", user);
+  //   // Show executive leaders page
+  //   votingLink.addEventListener("click", function (event) {
+  //     // Prevent the default link behavior
+  //     votingPage.style.display = "block";
+
+  //     // hide other html page
+  //     homePage.style.display = "none";
+  //     executiveLeadersPage.style.display = "none";
+  //     pastEventsPage.style.display = "none";
+  //     aboutUsPage.style.display = "none";
+  //     testPage.style.display = "none";
+  //   });
+  // } else {
+  //   // No user signed in
+  //   homePage.style.display = "none";
+  //   executiveLeadersPage.style.display = "none";
+  //   pastEventsPage.style.display = "none";
+  //   aboutUsPage.style.display = "none";
+  //   testPage.style.display = "none";
+  //   // Optionally, you can display a message or redirect to a login page
+  //   configure_message_bar("You need to be logged in to access this page.");
+  // }
 
   // click voting page page nav actions
   pastEventsLink.addEventListener("click", function (event) {
@@ -539,4 +548,51 @@ document.querySelector("#submitvote").addEventListener("click", () => {
     // Update the chart with the latest vote data
     updateChart(voteData);
   });
+
+  // Reference to the voting title element and update form
+  const votingTitleElement = document.getElementById("votingTitle");
+  const updateTitleForm = document.getElementById("updateTitleForm");
+  const newTitleInput = document.getElementById("newTitleInput");
+
+  // Function to update the voting title in Firestore
+  function updateVotingTitle(newTitle) {
+    const titleDocRef = db.collection("adminData").doc("votingTitle");
+    titleDocRef
+      .set({ title: newTitle })
+      .then(() => {
+        console.log("Voting title updated successfully!");
+      })
+      .catch((error) => {
+        console.error("Error updating voting title:", error);
+      });
+  }
+
+  // Listen for form submission to update the title
+  updateTitleForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    const newTitle = newTitleInput.value.trim();
+    if (newTitle) {
+      updateVotingTitle(newTitle);
+      newTitleInput.value = ""; // Clear the input field after update
+    } else {
+      console.error("Please enter a valid voting title.");
+    }
+  });
+
+  // Fetch and display the current voting title from Firestore
+  const titleDocRef = db.collection("adminData").doc("votingTitle");
+  titleDocRef
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        const titleData = doc.data();
+        votingTitleElement.textContent = titleData.title;
+      } else {
+        console.error("No voting title found in Firestore.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching voting title:", error);
+    });
 });

@@ -491,7 +491,12 @@
         <!-- for poll -->
         <div id="voteresults" class="container pasteventscontainer" style="display: flex; justify-content: center;">
           <div class="column pastevent">
-            <h1 class="is-size-2">Disease A or Disease B</h1>
+            <h1 class="is-size-2" id="votingTitle">Disease A or Disease B</h1>
+            <form id="updateTitleForm">
+              <label for="newTitleInput">Enter new voting title:</label>
+              <input type="text" id="newTitleInput" name="newTitleInput" required>
+              <button type="submit">Update Title</button>
+            </form>
             <p class="is-size-5"><strong>Date:</strong> June 15, 2024</p>
             <br>
             <p>

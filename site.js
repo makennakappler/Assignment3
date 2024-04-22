@@ -378,7 +378,7 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
     <label> Event Name </label>
     <input type="text" id="event_name"><br><br>
     <label>Date:</label>
-    <input type="timestamp" id="event_date"><br><br>
+    <input type="date" id="event_date"><br><br>
     <label>Location:</label>
     <input type="location" id="event_location"><br><br>
     <label>Description:</label>
@@ -395,7 +395,7 @@ document.querySelector("#event_form").addEventListener("click", (e) => {
     // Construct event object
     let event = {
       name: document.querySelector("#event_name").value,
-      date: date(document.querySelector("#event_date").value),
+      date: Date(document.querySelector("#event_date").value),
       location: document.querySelector("#event_location").value,
       description: document.querySelector("#event_description").value,
     };
@@ -416,7 +416,7 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
   <label> Event Name </label>
   <input type="text" id="event_name"><br><br>
   <label>Date:</label>
-  <input type="timestamp" id="event_date"><br><br>
+  <input type="date" id="event_date"><br><br>
   <label>Location:</label>
   <input type="location" id="event_location"><br><br>
   <label>Description:</label>
@@ -603,16 +603,3 @@ r_e("announcements_button").addEventListener("click", () => {
   html += `<div class= "has-text-centered"><form id="myannouncmentsform"><h1 class="is-size-5"> Add a new announcment </h1><label>Description:</label><textarea id="event_description"></textarea><br><br><button id="submit">Submit</button></div>`;
   r_e("announcements_button").innerHTML = html;
 });
-
-// document
-//   .querySelector("#announcements_button")
-//   .addEventListener("click", () => {
-//     let html = ``;
-//     html += `<div class= "has-text-centered"><form id="myannouncmentsform">
-//   <!-- Your form fields go here -->
-//   <h1 class="is-size-5"> Add a new announcment </h1>
-//   <label>Description:</label>
-//   <textarea id="event_description"></textarea><br><br>
-//   <button id="submit">Submit</button></div>`;
-//     document.querySelector("#announcements").innerHTML = html;
-//   });

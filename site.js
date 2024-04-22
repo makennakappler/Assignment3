@@ -365,6 +365,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// PAST EVENTS
 // show doc of past events
 
 document.querySelector("#showFormButton").addEventListener("click", () => {
@@ -373,8 +374,9 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
   r_e("event_form").classList.remove("is-hidden");
 
   let html = ``;
-  html += `<form id="myForm">
+  html += `<div class= "pastevent has-text-centered"><form id="myForm">
     <!-- Your form fields go here -->
+    <h1 class="is-size-2"> Add a New Event </h1>
     <label> Event Name </label>
     <input type="text" id="event_name"><br><br>
     <label>Date:</label>
@@ -383,7 +385,7 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
     <input type="location" id="event_location"><br><br>
     <label>Description:</label>
     <input type="text" id="event_description"><br><br>
-    <button id="submit">Submit</button>`;
+    <button id="submit">Submit</button></div>`;
   document.querySelector("#event_form").innerHTML = html;
 });
 
@@ -395,7 +397,7 @@ document.querySelector("#event_form").addEventListener("click", (e) => {
     // Construct event object
     let event = {
       name: document.querySelector("#event_name").value,
-      date: Date(document.querySelector("#event_date").value),
+      date: document.querySelector("#event_date").value,
       location: document.querySelector("#event_location").value,
       description: document.querySelector("#event_description").value,
     };
@@ -406,24 +408,17 @@ document.querySelector("#event_form").addEventListener("click", (e) => {
   }
 });
 
-// show doc of past events
-
-document.querySelector("#showFormButton").addEventListener("click", () => {
-  let html = ``;
-  html += `<div class= "pastevent has-text-centered"><form id="myForm">
-  <!-- Your form fields go here -->
-  <h1 class="is-size-2"> Add a New Event </h1>
-  <label> Event Name </label>
-  <input type="text" id="event_name"><br><br>
-  <label>Date:</label>
-  <input type="date" id="event_date"><br><br>
-  <label>Location:</label>
-  <input type="location" id="event_location"><br><br>
-  <label>Description:</label>
-  <input type="text" id="event_description"><br><br>
-  <button id="submit">Submit</button></div>`;
-  document.querySelector("#event_form").innerHTML = html;
-});
+// function renderEvent(events) {
+//   let html = `
+//     <div style="margin-left: 2rem;"><p>${events.description}</p>
+//       <div style="width: 100%; margin: 0 auto">
+//       <hr class="styled-hr" style="border-top: 2px solid crimson; width: 100%"/>
+//       </div>
+//     </div>
+//   `;
+//   // Append new announcement to the existing list
+//   document.querySelector("#announcements").innerHTML += html;
+// }
 
 // hide past events button
 document.querySelector("#hideFormButton").addEventListener("click", () => {
@@ -432,24 +427,7 @@ document.querySelector("#hideFormButton").addEventListener("click", () => {
   r_e("event_form").classList.add("is-hidden");
 });
 
-//Submit form to dbv
-document.querySelector("#event_form").addEventListener("click", (e) => {
-  let db = firebase.firestore();
-  if (e.target && e.target.id === "submit") {
-    e.preventDefault(); // Prevent default behavior of browser (no page refresh)
-    // Construct event object
-    let event = {
-      name: document.querySelector("#event_name").value,
-      date: date(document.querySelector("#event_date").value),
-      location: document.querySelector("#event_location").value,
-      description: document.querySelector("#event_description").value,
-    };
-    // Store event object into collection
-    db.collection("events")
-      .add(event)
-      .then(() => alert("Event added"));
-  }
-});
+//VOTING
 
 document.querySelector("#submitvote").addEventListener("click", () => {
   // Check if the user is logged in

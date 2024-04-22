@@ -542,18 +542,11 @@ document.querySelector("#submitvote").addEventListener("click", () => {
 });
 
 //add announcments
-document
-  .querySelector("#announcements_button")
-  .addEventListener("click", () => {
-    let html = ``;
-    html += `<div class= "has-text-centered"><form id="myannouncmentsform">
-  <!-- Your form fields go here -->
-  <h1 class="is-size-5"> Add a new announcment </h1>
-  <label>Description:</label>
-  <textarea id="event_description"></textarea><br><br>
-  <button id="submit">Submit</button></div>`;
-    document.querySelector("#announcements").innerHTML = html;
-  });
+r_e("announcements_button").addEventListener("click", () => {
+  let html = ``;
+  html += `<div class= "has-text-centered"><form id="myannouncmentsform"><h1 class="is-size-5"> Add a new announcment </h1><label>Description:</label><textarea id="event_description"></textarea><br><br><button id="submit">Submit</button></div>`;
+  r_e("announcements_button").innerHTML = html;
+});
 
 // document
 //   .querySelector("#announcements_button")
@@ -565,5 +558,5 @@ document
 //   <label>Description:</label>
 //   <textarea id="event_description"></textarea><br><br>
 //   <button id="submit">Submit</button></div>`;
-//     document.querySelector("#announcement_form").innerHTML = html;
+//     document.querySelector("#announcements").innerHTML = html;
 //   });

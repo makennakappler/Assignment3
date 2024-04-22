@@ -627,18 +627,6 @@ r_e("showAnnouncementButton").addEventListener("click", (e) => {
   }
 });
 
-// window.addEventListener("load", () => {
-//   let db = firebase.firestore();
-//   db.collection("announcements")
-//     .get()
-//     .then((querySnapshot) => {
-//       querySnapshot.forEach((doc) => {
-//         // Render each announcement
-//         renderAnnouncement({ id: doc.id, ...doc.data() });
-//       });
-//     });
-// });
-
 function renderAnnouncement(announcement) {
   let html = `
     <div style="margin-left: 2rem;"><p>${announcement.description}</p>

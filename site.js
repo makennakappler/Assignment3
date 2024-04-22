@@ -599,34 +599,33 @@ document.querySelector("#submitvote").addEventListener("click", () => {
 
 //ANNOUNCEMENTS
 //add announcements
-// function renderAnnouncement() {
-//   r_e("showAnnouncementButton").addEventListener("click", () => {
-//     r_e("showAnnouncementButton").classList.add("is-hidden");
-//     r_e("hideAnnouncementButton").classList.remove("is-hidden");
-//     r_e("announcements_form").classList.remove("is-hidden");
 
-//     let html = ``;
-//     html += `<form id="myForm">
-//     <div class= "has-text-centered"><form id="myannouncmentsform"><h1 class="is-size-5"> Add a new announcement </h1><label>Description:</label><textarea id="announcement_description"></textarea><br><br><button id="submit">Submit</button></div>`;
-//     document.querySelector("#announcements_form").innerHTML = html;
-//   });
-// }
+r_e("showAnnouncementButton").addEventListener("click", () => {
+  r_e("showAnnouncementButton").classList.add("is-hidden");
+  r_e("hideAnnouncementButton").classList.remove("is-hidden");
+  r_e("announcements_form").classList.remove("is-hidden");
 
-// //Submit form to db for announcements
-// r_e("announcements_form").addEventListener("click", (e) => {
-//   let db = firebase.firestore();
-//   if (e.target && e.target.id === "submit") {
-//     e.preventDefault(); // Prevent default behavior of browser (no page refresh)
-//     // Construct event object
-//     let announcement = {
-//       description: document.querySelector("#announcement_description").value,
-//     };
-//     // Store event object into collection
-//     db.collection("announcements")
-//       .add(announcement)
-//       .then(() => alert("announcments added"));
-//   }
-// });
+  let html = ``;
+  html += `<form id="myForm">
+  <div class= "has-text-centered"><form id="myannouncmentsform"><h1 class="is-size-5"> Add a new announcement </h1><label>Description:</label><textarea id="announcement_description"></textarea><br><br><button id="submit">Submit</button></div>`;
+  document.querySelector("#announcements_form").innerHTML = html;
+});
+
+//Submit form to db for announcements
+r_e("showAnnouncementButton").addEventListener("click", (e) => {
+  let db = firebase.firestore();
+  if (e.target && e.target.id === "submit") {
+    e.preventDefault(); // Prevent default behavior of browser (no page refresh)
+    // Construct event object
+    let announcement = {
+      description: document.querySelector("#announcement_description").value,
+    };
+    // Store event object into collection
+    db.collection("announcements")
+      .add(announcement)
+      .then(() => alert("announcments added"));
+  }
+});
 
 // window.addEventListener("load", () => {
 //   let db = firebase.firestore();
@@ -642,8 +641,10 @@ document.querySelector("#submitvote").addEventListener("click", () => {
 
 function renderAnnouncement(announcement) {
   let html = `
-    <div class="announcement">
-      <p>Description: ${announcement.description}</p>
+    <div style="margin-left: 2rem;"><p>${announcement.description}</p>
+      <div style="width: 100%; margin: 0 auto">
+      <hr class="styled-hr" style="border-top: 2px solid crimson; width: 100%"/>
+      </div>
     </div>
   `;
   // Append new announcement to the existing list

@@ -373,25 +373,25 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
   r_e("hideFormButton").classList.remove("is-hidden");
   r_e("event_form").classList.remove("is-hidden");
 
-  let html = `<div class= "pastevent has-text-centered"><form id="myForm">
-    <!-- Your form fields go here -->
-    <h1 class="is-size-2"> Add a New Event </h1>
-    <label> Event Name </label>
-    <input type="text" id="event_name"><br><br>
-    <label>Date:</label>
-    <input type="date" id="event_date"><br><br>
-    <label>Location:</label>
-    <input type="location" id="event_location"><br><br>
-    <label>Description:</label>
-    <input type="text" id="event_description"><br><br>
-    <input type="file" id="fileInput" name="fileInput">
-    <button type="button" id="upload">Upload</button>
-    <button id="submit">Submit</button> </form> </div>`;
+  let html = ``;
+  html += `<div class= "pastevent has-text-centered"><form id="eventForm">
+  <!-- Your form fields go here -->
+  <h1 class="is-size-2"> Add a New Event </h1>
+  <label> Event Name </label>
+  <input type="text" id="event_name"><br><br>
+  <label>Date:</label>
+  <input type="date" id="event_date"><br><br>
+  <label>Location:</label>
+  <input type="location" id="event_location"><br><br>
+  <label>Description:</label>
+  <input type="text" id="event_description"><br><br>
+  <button id="submit">Submit</button> </div>`;
+
   document.querySelector("#event_form").innerHTML = html;
 });
 
-//Submit form to dbv
-document.querySelector("#myForm").addEventListener("click", (e) => {
+// Submit form to dbv
+r_e("event_form").addEventListener("submit", (e) => {
   let db = firebase.firestore();
   if (e.target && e.target.id === "submit") {
     e.preventDefault(); // Prevent default behavior of browser (no page refresh)
@@ -598,7 +598,7 @@ r_e("showAnnouncementButton").addEventListener("click", () => {
   r_e("announcements_form").classList.remove("is-hidden");
 
   let html = ``;
-  html += `<form id="myForm">
+  html += `<form id="announcementsForm">
   <div class= "has-text-centered"><form id="myannouncmentsform"><h1 class="is-size-5"> Add a new announcement </h1><label>Description:</label><textarea id="announcement_description"></textarea><br><br><button id="submit">Submit</button></div>`;
   document.querySelector("#announcements_form").innerHTML = html;
 });

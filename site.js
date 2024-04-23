@@ -408,17 +408,30 @@ document.querySelector("#event_form").addEventListener("click", (e) => {
   }
 });
 
-// function renderEvent(events) {
-//   let html = `
-//     <div style="margin-left: 2rem;"><p>${events.description}</p>
-//       <div style="width: 100%; margin: 0 auto">
-//       <hr class="styled-hr" style="border-top: 2px solid crimson; width: 100%"/>
-//       </div>
-//     </div>
-//   `;
-//   // Append new announcement to the existing list
-//   document.querySelector("#announcements").innerHTML += html;
-// }
+function renderEvent(events) {
+  let html = `
+  <div class="pastevent">
+    <h2 class="is-size-2">${events.name}</h2>
+    <p class="is-size-5"><strong>Date:</strong>  ${events.date}</p>
+    <p class="is-size-5"><strong>Location:</strong> ${events.location}</p>
+    <p class="is-size-5"><strong>Description:</strong> ${events.description}</p>
+  </div>
+  `;
+  // Append new announcement to the existing list
+  r_e("eventscontainer").innerHTML += html;
+}
+// Load announcements from Firebase when the page loads
+window.addEventListener("load", () => {
+  let db = firebase.firestore();
+  db.collection("events")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // Render each announcement
+        renderEvent({ id: doc.id, ...doc.data() });
+      });
+    });
+});
 
 // hide past events button
 document.querySelector("#hideFormButton").addEventListener("click", () => {

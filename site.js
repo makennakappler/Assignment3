@@ -373,8 +373,7 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
   r_e("hideFormButton").classList.remove("is-hidden");
   r_e("event_form").classList.remove("is-hidden");
 
-  let html = ``;
-  html += `<div class= "pastevent has-text-centered"><form id="myForm">
+  let html = `<div class= "pastevent has-text-centered"><form id="myForm">
     <!-- Your form fields go here -->
     <h1 class="is-size-2"> Add a New Event </h1>
     <label> Event Name </label>
@@ -387,12 +386,12 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
     <input type="text" id="event_description"><br><br>
     <input type="file" id="fileInput" name="fileInput">
     <button type="button" id="upload">Upload</button>
-    <button id="submit">Submit</button></div>`;
+    <button id="submit">Submit</button> </form> </div>`;
   document.querySelector("#event_form").innerHTML = html;
 });
 
 //Submit form to dbv
-document.querySelector("#event_form").addEventListener("click", (e) => {
+document.querySelector("#myForm").addEventListener("click", (e) => {
   let db = firebase.firestore();
   if (e.target && e.target.id === "submit") {
     e.preventDefault(); // Prevent default behavior of browser (no page refresh)

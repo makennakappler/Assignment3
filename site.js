@@ -385,6 +385,8 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
     <input type="location" id="event_location"><br><br>
     <label>Description:</label>
     <input type="text" id="event_description"><br><br>
+    <input type="file" id="fileInput" name="fileInput">
+    <button type="button" id="upload">Upload</button>
     <button id="submit">Submit</button></div>`;
   document.querySelector("#event_form").innerHTML = html;
 });

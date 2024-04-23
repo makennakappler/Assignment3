@@ -306,8 +306,8 @@
 
             <!-- Announcement Section -->
             <section class="column is-3 p-7" style="margin-left: 120px;">
-              <div id="announcements">
-                <p class="title">Announcements</p>
+              <div class='has-text-centered' id="announcements">
+                <p class="title has-text-centered">Announcements</p>
         
               </div>
               <div class="has-text-right">
@@ -731,6 +731,7 @@
 
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
+        const storage = firebase.storage();
         
         // define authentication variable
         let auth = firebase.auth();

@@ -97,19 +97,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // voting chart
     db = firebase.firestore();
     const user = firebase.auth().currentUser;
-    if (user) {
-      // User is logged in
-      const userId = user.uid; // Get the user's unique ID
+    const voteChartCanvas = document.getElementById("voteChart");
 
-      // Initialize the chart or update existing chart if it already exists
-      const voteChartCanvas = document.getElementById("voteChart");
-      let voteChart = voteChartCanvas.chart;
-
-      if (voteChart) {
-        // If chart already exists, destroy it before creating a new one
-        voteChart.destroy();
-      }
-    }
     // Initialize an empty chart
     const voteChart = new Chart(voteChartCanvas, {
       type: "bar",

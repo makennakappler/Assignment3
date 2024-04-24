@@ -415,14 +415,14 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
         })
         .then((downloadURL) => {
           // Get other form data
-          const eventName = document.querySelector("#event_name").value;
-          const eventDate = document.querySelector("#event_date").value;
-          const eventLocation = document.querySelector("#event_location").value;
-          const eventDescription =
+          let eventName = document.querySelector("#event_name").value;
+          let eventDate = document.querySelector("#event_date").value;
+          let eventLocation = document.querySelector("#event_location").value;
+          let eventDescription =
             document.querySelector("#event_description").value;
 
           // Create an object with form data and download URL
-          const eventData = {
+          let eventData = {
             name: eventName,
             date: eventDate,
             location: eventLocation,

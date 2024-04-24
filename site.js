@@ -83,6 +83,17 @@ document.addEventListener("DOMContentLoaded", function () {
   votingLink.addEventListener("click", function (event) {
     // Prevent the default link behavior
 
+    votingPage.style.display = "block";
+
+    // hide other html page
+    homePage.style.display = "none";
+    executiveLeadersPage.style.display = "none";
+    pastEventsPage.style.display = "none";
+    aboutUsPage.style.display = "none";
+    // testPage.style.display = "none";
+  });
+
+  votingLink.addEventListener("click", function (event) {
     // voting chart
     db = firebase.firestore();
     const user = firebase.auth().currentUser;
@@ -151,47 +162,99 @@ document.addEventListener("DOMContentLoaded", function () {
       // Update the chart with the latest vote data
       updateChart(voteData);
     });
-    votingPage.style.display = "block";
-
-    // hide other html page
-    homePage.style.display = "none";
-    executiveLeadersPage.style.display = "none";
-    pastEventsPage.style.display = "none";
-    aboutUsPage.style.display = "none";
-    // testPage.style.display = "none";
   });
 
-  // if we want vote page to only be visable if logged in
+  document.querySelector("#submitvote").addEventListener("click", () => {
+    // Check if the user is logged in
+    db = firebase.firestore();
+    const user = firebase.auth().currentUser;
+    if (user) {
+      // User is logged in
+      const userId = user.uid; // Get the user's unique ID
 
-  // var user = auth.currentUser;
+      // Check if the user has already voted
+      const voteRef = db.collection("voteresults").doc(userId);
+      voteRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            // User has already voted
+            configure_message_bar("You have already voted.");
+          } else {
+            // User has not voted yet, proceed to add the vote
+            const vote = {
+              userId: userId,
+              vote: document.querySelector("#eventvote").value,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            };
 
-  // if (user) {
-  //   // User is logged in
-  //   console.log("User is signed in:", user);
-  //   // Show executive leaders page
-  //   votingLink.addEventListener("click", function (event) {
-  //     // Prevent the default link behavior
-  //     votingPage.style.display = "block";
+            // Add the vote to the voteresults collection
+            db.collection("voteresults")
+              .doc(userId)
+              .set(vote)
+              .then(() => alert("Vote counted!"))
+              .catch((error) => console.error("Error adding vote:", error));
+          }
+        })
+        .catch((error) => {
+          console.error("Error checking vote:", error);
+        });
+    } else {
+      // User is not logged in, prompt them to log in or sign up
+      configure_message_bar("Please log in or sign up to vote.");
+    }
 
-  //     // hide other html page
-  //     homePage.style.display = "none";
-  //     executiveLeadersPage.style.display = "none";
-  //     pastEventsPage.style.display = "none";
-  //     aboutUsPage.style.display = "none";
-  //     testPage.style.display = "none";
-  //   });
-  // } else {
-  //   // No user signed in
-  //   homePage.style.display = "none";
-  //   executiveLeadersPage.style.display = "none";
-  //   pastEventsPage.style.display = "none";
-  //   aboutUsPage.style.display = "none";
-  //   testPage.style.display = "none";
-  //   // Optionally, you can display a message or redirect to a login page
-  //   configure_message_bar("You need to be logged in to access this page.");
-  // }
+    // Reference to the voting title element and update form
+    const votingTitleElement = document.getElementById("votingTitle");
+    const updateTitleForm = document.getElementById("updateTitleForm");
+    const newTitleInput = document.getElementById("newTitleInput");
 
-  // click voting page page nav actions
+    // Function to update the voting title in Firestore
+    function updateVotingTitle(newTitle) {
+      const titleDocRef = db.collection("adminData").doc("votingTitle");
+      titleDocRef
+        .set({ title: newTitle })
+        .then(() => {
+          console.log("Voting title updated successfully!");
+        })
+        .catch((error) => {
+          console.error("Error updating voting title:", error);
+        });
+    }
+
+    // Listen for form submission to update the title
+    updateTitleForm.addEventListener("submit", (e) => {
+      e.preventDefault(); // Prevent default form submission behavior
+
+      const newTitle = newTitleInput.value.trim();
+      if (newTitle) {
+        updateVotingTitle(newTitle);
+        newTitleInput.value = ""; // Clear the input field after update
+      } else {
+        console.error("Please enter a valid voting title.");
+      }
+    });
+
+    // Fetch and display the current voting title from Firestore
+    const titleDocRef = db.collection("adminData").doc("votingTitle");
+    titleDocRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const titleData = doc.data();
+          votingTitleElement.textContent = titleData.title;
+        } else {
+          console.error("No voting title found in Firestore.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching voting title:", error);
+      });
+  });
+
+  // END OF VOTING JAVASCRIPT
+
+  // click past events page nav actions
   pastEventsLink.addEventListener("click", function (event) {
     // Prevent the default link behavior
     pastEventsPage.style.display = "block";
@@ -217,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // testPage.style.display = "none";
   });
 
-  // Function to animate typing with a delay between sentences and letter-by-letter appearance
+  // THIS WAS FOR TEST PAGE: Function to animate typing with a delay between sentences and letter-by-letter appearance
   async function typewriterWithDelay(textElement, delay) {
     if (!textElement) {
       console.error("Element not found:", textElement);
@@ -237,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Function to animate typing for each sentence with a delay between sentences
+  // THIS WAS FOR TEST PAGE: Function to animate typing for each sentence with a delay between sentences
   async function animateSentences(sentences, delay) {
     for (const sentence of sentences) {
       await typewriterWithDelay(sentence, delay);
@@ -245,7 +308,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // click test page nav actions
+  // THIS WAS FOR TEST PAGE: click test page nav actions
   testLink.addEventListener("click", async function (event) {
     // hide other html page
     homePage.style.display = "none";
@@ -256,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     testPage.style.display = "block";
 
-    // Prevent the default link behavior
+    // THIS WAS FOR TEST PAGE: Prevent the default link behavior
     event.preventDefault();
 
     var firstSentence = document.querySelector("#main1");
@@ -520,94 +583,6 @@ document.querySelector("#event_form").addEventListener("click", (e) => {
       .add(event)
       .then(() => alert("Event added"));
   }
-});
-
-document.querySelector("#submitvote").addEventListener("click", () => {
-  // Check if the user is logged in
-  db = firebase.firestore();
-  const user = firebase.auth().currentUser;
-  if (user) {
-    // User is logged in
-    const userId = user.uid; // Get the user's unique ID
-
-    // Check if the user has already voted
-    const voteRef = db.collection("voteresults").doc(userId);
-    voteRef
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          // User has already voted
-          configure_message_bar("You have already voted.");
-        } else {
-          // User has not voted yet, proceed to add the vote
-          const vote = {
-            userId: userId,
-            vote: document.querySelector("#eventvote").value,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          };
-
-          // Add the vote to the voteresults collection
-          db.collection("voteresults")
-            .doc(userId)
-            .set(vote)
-            .then(() => alert("Vote counted!"))
-            .catch((error) => console.error("Error adding vote:", error));
-        }
-      })
-      .catch((error) => {
-        console.error("Error checking vote:", error);
-      });
-  } else {
-    // User is not logged in, prompt them to log in or sign up
-    configure_message_bar("Please log in or sign up to vote.");
-  }
-
-  // Reference to the voting title element and update form
-  const votingTitleElement = document.getElementById("votingTitle");
-  const updateTitleForm = document.getElementById("updateTitleForm");
-  const newTitleInput = document.getElementById("newTitleInput");
-
-  // Function to update the voting title in Firestore
-  function updateVotingTitle(newTitle) {
-    const titleDocRef = db.collection("adminData").doc("votingTitle");
-    titleDocRef
-      .set({ title: newTitle })
-      .then(() => {
-        console.log("Voting title updated successfully!");
-      })
-      .catch((error) => {
-        console.error("Error updating voting title:", error);
-      });
-  }
-
-  // Listen for form submission to update the title
-  updateTitleForm.addEventListener("submit", (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-
-    const newTitle = newTitleInput.value.trim();
-    if (newTitle) {
-      updateVotingTitle(newTitle);
-      newTitleInput.value = ""; // Clear the input field after update
-    } else {
-      console.error("Please enter a valid voting title.");
-    }
-  });
-
-  // Fetch and display the current voting title from Firestore
-  const titleDocRef = db.collection("adminData").doc("votingTitle");
-  titleDocRef
-    .get()
-    .then((doc) => {
-      if (doc.exists) {
-        const titleData = doc.data();
-        votingTitleElement.textContent = titleData.title;
-      } else {
-        console.error("No voting title found in Firestore.");
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching voting title:", error);
-    });
 });
 
 //add announcments

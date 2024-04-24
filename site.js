@@ -373,52 +373,101 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
   r_e("hideFormButton").classList.remove("is-hidden");
   r_e("event_form").classList.remove("is-hidden");
 
-  let html = ``;
-  html += `<div class= "pastevent has-text-centered"><form id="eventForm">
-  <!-- Your form fields go here -->
-  <h1 class="is-size-2"> Add a New Event </h1>
-  <label> Event Name </label>
-  <input type="text" id="event_name"><br><br>
-  <label>Date:</label>
-  <input type="date" id="event_date"><br><br>
-  <label>Location:</label>
-  <input type="location" id="event_location"><br><br>
-  <label>Description:</label>
-  <input type="text" id="event_description"><br><br>
-  <button id="submit">Submit</button> </div>`;
+  let html = `<div class= "pastevent has-text-centered"><form id="eventForm">
+    <!-- Your form fields go here -->
+    <h1 class="is-size-2"> Add a New Event </h1>
+    <label> Event Name </label>
+    <input type="text" id="event_name"><br><br>
+    <label>Date:</label>
+    <input type="date" id="event_date"><br><br>
+    <label>Location:</label>
+    <input type="location" id="event_location"><br><br>
+    <label>Description:</label>
+    <input type="text" id="event_description"><br><br>
+    <input type="file" id="fileInput" name="fileInput">
+    <button type="button" id="upload">Upload</button>
+    <button id="submit">Submit</button> </div>`;
 
   document.querySelector("#event_form").innerHTML = html;
+
+  // Attach event listener for file upload
+  document.querySelector("#upload").addEventListener("click", () => {
+    const fileInput = document.getElementById("fileInput");
+    const file = fileInput.files[0];
+
+    if (file) {
+      // Create a storage reference
+      const storageRef = firebase.storage().ref();
+      const fileRef = storageRef.child(file.name);
+
+      // Upload the file to Firebase Storage
+      fileRef
+        .put(file)
+        .then((snapshot) => {
+          console.log(
+            "File uploaded successfully:",
+            snapshot.metadata.fullPath
+          );
+          alert("File uploaded successfully!");
+
+          // Once the file is uploaded, get its download URL
+          return snapshot.ref.getDownloadURL();
+        })
+        .then((downloadURL) => {
+          // Get other form data
+          const eventName = document.querySelector("#event_name").value;
+          const eventDate = document.querySelector("#event_date").value;
+          const eventLocation = document.querySelector("#event_location").value;
+          const eventDescription =
+            document.querySelector("#event_description").value;
+
+          // Create an object with form data and download URL
+          const eventData = {
+            name: eventName,
+            date: eventDate,
+            location: eventLocation,
+            description: eventDescription,
+            imageUrl: downloadURL, // Add the download URL of the uploaded image
+          };
+
+          // Store event data into Firestore
+          return firebase.firestore().collection("events").add(eventData);
+        })
+        .then(() => {
+          // After successful upload to Firestore
+          console.log("Event data added to Firestore");
+          alert("Event data added to Firestore");
+        })
+        .catch((error) => {
+          console.error("Error uploading file or adding event data:", error);
+          alert("Error: " + error.message);
+        });
+    } else {
+      alert("Please select a file to upload.");
+    }
+  });
 });
 
-// Submit form to dbv
-r_e("event_form").addEventListener("submit", (e) => {
-  let db = firebase.firestore();
-  if (e.target && e.target.id === "submit") {
-    e.preventDefault(); // Prevent default behavior of browser (no page refresh)
-    // Construct event object
-    let event = {
-      name: document.querySelector("#event_name").value,
-      date: document.querySelector("#event_date").value,
-      location: document.querySelector("#event_location").value,
-      description: document.querySelector("#event_description").value,
-    };
-    // Store event object into collection
-    db.collection("events")
-      .add(event)
-      .then(() => alert("Event added"));
-  }
+// hide past events button
+document.querySelector("#hideFormButton").addEventListener("click", () => {
+  r_e("showFormButton").classList.remove("is-hidden");
+  r_e("hideFormButton").classList.add("is-hidden");
+  r_e("event_form").classList.add("is-hidden");
 });
 
-function renderEvent(events) {
+function renderEvent(event) {
   let html = `
   <div class="pastevent">
-    <h2 class="is-size-2">${events.name}</h2>
-    <p class="is-size-5"><strong>Date:</strong>  ${events.date}</p>
-    <p class="is-size-5"><strong>Location:</strong> ${events.location}</p>
-    <p class="is-size-5"><strong>Description:</strong> ${events.description}</p>
+    <h2 class="is-size-2">${event.name}</h2>
+    <p class="is-size-5"><strong>Date:</strong> ${event.date}</p>
+    <p class="is-size-5"><strong>Location:</strong> ${event.location}</p>
+    <p class="is-size-5"><strong>Description:</strong> ${event.description}</p>
+    <figure class="image">
+      <img src="${event.imageUrl}" alt="Event image" />
+    </figure>
   </div>
   `;
-  // Append new announcement to the existing list
+  // Append new event to the existing list
   r_e("eventscontainer").innerHTML += html;
 }
 // Load announcements from Firebase when the page loads
@@ -428,17 +477,11 @@ window.addEventListener("load", () => {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        // Render each announcement
+        // Render each event
         renderEvent({ id: doc.id, ...doc.data() });
       });
-    });
-});
-
-// hide past events button
-document.querySelector("#hideFormButton").addEventListener("click", () => {
-  r_e("showFormButton").classList.remove("is-hidden");
-  r_e("hideFormButton").classList.add("is-hidden");
-  r_e("event_form").classList.add("is-hidden");
+    })
+    .catch((error) => console.error("Error getting events: ", error));
 });
 
 //VOTING

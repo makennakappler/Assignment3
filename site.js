@@ -369,14 +369,14 @@ document.addEventListener("DOMContentLoaded", function () {
 // show doc of past events
 // Function to hide the form
 // Function to hide the form
-function hideEventForm() {
-  r_e("showFormButton").classList.add("is-hidden");
-  r_e("hideFormButton").classList.add("is-hidden");
-  r_e("event_form").classList.add("is-hidden");
-}
+// function hideEventForm() {
+//   r_e("showFormButton").classList.add("is-hidden");
+//   r_e("hideFormButton").classList.add("is-hidden");
+//   r_e("event_form").classList.add("is-hidden");
+// }
 
 // Function to check if the current user's email matches the allowed email address
-function checkAllowedEmail() {
+function EventscheckAllowedEmail() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // User is signed in.
@@ -388,12 +388,12 @@ function checkAllowedEmail() {
         document.querySelector("#showFormButton").classList.remove("is-hidden");
       } else {
         // User's email doesn't match the allowed email, hide the form
-        hideEventForm();
+        //hideEventForm();
       }
     } else {
       // User is signed out.
       // Hide the form if the user is not logged in
-      hideEventForm();
+      //hideEventForm();
     }
   });
 }
@@ -504,7 +504,7 @@ function renderEvent(event) {
 // Load announcements from Firebase when the page loads
 window.addEventListener("load", () => {
   // Call the function to check allowed email when the page loads
-  checkAllowedEmail();
+  EventscheckAllowedEmail();
 
   let db = firebase.firestore();
   db.collection("events")
@@ -676,7 +676,7 @@ function hideAnnouncementsForm() {
 }
 
 // Function to check if the current user's email matches the allowed email address
-function checkAllowedEmail() {
+function AnnouncecheckAllowedEmail() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // User is signed in.
@@ -767,6 +767,7 @@ r_e("announcements_form").addEventListener("click", (e) => {
 
 // Load announcements from Firebase when the page loads
 window.addEventListener("load", () => {
+  AnnouncecheckAllowedEmail();
   let db = firebase.firestore();
   db.collection("announcements")
     .get()

@@ -367,8 +367,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // PAST EVENTS
 // show doc of past events
+// Function to hide the form
+// Function to hide the form
+function hideEventForm() {
+  r_e("showFormButton").classList.add("is-hidden");
+  r_e("hideFormButton").classList.add("is-hidden");
+  r_e("event_form").classList.add("is-hidden");
+}
 
-document.querySelector("#showFormButton").addEventListener("click", () => {
+// Function to check if the current user's email matches the allowed email address
+function checkAllowedEmail() {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in.
+      // Check the email address of the user
+      const allowedEmail = "admin@example.com"; // Change this to the allowed email address
+
+      if (user.email === allowedEmail) {
+        // User's email matches the allowed email, show the form
+        document.querySelector("#showFormButton").classList.remove("is-hidden");
+      } else {
+        // User's email doesn't match the allowed email, hide the form
+        hideEventForm();
+      }
+    } else {
+      // User is signed out.
+      // Hide the form if the user is not logged in
+      hideEventForm();
+    }
+  });
+}
+
+// Event listener to show the form when the button is clicked
+r_e("showFormButton").addEventListener("click", () => {
   r_e("showFormButton").classList.add("is-hidden");
   r_e("hideFormButton").classList.remove("is-hidden");
   r_e("event_form").classList.remove("is-hidden");
@@ -388,10 +419,10 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
     <button type="button" id="upload">Upload</button>
     <button id="submit">Submit</button> </div>`;
 
-  document.querySelector("#event_form").innerHTML = html;
+  r_e("event_form").innerHTML = html;
 
   // Attach event listener for file upload
-  document.querySelector("#upload").addEventListener("click", () => {
+  r_e("upload").addEventListener("click", () => {
     const fileInput = document.getElementById("fileInput");
     const file = fileInput.files[0];
 
@@ -415,11 +446,10 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
         })
         .then((downloadURL) => {
           // Get other form data
-          let eventName = document.querySelector("#event_name").value;
-          let eventDate = document.querySelector("#event_date").value;
-          let eventLocation = document.querySelector("#event_location").value;
-          let eventDescription =
-            document.querySelector("#event_description").value;
+          let eventName = r_e("event_name").value;
+          let eventDate = r_e("event_date").value;
+          let eventLocation = r_e("event_location").value;
+          let eventDescription = r_e("event_description").value;
 
           // Create an object with form data and download URL
           let eventData = {
@@ -448,11 +478,11 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
   });
 });
 
-// hide past events button
+// Event listener to hide the form when the button is clicked
 document.querySelector("#hideFormButton").addEventListener("click", () => {
-  r_e("showFormButton").classList.remove("is-hidden");
-  r_e("hideFormButton").classList.add("is-hidden");
-  r_e("event_form").classList.add("is-hidden");
+  document.querySelector("#showFormButton").classList.remove("is-hidden");
+  document.querySelector("#hideFormButton").classList.add("is-hidden");
+  document.querySelector("#event_form").classList.add("is-hidden");
 });
 
 function renderEvent(event) {
@@ -470,8 +500,12 @@ function renderEvent(event) {
   // Append new event to the existing list
   r_e("eventscontainer").innerHTML += html;
 }
+
 // Load announcements from Firebase when the page loads
 window.addEventListener("load", () => {
+  // Call the function to check allowed email when the page loads
+  checkAllowedEmail();
+
   let db = firebase.firestore();
   db.collection("events")
     .get()
@@ -634,6 +668,37 @@ document.querySelector("#submitvote").addEventListener("click", () => {
 
 //ANNOUNCEMENTS
 //add announcements
+
+function hideAnnouncementsForm() {
+  r_e("showAnnouncementButton").classList.add("is-hidden");
+  r_e("hideAnnouncementButton").classList.add("is-hidden");
+  r_e("announcements_form").classList.add("is-hidden");
+}
+
+// Function to check if the current user's email matches the allowed email address
+function checkAllowedEmail() {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in.
+      // Check the email address of the user
+      const allowedEmail = "admin@example.com"; // Change this to the allowed email address
+
+      if (user.email === allowedEmail) {
+        // User's email matches the allowed email, show the form
+        document
+          .querySelector("#showAnnouncementButton")
+          .classList.remove("is-hidden");
+      } else {
+        // User's email doesn't match the allowed email, hide the form
+        hideAnnouncementsForm();
+      }
+    } else {
+      // User is signed out.
+      // Hide the form if the user is not logged in
+      hideAnnouncementsForm();
+    }
+  });
+}
 
 r_e("showAnnouncementButton").addEventListener("click", () => {
   r_e("showAnnouncementButton").classList.add("is-hidden");

@@ -664,7 +664,7 @@ r_e("showAnnouncementButton").addEventListener("click", (e) => {
 
 function renderAnnouncement(announcement) {
   let html = `
-    <div style="margin-left: 2rem;"><p>${announcement.description}</p>
+    <div><p>${announcement.description}</p>
       <div style="width: 100%; margin: 0 auto">
       <hr class="styled-hr" style="border-top: 2px solid crimson; width: 100%"/>
       </div>

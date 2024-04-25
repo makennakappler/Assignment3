@@ -370,9 +370,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // Function to hide the form
 // Function to hide the form
 function hideForm() {
-  document.querySelector("#showFormButton").classList.add("is-hidden");
-  document.querySelector("#hideFormButton").classList.add("is-hidden");
-  document.querySelector("#event_form").classList.add("is-hidden");
+  r_e("showFormButton").classList.add("is-hidden");
+  r_e("hideFormButton").classList.add("is-hidden");
+  r_e("event_form").classList.add("is-hidden");
 }
 
 // Function to check if the current user's email matches the allowed email address
@@ -399,10 +399,10 @@ function checkAllowedEmail() {
 }
 
 // Event listener to show the form when the button is clicked
-document.querySelector("#showFormButton").addEventListener("click", () => {
-  document.querySelector("#showFormButton").classList.add("is-hidden");
-  document.querySelector("#hideFormButton").classList.remove("is-hidden");
-  document.querySelector("#event_form").classList.remove("is-hidden");
+r_e("showFormButton").addEventListener("click", () => {
+  r_e("showFormButton").classList.add("is-hidden");
+  r_e("hideFormButton").classList.remove("is-hidden");
+  r_e("event_form").classList.remove("is-hidden");
 
   let html = `<div class= "pastevent has-text-centered"><form id="eventForm">
     <!-- Your form fields go here -->
@@ -419,10 +419,10 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
     <button type="button" id="upload">Upload</button>
     <button id="submit">Submit</button> </div>`;
 
-  document.querySelector("#event_form").innerHTML = html;
+  r_e("event_form").innerHTML = html;
 
   // Attach event listener for file upload
-  document.querySelector("#upload").addEventListener("click", () => {
+  r_e("upload").addEventListener("click", () => {
     const fileInput = document.getElementById("fileInput");
     const file = fileInput.files[0];
 
@@ -446,11 +446,10 @@ document.querySelector("#showFormButton").addEventListener("click", () => {
         })
         .then((downloadURL) => {
           // Get other form data
-          let eventName = document.querySelector("#event_name").value;
-          let eventDate = document.querySelector("#event_date").value;
-          let eventLocation = document.querySelector("#event_location").value;
-          let eventDescription =
-            document.querySelector("#event_description").value;
+          let eventName = r_e("event_name").value;
+          let eventDate = r_e("event_date").value;
+          let eventLocation = r_e("event_location").value;
+          let eventDescription = r_e("event_description").value;
 
           // Create an object with form data and download URL
           let eventData = {
@@ -499,7 +498,7 @@ function renderEvent(event) {
   </div>
   `;
   // Append new event to the existing list
-  document.querySelector("#eventscontainer").innerHTML += html;
+  r_e("eventscontainer").innerHTML += html;
 }
 
 // Load announcements from Firebase when the page loads

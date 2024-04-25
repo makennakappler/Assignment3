@@ -369,7 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // show doc of past events
 // Function to hide the form
 // Function to hide the form
-function hideForm() {
+function hideEventForm() {
   r_e("showFormButton").classList.add("is-hidden");
   r_e("hideFormButton").classList.add("is-hidden");
   r_e("event_form").classList.add("is-hidden");
@@ -388,12 +388,12 @@ function checkAllowedEmail() {
         document.querySelector("#showFormButton").classList.remove("is-hidden");
       } else {
         // User's email doesn't match the allowed email, hide the form
-        hideForm();
+        hideEventForm();
       }
     } else {
       // User is signed out.
       // Hide the form if the user is not logged in
-      hideForm();
+      hideEventForm();
     }
   });
 }
@@ -668,6 +668,37 @@ document.querySelector("#submitvote").addEventListener("click", () => {
 
 //ANNOUNCEMENTS
 //add announcements
+
+function hideAnnouncementsForm() {
+  r_e("showAnnouncementButton").classList.add("is-hidden");
+  r_e("hideAnnouncementButton").classList.add("is-hidden");
+  r_e("announcements_form").classList.add("is-hidden");
+}
+
+// Function to check if the current user's email matches the allowed email address
+function checkAllowedEmail() {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in.
+      // Check the email address of the user
+      const allowedEmail = "admin@example.com"; // Change this to the allowed email address
+
+      if (user.email === allowedEmail) {
+        // User's email matches the allowed email, show the form
+        document
+          .querySelector("#showAnnouncementButton")
+          .classList.remove("is-hidden");
+      } else {
+        // User's email doesn't match the allowed email, hide the form
+        hideAnnouncementsForm();
+      }
+    } else {
+      // User is signed out.
+      // Hide the form if the user is not logged in
+      hideAnnouncementsForm();
+    }
+  });
+}
 
 r_e("showAnnouncementButton").addEventListener("click", () => {
   r_e("showAnnouncementButton").classList.add("is-hidden");

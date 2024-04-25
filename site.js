@@ -662,6 +662,7 @@ r_e("showAnnouncementButton").addEventListener("click", (e) => {
   }
 });
 
+// bring database to website
 function renderAnnouncement(announcement) {
   let html = `
     <div><p>${announcement.description}</p>

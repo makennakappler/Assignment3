@@ -676,7 +676,7 @@ function hideAnnouncementsForm() {
 }
 
 // Function to check if the current user's email matches the allowed email address
-function AnnouncecheckAllowedEmail() {
+function AnnouncecheckAllowedEmail(id) {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // User is signed in.
@@ -685,9 +685,7 @@ function AnnouncecheckAllowedEmail() {
 
       if (user.email === allowedEmail) {
         // User's email matches the allowed email, show the form
-        document
-          .querySelector("#showAnnouncementButton")
-          .classList.remove("is-hidden");
+        document.querySelector(id).classList.remove("is-hidden");
       } else {
         // User's email doesn't match the allowed email, hide the form
         hideAnnouncementsForm();
@@ -727,13 +725,22 @@ r_e("showAnnouncementButton").addEventListener("click", (e) => {
   }
 });
 
-// bring database to website
+function deleteAnnounce_doc(id) {
+  let db = firebase.firestore();
+  db.collection("announcements")
+    .doc(id)
+    .delete()
+    .then(() => alert("user deleted!"));
+}
+
 function renderAnnouncement(announcement) {
   let html = `
-    <div><p>${announcement.description}</p>
+    <div>
+      <p>${announcement.description} <button class ="is-hidden" id="deleteAnnounce_${announcement.id}" onclick="deleteAnnounce_doc('${announcement.id}')">Delete</button></p>
       <div style="width: 100%; margin: 0 auto">
       <hr class="styled-hr" style="border-top: 2px solid crimson; width: 100%"/>
       </div>
+      
     </div>
   `;
   // Append new announcement to the existing list
@@ -767,16 +774,24 @@ r_e("announcements_form").addEventListener("click", (e) => {
 
 // Load announcements from Firebase when the page loads
 window.addEventListener("load", () => {
-  AnnouncecheckAllowedEmail();
   let db = firebase.firestore();
   db.collection("announcements")
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        // Render each announcement
+        // Render each event
         renderAnnouncement({ id: doc.id, ...doc.data() });
       });
-    });
+
+      // Call the function to check allowed email when the page loads
+      AnnouncecheckAllowedEmail("#showAnnouncementButton");
+
+      // Loop through each delete button and call execCheckAllowedEmail for each
+      querySnapshot.forEach((doc) => {
+        AnnouncecheckAllowedEmail(`#deleteAnnounce_${doc.id}`);
+      });
+    })
+    .catch((error) => console.error("Error getting events: ", error));
 });
 
 r_e("hideAnnouncementButton").addEventListener("click", () => {
@@ -785,7 +800,7 @@ r_e("hideAnnouncementButton").addEventListener("click", () => {
   r_e("announcements_form").classList.add("is-hidden");
 });
 
-// exec
+// EXECUTIVE PAGE
 
 function execCheckAllowedEmail(id) {
   firebase.auth().onAuthStateChanged((user) => {
@@ -825,8 +840,7 @@ r_e("showExecFormButton").addEventListener("click", () => {
     <label>Description:</label>
     <input type="text" id="exec_description"><br><br>
     <input type="file" id="ExecfileInput" name="ExecfileInput">
-    <button type="button" id="uploadPicture">Upload</button>
-    <button id="submitform">Submit</button> </div>`;
+    <button type="button" id="uploadPicture">Upload</button></div>`;
 
   r_e("exec_form").innerHTML = html;
 
@@ -909,7 +923,7 @@ function renderExec(exec) {
     <p class="is-size-5">${exec.position}</p>
     <p class="is-size-5"><strong>Name:</strong> ${exec.name}</p>
     <p class="is-size-5"><strong>Bio:</strong> ${exec.description}</p>
-    <button class ="is-hidden" id="deleteExec" onclick="deleteExec_doc('${exec.id}')">Delete</button>
+    <button class ="is-hidden" id="deleteExec_${exec.id}" onclick="deleteExec_doc('${exec.id}')">Delete</button>
   </div>
   `;
   // Append new event to the existing list
@@ -918,10 +932,6 @@ function renderExec(exec) {
 
 // Load announcements from Firebase when the page loads
 window.addEventListener("load", () => {
-  // Call the function to check allowed email when the page loads
-  execCheckAllowedEmail("#showExecFormButton");
-  execCheckAllowedEmail("#deleteExec");
-
   let db = firebase.firestore();
   db.collection("executive")
     .get()
@@ -929,6 +939,14 @@ window.addEventListener("load", () => {
       querySnapshot.forEach((doc) => {
         // Render each event
         renderExec({ id: doc.id, ...doc.data() });
+      });
+
+      // Call the function to check allowed email when the page loads
+      execCheckAllowedEmail("#showExecFormButton");
+
+      // Loop through each delete button and call execCheckAllowedEmail for each
+      querySnapshot.forEach((doc) => {
+        execCheckAllowedEmail(`#deleteExec_${doc.id}`);
       });
     })
     .catch((error) => console.error("Error getting events: ", error));

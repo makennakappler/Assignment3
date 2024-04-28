@@ -93,155 +93,104 @@ document.addEventListener("DOMContentLoaded", function () {
     // testPage.style.display = "none";
   });
 
-  votingLink.addEventListener("click", function (event) {
-    // voting chart
-    db = firebase.firestore();
-    const user = firebase.auth().currentUser;
-    const voteChartCanvas = document.getElementById("voteChart");
-
-    // Initialize an empty chart
-    const voteChart = new Chart(voteChartCanvas, {
-      type: "bar",
-      data: {
-        labels: ["Disease A", "Disease B"],
-        datasets: [
-          {
-            label: "Votes",
-            data: [0, 0], // Initial vote counts for each disease
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.6)",
-              "rgba(54, 162, 235, 0.6)",
-            ],
-            borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
+  // Initialize Chart.js
+  var db = firebase.firestore();
+  var ctx = r_e("myPieChart").getContext("2d");
+  var myPieChart = new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: ["Option A", "Option B"],
+      datasets: [
+        {
+          label: "Votes",
+          data: [0, 0],
+          backgroundColor: ["#FF6384", "#36A2EB"],
+          hoverBackgroundColor: ["#FF6384", "#36A2EB"],
         },
-      },
-    });
-
-    // Function to update the chart with live vote data
-    function updateChart(voteData) {
-      // Update the chart dataset with the new vote counts
-      voteChart.data.datasets[0].data = [
-        voteData.DiseaseA || 0,
-        voteData.DiseaseB || 0,
-      ];
-      voteChart.update(); // Update the chart
-    }
-
-    // Real-time listener for vote data changes
-    db.collection("voteresults").onSnapshot((snapshot) => {
-      const voteData = {}; // Object to store vote counts
-      snapshot.forEach((doc) => {
-        const vote = doc.data();
-        // Increment vote count for each disease
-        if (vote.vote === "Disease A") {
-          voteData.DiseaseA = (voteData.DiseaseA || 0) + 1;
-        } else if (vote.vote === "Disease B") {
-          voteData.DiseaseB = (voteData.DiseaseB || 0) + 1;
-        }
-      });
-      // Update the chart with the latest vote data
-      updateChart(voteData);
-    });
+      ],
+    },
   });
 
-  document.querySelector("#submitvote").addEventListener("click", () => {
-    // Check if the user is logged in
-    db = firebase.firestore();
+  // Update Chart Data Function
+  function updateChart(votesA, votesB) {
+    myPieChart.data.datasets[0].data = [votesA, votesB];
+    myPieChart.update();
+  }
+
+  // logic for disease A
+  const submitButtonA = r_e("submitvoteA");
+  submitButtonA.addEventListener("click", function () {
     const user = firebase.auth().currentUser;
     if (user) {
-      // User is logged in
-      const userId = user.uid; // Get the user's unique ID
-
-      // Check if the user has already voted
-      const voteRef = db.collection("voteresults").doc(userId);
-      voteRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            // User has already voted
-            configure_message_bar("You have already voted.");
-          } else {
-            // User has not voted yet, proceed to add the vote
-            const vote = {
-              userId: userId,
-              vote: document.querySelector("#eventvote").value,
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            };
-
-            // Add the vote to the voteresults collection
-            db.collection("voteresults")
-              .doc(userId)
-              .set(vote)
-              .then(() => alert("Vote counted!"))
-              .catch((error) => console.error("Error adding vote:", error));
-          }
-        })
-        .catch((error) => {
-          console.error("Error checking vote:", error);
-        });
+      db.collection("votes")
+        .doc("optionA")
+        .set(
+          { count: firebase.firestore.FieldValue.increment(1) },
+          { merge: true }
+        );
+      // Add a document to the "voterresults" collection
+      db.collection("voteresults").add({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        userID: user.uid,
+        votedFor: "Option A",
+      });
     } else {
-      // User is not logged in, prompt them to log in or sign up
-      configure_message_bar("Please log in or sign up to vote.");
+      configure_message_bar("Please sign in to vote.");
     }
+  });
 
-    // Reference to the voting title element and update form
-    const votingTitleElement = document.getElementById("votingTitle");
-    const updateTitleForm = document.getElementById("updateTitleForm");
-    const newTitleInput = document.getElementById("newTitleInput");
-
-    // Function to update the voting title in Firestore
-    function updateVotingTitle(newTitle) {
-      const titleDocRef = db.collection("adminData").doc("votingTitle");
-      titleDocRef
-        .set({ title: newTitle })
-        .then(() => {
-          console.log("Voting title updated successfully!");
-        })
-        .catch((error) => {
-          console.error("Error updating voting title:", error);
+  // Voting Logic for Option B
+  const submitButtonB = r_e("submitvoteB");
+  submitButtonB.addEventListener("click", function () {
+    // Check if user is signed in
+    const user = firebase.auth().currentUser;
+    if (user) {
+      // Update vote count for Option B in Firebase
+      db.collection("votes")
+        .doc("optionB")
+        .update({
+          count: firebase.firestore.FieldValue.increment(1),
         });
+
+      // Add a document to voterresults collection
+      db.collection("voterresults").add({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        userID: user.uid,
+        votedFor: "Option B",
+      });
+    } else {
+      // Show error message or redirect to sign-in page
+      configure_message_bar("Please sign in to vote.");
     }
+  });
 
-    // Listen for form submission to update the title
-    updateTitleForm.addEventListener("submit", (e) => {
-      e.preventDefault(); // Prevent default form submission behavior
-
-      const newTitle = newTitleInput.value.trim();
-      if (newTitle) {
-        updateVotingTitle(newTitle);
-        newTitleInput.value = ""; // Clear the input field after update
+  // Real-time Updates for Option A
+  db.collection("votes")
+    .doc("optionA")
+    .onSnapshot((doc) => {
+      if (doc.exists) {
+        const votesA = doc.data()["count"];
+        const votesB = myPieChart.data.datasets[0].data[1];
+        updateChart(votesA, votesB);
       } else {
-        console.error("Please enter a valid voting title.");
+        console.log("Document not found");
       }
     });
 
-    // Fetch and display the current voting title from Firestore
-    const titleDocRef = db.collection("adminData").doc("votingTitle");
-    titleDocRef
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const titleData = doc.data();
-          votingTitleElement.textContent = titleData.title;
-        } else {
-          console.error("No voting title found in Firestore.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching voting title:", error);
-      });
-  });
+  // Real-time Updates for Option B
+  db.collection("votes")
+    .doc("optionB")
+    .onSnapshot((doc) => {
+      if (doc.exists) {
+        const votesA = myPieChart.data.datasets[0].data[0];
+        const votesB = doc.data()["count"];
+        updateChart(votesA, votesB);
+      } else {
+        console.log("Document not found");
+      }
+    });
 
-  // END OF VOTING JAVASCRIPT
+  // end of chart logic and initialization
 
   // click past events page nav actions
   pastEventsLink.addEventListener("click", function (event) {

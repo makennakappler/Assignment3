@@ -143,8 +143,26 @@
 
       
       .votingbackground {
-        background-color: whitesmoke;
+ 
+        width: 50%;
+        background-color: whitesmoke; /* Your desired background color */
       }
+
+      .votingcontent {
+ 
+        width: 100% !important; /* Adjusted width and added !important */
+        
+      }
+
+      .votingcontainer {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 20px auto;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+
     </style>
   </head>
 
@@ -459,46 +477,39 @@
     </section>
 
     <!-- voting page -->
-    <section id="votingPage" style="display: none">
+
+    <!-- header section -->
+    <section id="votingPage" style="display: none;">
       <h1 class="votinghead is-size-2 pb-4">Which disease should we focus on next?
-      <p class="is-size-5 votinghead is-size-2"><strong>Date:</strong> June 15, 2024</p>
+        <p class="is-size-5 votinghead is-size-2"><strong>Date:</strong> June 15, 2024</p>
+
       </h1>
 
-      <div>
-        <!-- for poll -->
-        <div id="voteresults" class="container pasteventscontainer" style="display: flex; justify-content: left;">
+      <div class="container">
+        <!-- First column for Disease A and Disease B boxes -->
+        <div>
+          <!-- Disease A box -->
           <div class="column pastevent">
-            <h1 class="is-size-2" id="votingTitle">Disease A</h1>
-            <button id="submitvote" class="button">Submit Vote</button>
+            <h1 class="is-size-2" id="votingTitleA">Disease A</h1>
+            <button id="submitvoteA" class="button">Submit Vote A</button>
+          </div>
+      
+          <!-- Disease B box -->
+          <div class="column pastevent">
+            <h1 class="is-size-2" id="votingTitleB">Disease B</h1>
+            <button id="submitvoteB" class="button">Submit Vote B</button>
+          </div>
 
-            <!-- <form id="updateTitleForm">
-              <label for="newTitleInput">Enter new voting title:</label>
-              <input type="text" id="newTitleInput" name="newTitleInput" required>
-              <button type="submit">Update Title</button>
-            </form> -->
-            <br>
-            <!-- <p>
-              <select id="eventvote" class="is-size-5" style="width: 40%;">
-                <option class="vote" value="Disease A">Disease A</option>
-                <option class="vote" value="Disease B">Disease B</option>
-              </select>
-            </p> -->
+          <!-- pie chart -->
+          <div id="chartContainer" class="chart-container" style="height:40vh; width:80vw">
+            <canvas id="myPieChart"></canvas>
           </div>
         </div>
-
-        <!-- second flexbox -->
-        <div class="votingbackground">
-          <div id="voteresults" class="container pasteventscontainer" style="display: flex; justify-content: left;">
-            <div class="column pastevent">
-              <h1 class="is-size-2" id="votingTitle">Disease B</h1>
-              <button id="submitvoteB" class="button">Submit Vote</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- graph -->
-        <canvas id="voteChart" width="400" height="200" style="display: flex; justify-content: right;"></canvas>
+        
+ 
       </div>
+
+
     </section>
 
 

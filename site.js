@@ -724,6 +724,7 @@ r_e("showAnnouncementButton").addEventListener("click", (e) => {
       .then(() => alert("announcments added"));
   }
 });
+
 function deleteAnnounce_doc(id) {
   let db = firebase.firestore();
   db.collection("announcements")
@@ -735,7 +736,7 @@ function deleteAnnounce_doc(id) {
 function renderAnnouncement(announcement) {
   let html = `
     <div>
-      <p>${announcement.description} <button class ="is-hidden" id="${announcement.id}" onclick="deleteAnnounce_doc('${announcement.id}')">Delete</button></p>
+      <p>${announcement.description} <button class ="is-hidden" id="deleteAnnounce_${announcement.id}" onclick="deleteAnnounce_doc('${announcement.id}')">Delete</button></p>
       <div style="width: 100%; margin: 0 auto">
       <hr class="styled-hr" style="border-top: 2px solid crimson; width: 100%"/>
       </div>
@@ -773,17 +774,24 @@ r_e("announcements_form").addEventListener("click", (e) => {
 
 // Load announcements from Firebase when the page loads
 window.addEventListener("load", () => {
-  AnnouncecheckAllowedEmail("#showAnnouncementButton");
-  AnnouncecheckAllowedEmail("${announcement.id}");
   let db = firebase.firestore();
   db.collection("announcements")
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        // Render each announcement
+        // Render each event
         renderAnnouncement({ id: doc.id, ...doc.data() });
       });
-    });
+
+      // Call the function to check allowed email when the page loads
+      AnnouncecheckAllowedEmail("#showAnnouncementButton");
+
+      // Loop through each delete button and call execCheckAllowedEmail for each
+      querySnapshot.forEach((doc) => {
+        AnnouncecheckAllowedEmail(`#deleteAnnounce_${doc.id}`);
+      });
+    })
+    .catch((error) => console.error("Error getting events: ", error));
 });
 
 r_e("hideAnnouncementButton").addEventListener("click", () => {

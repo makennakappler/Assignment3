@@ -832,8 +832,7 @@ r_e("showExecFormButton").addEventListener("click", () => {
     <label>Description:</label>
     <input type="text" id="exec_description"><br><br>
     <input type="file" id="ExecfileInput" name="ExecfileInput">
-    <button type="button" id="uploadPicture">Upload</button>
-    <button id="submitform">Submit</button> </div>`;
+    <button type="button" id="uploadPicture">Upload</button></div>`;
 
   r_e("exec_form").innerHTML = html;
 

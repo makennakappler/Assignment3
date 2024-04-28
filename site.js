@@ -376,7 +376,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // }
 
 // Function to check if the current user's email matches the allowed email address
-function EventscheckAllowedEmail() {
+function EventscheckAllowedEmail(id) {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // User is signed in.
@@ -385,7 +385,7 @@ function EventscheckAllowedEmail() {
 
       if (user.email === allowedEmail) {
         // User's email matches the allowed email, show the form
-        document.querySelector("#showFormButton").classList.remove("is-hidden");
+        document.querySelector(id).classList.remove("is-hidden");
       } else {
         // User's email doesn't match the allowed email, hide the form
         //hideEventForm();
@@ -485,6 +485,14 @@ document.querySelector("#hideFormButton").addEventListener("click", () => {
   document.querySelector("#event_form").classList.add("is-hidden");
 });
 
+function deleteEvent_doc(id) {
+  let db = firebase.firestore();
+  db.collection("events")
+    .doc(id)
+    .delete()
+    .then(() => alert("user deleted!"));
+}
+
 function renderEvent(event) {
   let html = `
   <div class="pastevent">
@@ -495,6 +503,7 @@ function renderEvent(event) {
     <figure class="image">
       <img src="${event.imageUrl}" alt="Event image" />
     </figure>
+    <button class ="is-hidden" id="deleteEvent_${event.id}" onclick="deleteEvent_doc('${event.id}')">Delete</button>
   </div>
   `;
   // Append new event to the existing list
@@ -503,9 +512,6 @@ function renderEvent(event) {
 
 // Load announcements from Firebase when the page loads
 window.addEventListener("load", () => {
-  // Call the function to check allowed email when the page loads
-  EventscheckAllowedEmail();
-
   let db = firebase.firestore();
   db.collection("events")
     .get()
@@ -513,6 +519,14 @@ window.addEventListener("load", () => {
       querySnapshot.forEach((doc) => {
         // Render each event
         renderEvent({ id: doc.id, ...doc.data() });
+      });
+
+      // Call the function to check allowed email when the page loads
+      execCheckAllowedEmail("#showFormButton");
+
+      // Loop through each delete button and call execCheckAllowedEmail for each
+      querySnapshot.forEach((doc) => {
+        execCheckAllowedEmail(`#deleteEvent_${doc.id}`);
       });
     })
     .catch((error) => console.error("Error getting events: ", error));

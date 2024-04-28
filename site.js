@@ -784,3 +784,152 @@ r_e("hideAnnouncementButton").addEventListener("click", () => {
   r_e("hideAnnouncementButton").classList.add("is-hidden");
   r_e("announcements_form").classList.add("is-hidden");
 });
+
+// exec
+
+function execCheckAllowedEmail(id) {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in.
+      // Check the email address of the user
+      const allowedEmail = "admin@example.com"; // Change this to the allowed email address
+
+      if (user.email === allowedEmail) {
+        // User's email matches the allowed email, show the form
+        document.querySelector(id).classList.remove("is-hidden");
+      } else {
+        // User's email doesn't match the allowed email, hide the form
+        //hideEventForm();
+      }
+    } else {
+      // User is signed out.
+      // Hide the form if the user is not logged in
+      //hideEventForm();
+    }
+  });
+}
+
+// Event listener to show the form when the button is clicked
+r_e("showExecFormButton").addEventListener("click", () => {
+  r_e("showExecFormButton").classList.add("is-hidden");
+  r_e("hideExecFormButton").classList.remove("is-hidden");
+  r_e("exec_form").classList.remove("is-hidden");
+
+  let html = `<div class= "has-text-centered" style="border: 1px solid #ccc; border-radius: 5px;background-color: #f9f9f9;"><form id="eventForm">
+    <!-- Your form fields go here -->
+    <h1 class="is-size-2"> Change Executives </h1>
+    <label> Exec Position </label>
+    <input type="text" id="exec_position"><br><br>
+    <label>Name:</label>
+    <input type="text" id="exec_name"><br><br>
+    <label>Description:</label>
+    <input type="text" id="exec_description"><br><br>
+    <input type="file" id="ExecfileInput" name="ExecfileInput">
+    <button type="button" id="uploadPicture">Upload</button>
+    <button id="submitform">Submit</button> </div>`;
+
+  r_e("exec_form").innerHTML = html;
+
+  // Attach event listener for file upload
+  r_e("uploadPicture").addEventListener("click", () => {
+    const fileInput = document.getElementById("ExecfileInput");
+    const file = fileInput.files[0];
+
+    if (file) {
+      // Create a storage reference
+      const storageRef = firebase.storage().ref();
+      const fileRef = storageRef.child(file.name);
+
+      // Upload the file to Firebase Storage
+      fileRef
+        .put(file)
+        .then((snapshot) => {
+          console.log(
+            "File uploaded successfully:",
+            snapshot.metadata.fullPath
+          );
+          alert("File uploaded successfully!");
+
+          // Once the file is uploaded, get its download URL
+          return snapshot.ref.getDownloadURL();
+        })
+        .then((downloadURL) => {
+          // Get other form data
+          let execPosition = r_e("exec_position").value;
+          let execName = r_e("exec_name").value;
+          let execDescription = r_e("exec_description").value;
+
+          // Create an object with form data and download URL
+          let execData = {
+            position: execPosition,
+            name: execName,
+            description: execDescription,
+            imageUrl: downloadURL, // Add the download URL of the uploaded image
+          };
+
+          // Store event data into Firestore
+          return firebase.firestore().collection("executive").add(execData);
+        })
+        .then(() => {
+          // After successful upload to Firestore
+          console.log("Event data added to Firestore");
+          alert("Event data added to Firestore");
+        })
+        .catch((error) => {
+          console.error("Error uploading file or adding event data:", error);
+          alert("Error: " + error.message);
+        });
+    } else {
+      alert("Please select a file to upload.");
+    }
+  });
+});
+
+// Event listener to hide the form when the button is clicked
+document.querySelector("#hideExecFormButton").addEventListener("click", () => {
+  document.querySelector("#showExecFormButton").classList.remove("is-hidden");
+  document.querySelector("#hideExecFormButton").classList.add("is-hidden");
+  document.querySelector("#exec_form").classList.add("is-hidden");
+});
+
+function deleteExec_doc(id) {
+  let db = firebase.firestore();
+  db.collection("executive")
+    .doc(id)
+    .delete()
+    .then(() => alert("user deleted!"));
+}
+
+function renderExec(exec) {
+  let html = `
+  <div class="column, has-text-centered">
+    <figure class="image" style="width: 300px; height: auto;">
+      <img src="${exec.imageUrl}" alt="Exec image" />
+    </figure>
+    <p class="is-size-5">${exec.position}</p>
+    <p class="is-size-5"><strong>Name:</strong> ${exec.name}</p>
+    <p class="is-size-5"><strong>Bio:</strong> ${exec.description}</p>
+    <button class ="is-hidden" id="deleteExec" onclick="deleteExec_doc('${exec.id}')">Delete</button>
+  </div>
+  `;
+  // Append new event to the existing list
+  r_e("exec_section").innerHTML += html;
+}
+
+// Load announcements from Firebase when the page loads
+window.addEventListener("load", () => {
+  // Call the function to check allowed email when the page loads
+  execCheckAllowedEmail("#showExecFormButton");
+  execCheckAllowedEmail("#deleteExec");
+
+  let db = firebase.firestore();
+  db.collection("executive")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // Render each event
+        renderExec({ id: doc.id, ...doc.data() });
+      });
+    })
+    .catch((error) => console.error("Error getting events: ", error));
+});

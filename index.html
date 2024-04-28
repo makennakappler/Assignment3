@@ -39,6 +39,14 @@
         font-family: "Marcellus", serif;
         font-weight: 400;
         font-style: normal;
+        flex: 1;
+        padding: 0 10px; /* Add spacing between columns */
+      }
+      .executive-section {
+        display: flex;
+        margin-bottom: 20px; /* Adjust spacing between sections */
+        border: 1px solid #ddd; /* Add a border around each section */
+        padding: 20px; /* Add padding inside each section */
       }
 
       .custom-font {
@@ -370,9 +378,17 @@
         <!-- Add a div to contain the images section -->
         <section class="section">
           <!-- Move the section inside the div -->
+          <div class="has-text-left m-5">
+            <button class="button is-hidden" id="showExecFormButton">Show Form</button>
+            <button class="button is-hidden" id="hideExecFormButton">Hide Form</button>
+  
+            <div id="exec_form">
+              
+            </div>
+          </div>
           <div class="container">
-            <div class="image-container">
-              <div class="column">
+            <div class="image-container" id="exec_section">
+              <!-- <div class="column">
                 <figure class="image">
                   <img src="https://via.placeholder.com/256" alt="Placeholder image" />
                 </figure>
@@ -403,7 +419,7 @@
                 <h5>Treasurer</h5>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in
                   dicta!</p>
-              </div>
+              </div> -->
             </div>
           </div>
       </div>

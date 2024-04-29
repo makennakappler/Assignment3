@@ -117,52 +117,74 @@ document.addEventListener("DOMContentLoaded", function () {
     myPieChart.update();
   }
 
-  // logic for disease A
-  const submitButtonA = r_e("submitvoteA");
-  submitButtonA.addEventListener("click", function () {
+  // Logic for submitting vote for Option A
+  submitvoteA.addEventListener("click", function () {
     const user = firebase.auth().currentUser;
     if (user) {
-      db.collection("votes")
-        .doc("optionA")
-        .set(
-          { count: firebase.firestore.FieldValue.increment(1) },
-          { merge: true }
-        );
-      // Add a document to the "voterresults" collection
-      db.collection("voteresults").add({
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        userID: user.uid,
-        votedFor: "Option A",
-      });
-    } else {
-      configure_message_bar("Please sign in to vote.");
-    }
-  });
-
-  // Voting Logic for Option B
-  const submitButtonB = r_e("submitvoteB");
-  submitButtonB.addEventListener("click", function () {
-    // Check if user is signed in
-    const user = firebase.auth().currentUser;
-    if (user) {
-      // Update vote count for Option B in Firebase
-      db.collection("votes")
-        .doc("optionB")
-        .update({
-          count: firebase.firestore.FieldValue.increment(1),
+      db.collection("voteresults")
+        .where("userID", "==", user.uid)
+        .get()
+        .then((querySnapshot) => {
+          if (querySnapshot.empty) {
+            // User has not voted yet, add a new vote for Option A
+            db.collection("votes").doc("optionA").set({ count: 1 }); // Set count to 1 instead of incrementing
+            db.collection("voteresults").add({
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+              userID: user.uid,
+              votedFor: "Option A",
+            });
+            // Change button color to green
+            submitvoteA.style.backgroundColor = "green";
+            submitvoteB.style.backgroundColor = "white"; // Change the other button color back to white
+          } else {
+            // User has already voted, show message or prevent further voting
+            configure_message_bar("You have already voted.");
+          }
         });
-
-      // Add a document to voterresults collection
-      db.collection("voterresults").add({
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        userID: user.uid,
-        votedFor: "Option B",
-      });
     } else {
-      // Show error message or redirect to sign-in page
       configure_message_bar("Please sign in to vote.");
     }
   });
+
+  // Logic for submitting vote for Option B
+  submitvoteB.addEventListener("click", function () {
+    const user = firebase.auth().currentUser;
+    if (user) {
+      db.collection("voteresults")
+        .where("userID", "==", user.uid)
+        .get()
+        .then((querySnapshot) => {
+          if (querySnapshot.empty) {
+            // User has not voted yet, add a new vote for Option B
+            db.collection("votes").doc("optionB").set({ count: 1 }); // Set count to 1 instead of incrementing
+            db.collection("voteresults").add({
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+              userID: user.uid,
+              votedFor: "Option B",
+            });
+            // Change button color to green
+            submitvoteB.style.backgroundColor = "green";
+            submitvoteA.style.backgroundColor = "white"; // Change the other button color back to white
+          } else {
+            // User has already voted, show message or prevent further voting
+            configure_message_bar("You have already voted.");
+          }
+        });
+    } else {
+      configure_message_bar("Please sign in to vote.");
+    }
+  });
+
+  // Check if "votes" collection is empty, add initial documents if needed
+  db.collection("votes")
+    .get()
+    .then((querySnapshot) => {
+      if (querySnapshot.empty) {
+        // Collection is empty, add initial documents
+        db.collection("votes").doc("optionA").set({ count: 0 });
+        db.collection("votes").doc("optionB").set({ count: 0 });
+      }
+    });
 
   // Real-time Updates for Option A
   db.collection("votes")

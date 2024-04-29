@@ -127,15 +127,33 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((querySnapshot) => {
           if (querySnapshot.empty) {
             // User has not voted yet, add a new vote for Option A
-            db.collection("votes").doc("optionA").set({ count: 1 }); // Set count to 1 instead of incrementing
             db.collection("voteresults").add({
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
               userID: user.uid,
               votedFor: "Option A",
             });
-            // Change button color to green
-            submitvoteA.style.backgroundColor = "green";
-            submitvoteB.style.backgroundColor = "white"; // Change the other button color back to white
+
+            // Check if the document for Option A exists
+            db.collection("votes")
+              .doc("optionA")
+              .get()
+              .then((doc) => {
+                if (doc.exists) {
+                  // Increment count for Option A
+                  db.collection("votes")
+                    .doc("optionA")
+                    .update({
+                      count: firebase.firestore.FieldValue.increment(1),
+                    });
+                } else {
+                  // Create a new document for Option A with count 1
+                  db.collection("votes").doc("optionA").set({ count: 1 });
+                }
+
+                // Change button color to green
+                submitvoteA.style.backgroundColor = "green";
+                submitvoteB.style.backgroundColor = "white"; // Change the other button color back to white
+              });
           } else {
             // User has already voted, show message or prevent further voting
             configure_message_bar("You have already voted.");
@@ -156,12 +174,17 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((querySnapshot) => {
           if (querySnapshot.empty) {
             // User has not voted yet, add a new vote for Option B
-            db.collection("votes").doc("optionB").set({ count: 1 }); // Set count to 1 instead of incrementing
             db.collection("voteresults").add({
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
               userID: user.uid,
               votedFor: "Option B",
             });
+
+            // Increment count for Option B
+            db.collection("votes")
+              .doc("optionB")
+              .update({ count: firebase.firestore.FieldValue.increment(1) });
+
             // Change button color to green
             submitvoteB.style.backgroundColor = "green";
             submitvoteA.style.backgroundColor = "white"; // Change the other button color back to white

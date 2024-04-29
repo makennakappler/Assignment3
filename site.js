@@ -237,6 +237,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // end of chart logic and initialization
 
+  //voting admin availability
+  // Check if the user is logged in and their email is admin@example.com
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user && user.email === "admin@example.com") {
+      document.getElementById("adminSection").style.display = "block";
+    } else {
+      document.getElementById("adminSection").style.display = "none";
+    }
+  });
+
+  // Event listener for reset button
+  document.getElementById("chartReset").addEventListener("click", function () {
+    // Add logic to reset vote here
+    console.log("Reset vote button clicked.");
+  });
+
   // click past events page nav actions
   pastEventsLink.addEventListener("click", function (event) {
     // Prevent the default link behavior

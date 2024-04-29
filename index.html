@@ -162,6 +162,14 @@
         box-sizing: border-box;
       }
 
+      .chart-container {
+      height: 40vh;
+      width: 80vw;
+      display: flex;
+      justify-content: center; /* Horizontally center content */
+      align-items: center; /* Vertically center content */
+      margin: 0 auto; /* Center the div on the page */
+    }
 
     </style>
   </head>
@@ -485,9 +493,8 @@
 
       </h1>
 
-      <div class="container">
-        <!-- First column for Disease A and Disease B boxes -->
-        <div>
+
+      <div class="columns">
           <!-- Disease A box -->
           <div class="column pastevent">
             <h1 class="is-size-2" id="votingTitleA">Disease A</h1>
@@ -499,16 +506,27 @@
             <h1 class="is-size-2" id="votingTitleB">Disease B</h1>
             <button id="submitvoteB" class="button">Submit Vote B</button>
           </div>
-
-          <!-- pie chart -->
-          <div id="chartContainer" class="chart-container" style="height:40vh; width:80vw">
-            <canvas id="myPieChart"></canvas>
-          </div>
-        </div>
-        
- 
       </div>
 
+
+
+      <!-- pie chart -->
+      <div class="columns">
+
+        <div class="chart-container column is-half" style="height: 40vh; width: 80vw; display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+          <canvas id="myPieChart"></canvas>
+        </div>
+    </div>
+
+    <div id="adminSection" class="column pastevent" style="display: none;">
+      <h1 class="is-size-2">Admin Title Change</h1>
+      <input id="d_a_box"  class="input" type="text" placeholder="DISEASE A" />
+      <input id="d_b_box"  class="input" type="text" placeholder="DISEASE B" />
+      <button id="chartReset" class="button">Reset Vote</button>
+      <button id="titleChange" class="button">Change Titles</button>
+
+    </div>
+    
 
     </section>
 
@@ -740,6 +758,9 @@
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // bulma
+        
       
         // Your web app's Firebase configuration
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional

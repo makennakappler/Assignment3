@@ -239,13 +239,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //voting admin availability
   // Check if the user is logged in and their email is admin@example.com
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user && user.email === "admin@example.com") {
-      document.getElementById("adminSection").style.display = "block";
-    } else {
-      document.getElementById("adminSection").style.display = "none";
-    }
-  });
+  // firebase.auth().onAuthStateChanged(function (user) {
+  //   if (user && user.email === "admin@example.com") {
+  //     document.getElementById("adminSection").style.display = "block";
+  //   } else {
+  //     document.getElementById("adminSection").style.display = "none";
+  //   }
+  // });
 
   // Event listener for reset button
   document.getElementById("chartReset").addEventListener("click", function () {

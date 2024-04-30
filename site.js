@@ -936,7 +936,7 @@ function deleteExec_doc(id) {
 
 function renderExec(exec) {
   let html = `
-  <div class="column, has-text-centered">
+  <div class="executiveholder">
     <figure class="image" style="width: 300px; height: auto;">
       <img src="${exec.imageUrl}" alt="Exec image" />
     </figure>

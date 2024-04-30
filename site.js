@@ -500,60 +500,149 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // PAST EVENTS
 // show doc of past events
+// Function to hide the form
+// Function to hide the form
+// function hideEventForm() {
+//   r_e("showFormButton").classList.add("is-hidden");
+//   r_e("hideFormButton").classList.add("is-hidden");
+//   r_e("event_form").classList.add("is-hidden");
+// }
 
-document.querySelector("#showFormButton").addEventListener("click", () => {
+// Function to check if the current user's email matches the allowed email address
+function EventscheckAllowedEmail(id) {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in.
+      // Check the email address of the user
+      const allowedEmail = "admin@example.com"; // Change this to the allowed email address
+
+      if (user.email === allowedEmail) {
+        // User's email matches the allowed email, show the form
+        document.querySelector(id).classList.remove("is-hidden");
+      } else {
+        // User's email doesn't match the allowed email, hide the form
+        //hideEventForm();
+      }
+    } else {
+      // User is signed out.
+      // Hide the form if the user is not logged in
+      //hideEventForm();
+    }
+  });
+}
+
+// Event listener to show the form when the button is clicked
+r_e("showFormButton").addEventListener("click", () => {
   r_e("showFormButton").classList.add("is-hidden");
   r_e("hideFormButton").classList.remove("is-hidden");
   r_e("event_form").classList.remove("is-hidden");
 
-  let html = ``;
-  html += `<div class= "pastevent has-text-centered"><form id="eventForm">
-  <!-- Your form fields go here -->
-  <h1 class="is-size-2"> Add a New Event </h1>
-  <label> Event Name </label>
-  <input type="text" id="event_name"><br><br>
-  <label>Date:</label>
-  <input type="date" id="event_date"><br><br>
-  <label>Location:</label>
-  <input type="location" id="event_location"><br><br>
-  <label>Description:</label>
-  <input type="text" id="event_description"><br><br>
-  <button id="submit">Submit</button> </div>`;
+  let html = `<div class= "pastevent has-text-centered"><form id="eventForm">
+    <!-- Your form fields go here -->
+    <h1 class="is-size-2"> Add a New Event </h1>
+    <label> Event Name </label>
+    <input type="text" id="event_name"><br><br>
+    <label>Date:</label>
+    <input type="date" id="event_date"><br><br>
+    <label>Location:</label>
+    <input type="location" id="event_location"><br><br>
+    <label>Description:</label>
+    <input type="text" id="event_description"><br><br>
+    <input type="file" id="fileInput" name="fileInput">
+    <button type="button" id="upload">Upload</button>
+    <button id="submit">Submit</button> </div>`;
 
-  document.querySelector("#event_form").innerHTML = html;
+  r_e("event_form").innerHTML = html;
+
+  // Attach event listener for file upload
+  r_e("upload").addEventListener("click", () => {
+    const fileInput = document.getElementById("fileInput");
+    const file = fileInput.files[0];
+
+    if (file) {
+      // Create a storage reference
+      const storageRef = firebase.storage().ref();
+      const fileRef = storageRef.child(file.name);
+
+      // Upload the file to Firebase Storage
+      fileRef
+        .put(file)
+        .then((snapshot) => {
+          console.log(
+            "File uploaded successfully:",
+            snapshot.metadata.fullPath
+          );
+          alert("File uploaded successfully!");
+
+          // Once the file is uploaded, get its download URL
+          return snapshot.ref.getDownloadURL();
+        })
+        .then((downloadURL) => {
+          // Get other form data
+          let eventName = r_e("event_name").value;
+          let eventDate = r_e("event_date").value;
+          let eventLocation = r_e("event_location").value;
+          let eventDescription = r_e("event_description").value;
+
+          // Create an object with form data and download URL
+          let eventData = {
+            name: eventName,
+            date: eventDate,
+            location: eventLocation,
+            description: eventDescription,
+            imageUrl: downloadURL, // Add the download URL of the uploaded image
+          };
+
+          // Store event data into Firestore
+          return firebase.firestore().collection("events").add(eventData);
+        })
+        .then(() => {
+          // After successful upload to Firestore
+          console.log("Event data added to Firestore");
+          alert("Event data added to Firestore");
+        })
+        .catch((error) => {
+          console.error("Error uploading file or adding event data:", error);
+          alert("Error: " + error.message);
+        });
+    } else {
+      alert("Please select a file to upload.");
+    }
+  });
 });
 
-// Submit form to dbv
-r_e("event_form").addEventListener("submit", (e) => {
+// Event listener to hide the form when the button is clicked
+document.querySelector("#hideFormButton").addEventListener("click", () => {
+  document.querySelector("#showFormButton").classList.remove("is-hidden");
+  document.querySelector("#hideFormButton").classList.add("is-hidden");
+  document.querySelector("#event_form").classList.add("is-hidden");
+});
+
+function deleteEvent_doc(id) {
   let db = firebase.firestore();
-  if (e.target && e.target.id === "submit") {
-    e.preventDefault(); // Prevent default behavior of browser (no page refresh)
-    // Construct event object
-    let event = {
-      name: document.querySelector("#event_name").value,
-      date: document.querySelector("#event_date").value,
-      location: document.querySelector("#event_location").value,
-      description: document.querySelector("#event_description").value,
-    };
-    // Store event object into collection
-    db.collection("events")
-      .add(event)
-      .then(() => alert("Event added"));
-  }
-});
+  db.collection("events")
+    .doc(id)
+    .delete()
+    .then(() => alert("user deleted!"));
+}
 
-function renderEvent(events) {
+function renderEvent(event) {
   let html = `
   <div class="pastevent">
-    <h2 class="is-size-2">${events.name}</h2>
-    <p class="is-size-5"><strong>Date:</strong>  ${events.date}</p>
-    <p class="is-size-5"><strong>Location:</strong> ${events.location}</p>
-    <p class="is-size-5"><strong>Description:</strong> ${events.description}</p>
+    <h2 class="is-size-2">${event.name}</h2>
+    <p class="is-size-5"><strong>Date:</strong> ${event.date}</p>
+    <p class="is-size-5"><strong>Location:</strong> ${event.location}</p>
+    <p class="is-size-5"><strong>Description:</strong> ${event.description}</p>
+    <figure class="image">
+      <img src="${event.imageUrl}" alt="Event image" />
+    </figure>
+    <button class ="is-hidden" id="deleteEvent_${event.id}" onclick="deleteEvent_doc('${event.id}')">Delete</button>
   </div>
   `;
-  // Append new announcement to the existing list
+  // Append new event to the existing list
   r_e("eventscontainer").innerHTML += html;
 }
+
 // Load announcements from Firebase when the page loads
 window.addEventListener("load", () => {
   let db = firebase.firestore();
@@ -561,17 +650,19 @@ window.addEventListener("load", () => {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        // Render each announcement
+        // Render each event
         renderEvent({ id: doc.id, ...doc.data() });
       });
-    });
-});
 
-// hide past events button
-document.querySelector("#hideFormButton").addEventListener("click", () => {
-  r_e("showFormButton").classList.remove("is-hidden");
-  r_e("hideFormButton").classList.add("is-hidden");
-  r_e("event_form").classList.add("is-hidden");
+      // Call the function to check allowed email when the page loads
+      execCheckAllowedEmail("#showFormButton");
+
+      // Loop through each delete button and call execCheckAllowedEmail for each
+      querySnapshot.forEach((doc) => {
+        execCheckAllowedEmail(`#deleteEvent_${doc.id}`);
+      });
+    })
+    .catch((error) => console.error("Error getting events: ", error));
 });
 
 //Submit form to dbv
@@ -595,6 +686,35 @@ document.querySelector("#event_form").addEventListener("click", (e) => {
 
 //ANNOUNCEMENTS
 //add announcements
+
+function hideAnnouncementsForm() {
+  r_e("showAnnouncementButton").classList.add("is-hidden");
+  r_e("hideAnnouncementButton").classList.add("is-hidden");
+  r_e("announcements_form").classList.add("is-hidden");
+}
+
+// Function to check if the current user's email matches the allowed email address
+function AnnouncecheckAllowedEmail(id) {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in.
+      // Check the email address of the user
+      const allowedEmail = "admin@example.com"; // Change this to the allowed email address
+
+      if (user.email === allowedEmail) {
+        // User's email matches the allowed email, show the form
+        document.querySelector(id).classList.remove("is-hidden");
+      } else {
+        // User's email doesn't match the allowed email, hide the form
+        hideAnnouncementsForm();
+      }
+    } else {
+      // User is signed out.
+      // Hide the form if the user is not logged in
+      hideAnnouncementsForm();
+    }
+  });
+}
 
 r_e("showAnnouncementButton").addEventListener("click", () => {
   r_e("showAnnouncementButton").classList.add("is-hidden");
@@ -623,12 +743,22 @@ r_e("showAnnouncementButton").addEventListener("click", (e) => {
   }
 });
 
+function deleteAnnounce_doc(id) {
+  let db = firebase.firestore();
+  db.collection("announcements")
+    .doc(id)
+    .delete()
+    .then(() => alert("user deleted!"));
+}
+
 function renderAnnouncement(announcement) {
   let html = `
-    <div style="margin-left: 2rem;"><p>${announcement.description}</p>
+    <div>
+      <p>${announcement.description} <button class ="is-hidden" id="deleteAnnounce_${announcement.id}" onclick="deleteAnnounce_doc('${announcement.id}')">Delete</button></p>
       <div style="width: 100%; margin: 0 auto">
       <hr class="styled-hr" style="border-top: 2px solid crimson; width: 100%"/>
       </div>
+      
     </div>
   `;
   // Append new announcement to the existing list
@@ -667,14 +797,175 @@ window.addEventListener("load", () => {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        // Render each announcement
+        // Render each event
         renderAnnouncement({ id: doc.id, ...doc.data() });
       });
-    });
+
+      // Call the function to check allowed email when the page loads
+      AnnouncecheckAllowedEmail("#showAnnouncementButton");
+
+      // Loop through each delete button and call execCheckAllowedEmail for each
+      querySnapshot.forEach((doc) => {
+        AnnouncecheckAllowedEmail(`#deleteAnnounce_${doc.id}`);
+      });
+    })
+    .catch((error) => console.error("Error getting events: ", error));
 });
 
 r_e("hideAnnouncementButton").addEventListener("click", () => {
   r_e("showAnnouncementButton").classList.remove("is-hidden");
   r_e("hideAnnouncementButton").classList.add("is-hidden");
   r_e("announcements_form").classList.add("is-hidden");
+});
+
+// EXECUTIVE PAGE
+
+function execCheckAllowedEmail(id) {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in.
+      // Check the email address of the user
+      const allowedEmail = "admin@example.com"; // Change this to the allowed email address
+
+      if (user.email === allowedEmail) {
+        // User's email matches the allowed email, show the form
+        document.querySelector(id).classList.remove("is-hidden");
+      } else {
+        // User's email doesn't match the allowed email, hide the form
+        //hideEventForm();
+      }
+    } else {
+      // User is signed out.
+      // Hide the form if the user is not logged in
+      //hideEventForm();
+    }
+  });
+}
+
+// Event listener to show the form when the button is clicked
+r_e("showExecFormButton").addEventListener("click", () => {
+  r_e("showExecFormButton").classList.add("is-hidden");
+  r_e("hideExecFormButton").classList.remove("is-hidden");
+  r_e("exec_form").classList.remove("is-hidden");
+
+  let html = `<div class= "has-text-centered" style="border: 1px solid #ccc; border-radius: 5px;background-color: #f9f9f9;"><form id="eventForm">
+    <!-- Your form fields go here -->
+    <h1 class="is-size-2"> Change Executives </h1>
+    <label> Exec Position </label>
+    <input type="text" id="exec_position"><br><br>
+    <label>Name:</label>
+    <input type="text" id="exec_name"><br><br>
+    <label>Description:</label>
+    <input type="text" id="exec_description"><br><br>
+    <input type="file" id="ExecfileInput" name="ExecfileInput">
+    <button type="button" id="uploadPicture">Upload</button></div>`;
+
+  r_e("exec_form").innerHTML = html;
+
+  // Attach event listener for file upload
+  r_e("uploadPicture").addEventListener("click", () => {
+    const fileInput = document.getElementById("ExecfileInput");
+    const file = fileInput.files[0];
+
+    if (file) {
+      // Create a storage reference
+      const storageRef = firebase.storage().ref();
+      const fileRef = storageRef.child(file.name);
+
+      // Upload the file to Firebase Storage
+      fileRef
+        .put(file)
+        .then((snapshot) => {
+          console.log(
+            "File uploaded successfully:",
+            snapshot.metadata.fullPath
+          );
+          alert("File uploaded successfully!");
+
+          // Once the file is uploaded, get its download URL
+          return snapshot.ref.getDownloadURL();
+        })
+        .then((downloadURL) => {
+          // Get other form data
+          let execPosition = r_e("exec_position").value;
+          let execName = r_e("exec_name").value;
+          let execDescription = r_e("exec_description").value;
+
+          // Create an object with form data and download URL
+          let execData = {
+            position: execPosition,
+            name: execName,
+            description: execDescription,
+            imageUrl: downloadURL, // Add the download URL of the uploaded image
+          };
+
+          // Store event data into Firestore
+          return firebase.firestore().collection("executive").add(execData);
+        })
+        .then(() => {
+          // After successful upload to Firestore
+          console.log("Event data added to Firestore");
+          alert("Event data added to Firestore");
+        })
+        .catch((error) => {
+          console.error("Error uploading file or adding event data:", error);
+          alert("Error: " + error.message);
+        });
+    } else {
+      alert("Please select a file to upload.");
+    }
+  });
+});
+
+// Event listener to hide the form when the button is clicked
+document.querySelector("#hideExecFormButton").addEventListener("click", () => {
+  document.querySelector("#showExecFormButton").classList.remove("is-hidden");
+  document.querySelector("#hideExecFormButton").classList.add("is-hidden");
+  document.querySelector("#exec_form").classList.add("is-hidden");
+});
+
+function deleteExec_doc(id) {
+  let db = firebase.firestore();
+  db.collection("executive")
+    .doc(id)
+    .delete()
+    .then(() => alert("user deleted!"));
+}
+
+function renderExec(exec) {
+  let html = `
+  <div class="column, has-text-centered">
+    <figure class="image" style="width: 300px; height: auto;">
+      <img src="${exec.imageUrl}" alt="Exec image" />
+    </figure>
+    <p class="is-size-5">${exec.position}</p>
+    <p class="is-size-5"><strong>Name:</strong> ${exec.name}</p>
+    <p class="is-size-5"><strong>Bio:</strong> ${exec.description}</p>
+    <button class ="is-hidden" id="deleteExec_${exec.id}" onclick="deleteExec_doc('${exec.id}')">Delete</button>
+  </div>
+  `;
+  // Append new event to the existing list
+  r_e("exec_section").innerHTML += html;
+}
+
+// Load announcements from Firebase when the page loads
+window.addEventListener("load", () => {
+  let db = firebase.firestore();
+  db.collection("executive")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // Render each event
+        renderExec({ id: doc.id, ...doc.data() });
+      });
+
+      // Call the function to check allowed email when the page loads
+      execCheckAllowedEmail("#showExecFormButton");
+
+      // Loop through each delete button and call execCheckAllowedEmail for each
+      querySnapshot.forEach((doc) => {
+        execCheckAllowedEmail(`#deleteExec_${doc.id}`);
+      });
+    })
+    .catch((error) => console.error("Error getting events: ", error));
 });

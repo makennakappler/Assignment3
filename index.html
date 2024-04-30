@@ -39,6 +39,14 @@
         font-family: "Marcellus", serif;
         font-weight: 400;
         font-style: normal;
+        flex: 1;
+        padding: 0 10px; /* Add spacing between columns */
+      }
+      .executive-section {
+        display: flex;
+        margin-bottom: 20px; /* Adjust spacing between sections */
+        border: 1px solid #ddd; /* Add a border around each section */
+        padding: 20px; /* Add padding inside each section */
       }
 
       .custom-font {
@@ -339,6 +347,7 @@
             <section class="column is-3 p-7" style="margin-left: 120px;">
               <div class='has-text-centered' id="announcements">
                 <p class="title has-text-centered">Announcements</p>
+                <hr class="styled-hr" style="border-top: 2px solid black; width: 100%"/>
         
               </div>
               <div class="has-text-right">
@@ -400,40 +409,17 @@
         <!-- Add a div to contain the images section -->
         <section class="section">
           <!-- Move the section inside the div -->
+          <div class="has-text-left m-5">
+            <button class="button is-hidden" id="showExecFormButton">Show Form</button>
+            <button class="button is-hidden" id="hideExecFormButton">Hide Form</button>
+  
+            <div id="exec_form">
+              
+            </div>
+          </div>
           <div class="container">
-            <div class="image-container">
-              <div class="column">
-                <figure class="image">
-                  <img src="https://via.placeholder.com/256" alt="Placeholder image" />
-                </figure>
-                <h5>President</h5>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sequi eius et perspiciatis eligendi nihil
-                  earum.</p>
-              </div>
-              <div class="column">
-                <figure class="image">
-                  <img src="https://via.placeholder.com/256" alt="Placeholder image" />
-                </figure>
-                <h5>VP of Operations & Communication</h5>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in
-                  dicta!</p>
-              </div>
-              <div class="column">
-                <figure class="image">
-                  <img src="https://via.placeholder.com/256" alt="Placeholder image" />
-                </figure>
-                <h5>VP of Event Management</h5>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in
-                  dicta!</p>
-              </div>
-              <div class="column">
-                <figure class="image">
-                  <img src="https://via.placeholder.com/256" alt="Placeholder image" />
-                </figure>
-                <h5>Treasurer</h5>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet eligendi maiores enim in
-                  dicta!</p>
-              </div>
+            <div class="image-container" id="exec_section">
+              
             </div>
           </div>
       </div>
@@ -538,7 +524,7 @@
           Past ARD Events
         </h1>
         <div class="has-text-left m-5">
-          <button class="button is-active" id="showFormButton">Show Form</button>
+          <button class="button is-hidden" id="showFormButton">Show Form</button>
           <button class="button is-hidden" id="hideFormButton">Hide Form</button>
 
           <div id="event_form">
@@ -546,34 +532,8 @@
           </div>
         </div>
         <div class="pasteventscontainer" id="eventscontainer">
-          <div class="pastevent">
-            <h2 class="is-size-2">Nitty Gritty Cup Night</h2>
-            <p class="is-size-5"><strong>Date:</strong> April 4, 2024</p>
-            <p class="is-size-5"><strong>Location:</strong> Nitty Gritty</p>
-            <p class="is-size-5"><strong>Time:</strong> 9:00pm</p>
-            <img src="event1.png" alt="Event 1">
-          </div>
-          <div class="pastevent">
-            <h2 class="is-size-2">Spring Social & Potlock</h2>
-            <p class="is-size-5"><strong>Date:</strong> April 3, 2024</p>
-            <p class="is-size-5"><strong>Location:</strong> Humanities 1221</p>
-            <p class="is-size-5"><strong>Time:</strong> 6:30pm</p>
-            <img src="event2.png" alt="Event 2">
-          </div>
-          <div class="pastevent">
-            <h2 class="is-size-2">Awareness Meeting</h2>
-            <p class="is-size-5"><strong>Date:</strong> March 13, 2024</p>
-            <p class="is-size-5"><strong>Location:</strong> Union South Agriculture Room</p>
-            <p class="is-size-5"><strong>Time:</strong> 6:30pm</p>
-            <img src="event3.png" alt="Event 3">
-          </div>
-          <div class="pastevent">
-            <h2 class="is-size-2">Town Hall Meeting</h2>
-            <p class="is-size-5"><strong>Date:</strong> February 28, 2024</p>
-            <p class="is-size-5"><strong>Location:</strong> Union South Northwoods Room</p>
-            <p class="is-size-5"><strong>Time:</strong> 6:30pm</p>
-            <img src="event4.png" alt="Event 3">
-          </div>
+          
+        </div>
       </p>
     </section>
 

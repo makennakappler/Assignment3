@@ -549,8 +549,7 @@ r_e("showFormButton").addEventListener("click", () => {
     <label>Description:</label>
     <input type="text" id="event_description"><br><br>
     <input type="file" id="fileInput" name="fileInput">
-    <button type="button" id="upload">Upload</button>
-    <button id="submit">Submit</button> </div>`;
+    <button type="button" id="upload">Upload</button> </div>`;
 
   r_e("event_form").innerHTML = html;
 
@@ -600,6 +599,7 @@ r_e("showFormButton").addEventListener("click", () => {
           // After successful upload to Firestore
           console.log("Event data added to Firestore");
           alert("Event data added to Firestore");
+          r_e("eventForm").reset();
         })
         .catch((error) => {
           console.error("Error uploading file or adding event data:", error);

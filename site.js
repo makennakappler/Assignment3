@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //voting admin availability
   // Check if the user is logged in and their email is admin@example.com
   firebase.auth().onAuthStateChanged(function (user) {
-    if (user && user.email === "admin@example.com") {
+    if (user && user.email === "ardadmin@gmail.com") {
       document.getElementById("adminSection").style.display = "block";
     } else {
       document.getElementById("adminSection").style.display = "none";
@@ -384,6 +384,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
     // sign out button
+
     r_e("logOut").addEventListener("click", () => {
       firebase
         .auth()
@@ -514,7 +515,7 @@ function EventscheckAllowedEmail(id) {
     if (user) {
       // User is signed in.
       // Check the email address of the user
-      const allowedEmail = "admin@example.com"; // Change this to the allowed email address
+      const allowedEmail = "ardadmin@gmail.com"; // Change this to the allowed email address
 
       if (user.email === allowedEmail) {
         // User's email matches the allowed email, show the form
@@ -699,7 +700,7 @@ function AnnouncecheckAllowedEmail(id) {
     if (user) {
       // User is signed in.
       // Check the email address of the user
-      const allowedEmail = "admin@example.com"; // Change this to the allowed email address
+      const allowedEmail = "ardadmin@gmail.com"; // Change this to the allowed email address
 
       if (user.email === allowedEmail) {
         // User's email matches the allowed email, show the form
@@ -786,6 +787,7 @@ r_e("announcements_form").addEventListener("click", (e) => {
         // Update HTML with the new announcement
         renderAnnouncement({ id: docRef.id, ...announcement });
         alert("announcement added");
+        r_e("announcementsForm").reset();
       });
   }
 });
@@ -825,7 +827,7 @@ function execCheckAllowedEmail(id) {
     if (user) {
       // User is signed in.
       // Check the email address of the user
-      const allowedEmail = "admin@example.com"; // Change this to the allowed email address
+      const allowedEmail = "ardadmin@gmail.com"; // Change this to the allowed email address
 
       if (user.email === allowedEmail) {
         // User's email matches the allowed email, show the form

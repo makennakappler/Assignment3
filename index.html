@@ -197,6 +197,15 @@
         width: 50%; /* Adjust the width as needed */
       }
 
+      .vote-container { 
+        display:flex;
+      }
+
+      .vote-item {
+        height: 400px;
+        width: 50%; /* A fixed width as the default */
+      }
+
 
 
     </style>
@@ -492,7 +501,7 @@
 
     <!-- voting page -->
 
-    <section id="votingPage" style="display: none;">
+    <section id="votingPage">
  
       <!-- header section -->
       <div class="w3-container votinghead is-size-2 pb-4">
@@ -501,34 +510,37 @@
       </div> 
       
       <!-- body section -->
-      <div>
-        <!-- Disease A box -->
-        <div class="m-1 box">
-          <h1 class="is-size-2" id="votingTitleA">Disease A</h1>
-          <button id="submitvoteA" class="button">Submit Vote A</button>
+      <div class="vote-container">
+        <!-- make disease boxes one flexbox -->
+        <div class="vote-item">
+          <!-- Disease A box -->
+          <div class="m-1 box">
+            <h1 class="is-size-2" id="votingTitleA">Disease A</h1>
+            <button id="submitvoteA" class="button">Submit Vote A</button>
+          </div>
+
+          <!-- Disease B box -->
+          <div class="m-1 box">
+            <h1 class="is-size-2" id="votingTitleB">Disease B</h1>
+            <button id="submitvoteB" class="button">Submit Vote B</button>
+          </div>
         </div>
 
-        <!-- Disease B box -->
-        <div class="m-1 box">
-          <h1 class="is-size-2" id="votingTitleB">Disease B</h1>
-          <button id="submitvoteB" class="button">Submit Vote B</button>
+        <!-- Pie chart container -->
+        <div class="pie-chart-size vote-item">
+          <canvas id="myPieChart"></canvas>
         </div>
       </div>
 
-      <!-- Pie chart container -->
-      <div class="pie-chart-size">
-        <canvas id="myPieChart"></canvas>
-      </div>
 
-
-      <div id="adminSection" class="column pastevent" style="display: none;">
+      <!-- <div id="adminSection" class="column pastevent" style="display: none;">
         <h1 class="is-size-2">Admin Title Change</h1>
         <input id="d_a_box"  class="input" type="text" placeholder="DISEASE A" />
         <input id="d_b_box"  class="input" type="text" placeholder="DISEASE B" />
         <button id="chartReset" class="button">Reset Vote</button>
         <button id="titleChange" class="button">Change Titles</button>
 
-      </div>
+      </div> -->
     
 
     </section>

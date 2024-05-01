@@ -477,37 +477,55 @@
     <!-- voting page -->
 
     <!-- header section -->
+
+
+    
     <section id="votingPage" style="display: none;">
-      <h1 class="votinghead is-size-2 pb-4">Which disease should we focus on next?
-        <p class="is-size-5 votinghead is-size-2"><strong>Date:</strong> June 15, 2024</p>
+      <style>
+        #votingPage {
+          font-family: "Marcellus", serif;
+        }
+   
+   
+</style>
+<!-- <h1 class="votinghead is-size-2 pb-4">Which disease should we focus on next?
+  <p class="is-size-5 votinghead is-size-2"><strong>Date:</strong> June 15, 2024</p>
 
-      </h1>
+</h1> -->
+<h1 class="is-size-1 has-text-centered">
+  What disease should we advocate for next? 
+</h1>
 
+<div class="gap-section" style="margin-bottom: 20px;"></div>
 
-      <div class="columns">
-          <!-- Disease A box -->
-          <div class="column pastevent">
-            <h1 class="is-size-2" id="votingTitleA">Disease A</h1>
-            <button id="submitvoteA" class="button">Submit Vote A</button>
-          </div>
-      
-          <!-- Disease B box -->
-          <div class="column pastevent">
-            <h1 class="is-size-2" id="votingTitleB">Disease B</h1>
-            <button id="submitvoteB" class="button">Submit Vote B</button>
-          </div>
-      </div>
+<!-- Trial formatting -->
 
-
-
-      <!-- pie chart -->
-      <div class="columns">
-
-        <div class="chart-container column is-half" style="height: 40vh; width: 80vw; display: flex; justify-content: center; align-items: center; margin: 0 auto;">
-          <canvas id="myPieChart"></canvas>
-        </div>
+<div class="columns" style="background-image: url(white_wall2.webp);">
+  <!-- Left column for Disease A and B -->
+  <div class="column is-half" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <!-- Disease A box -->
+    <div class="pastevent mb-2">
+      <h1 class="is-size-2" id="votingTitleA">Castleman Disease</h1>
+      <button id="submitvoteA" class="button">Submit Vote</button>
     </div>
+    <!-- Disease B box -->
+    <div class="pastevent">
+      <h1 class="is-size-2" id="votingTitleB">Gaucher Disease</h1>
+      <button id="submitvoteB" class="button">Submit Vote</button>
+    </div>
+  </div>
 
+  <!-- Right column for the pie chart -->
+  <div class="column is-half" style="display: flex; justify-content: center; align-items: center;">
+    <div class="chart-container" style="height: 40vh;">
+      <canvas id="myPieChart"></canvas>
+    </div>
+  </div>
+</div>
+
+
+    <h2 class="is-size-1 has-text-centered">Thank you for making a difference.</h2>
+    
     <div id="adminSection" class="column pastevent" style="display: none;">
       <h1 class="is-size-2">Admin Title Change</h1>
       <input id="d_a_box"  class="input" type="text" placeholder="DISEASE A" />
@@ -580,7 +598,7 @@
               </div>
               <div class="column is-6">
                 <div class="content" style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
-                  <h1 class="is-size-1" style="text-align: right; margin-bottom: 20px; font-weight: 10px; margin-right: 4in;">The Solution</h1> <!-- Increased margin-bottom -->
+                  <h1 class="is-size-1" style="text-align: right; margin-bottom: 20px; font-weight: 10px; margin-right: 4in;">The Solution</h1> 
                   <p class="custom-font is-size-4" style="text-align: left;">While this problem impacts millions, individuals facing these challenges often do so in isolation because of limited awareness or support. Advocating for rare diseases involves raising awareness, fostering collaboration, and advocating for patient support initiatives.</p>
                 </div>
               </div>
@@ -593,7 +611,7 @@
           <div style="height: 50px"></div>
           <div style="width: 80%; margin: 0 auto; text-align: center;">
             <h1 class="is-size-1" style="font-weight: 30px;">Our Mission</h1>
-            <hr style="border-top: 2px solid #333; width: 50%; margin: 20px auto;"> <!-- Added line -->
+            <hr style="border-top: 2px solid #333; width: 50%; margin: 20px auto;">
             <p style="font-size: 30px;"class="custom-font">Empower students to become catalysts for change by uniting them in the fight against rare diseases. Through education, collaboration, and advocacy, we aim to raise awareness, foster understanding, and provide support for those affected, ensuring that no one faces these challenges alone.</p>
           </div>
         </section>

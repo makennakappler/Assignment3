@@ -757,7 +757,7 @@ function renderAnnouncement(announcement) {
     <div>
       <p>${announcement.description} <button class ="is-hidden" id="deleteAnnounce_${announcement.id}" onclick="deleteAnnounce_doc('${announcement.id}')">Delete</button></p>
       <div style="width: 100%; margin: 0 auto">
-      <hr class="styled-hr" style="border-top: 2px solid crimson; width: 100%"/>
+      <hr class="styled-hr" style="border-top: 2px solid black; width: 100%"/>
       </div>
       
     </div>

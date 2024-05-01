@@ -44,10 +44,12 @@
       }
       .executive-section {
         display: flex;
-        margin-bottom: 20px; /* Adjust spacing between sections */
-        border: 1px solid #ddd; /* Add a border around each section */
-        padding: 20px; /* Add padding inside each section */
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0 auto; /* Center horizontally */
+        padding: 20px; /* Add padding around the section */
       }
+
 
       .custom-font {
         font-family: "Arsenal", sans-serif;
@@ -182,13 +184,12 @@
       align-items: center; /* Vertically center content */
       margin: 0 auto; /* Center the div on the page */
       }
-      .executiveholder{
-        width: 30%;
-        border: 1px solid #ccc;
+      .executiveholder {
+        flex: 0 1 calc(33.33% - 40px); /* Three executives per row */
+        margin: 20px;
         padding: 20px;
-        margin-bottom: 20px;
         text-align: center;
-        align-items: center;
+        
       }
 
     </style>
@@ -428,6 +429,7 @@
     </style>
     <p>
     <section id="executiveLeadersPage" style="display: none">
+      <h1 class="has-text-centered is-size-1">Meet Our Exeutive Team</h1>
       <div class="columns">
         <!-- Add a div to contain the images section -->
         <section class="section">
@@ -441,7 +443,7 @@
             </div>
           </div>
           <div class="container">
-            <div class="image-container" id="exec_section">
+            <div class="executive-section" style="background-image: url(white_wall2.webp);"id="exec_section">
               
             </div>
           </div>

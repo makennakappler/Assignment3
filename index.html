@@ -195,6 +195,9 @@
       align-items: center; /* Vertically center content */
       margin: 0 auto; /* Center the div on the page */
     }
+    #votingPage {
+          font-family: "Marcellus", serif;
+        }
 
     </style>
   </head>
@@ -490,64 +493,53 @@
     <!-- voting page -->
 
     <!-- header section -->
-
-
-    
     <section id="votingPage" style="display: none;">
-      <style>
-        #votingPage {
-          font-family: "Marcellus", serif;
-        }
-   
-   
-</style>
 
-<!-- voting page -->
-<h1 class="is-size-1 has-text-centered">
-  What disease should we advocate for next? 
-</h1>
+      <!-- voting page -->
+      <h1 class="is-size-1 has-text-centered">
+        What disease should we advocate for next? 
+      </h1>
 
-<div class="gap-section" style="margin-bottom: 20px;"></div>
+      <div class="gap-section" style="margin-bottom: 20px;"></div>
 
-<!-- Trial formatting -->
+      <!-- voting formatting -->
 
-<div class="columns" style="background-image: url(white_wall2.webp);">
-  <!-- Left column for Disease A and B -->
-  <div class="column is-half" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-    <!-- Disease A box -->
-    <div class="pastevent mb-2">
-      <h1 class="is-size-2" id="votingTitleA">Castleman Disease</h1>
-      <button id="submitvoteA" class="button">Submit Vote</button>
-    </div>
-    <!-- Disease B box -->
-    <div class="pastevent">
-      <h1 class="is-size-2" id="votingTitleB">Gaucher Disease</h1>
-      <button id="submitvoteB" class="button">Submit Vote</button>
-    </div>
-  </div>
+      <div class="columns" style="background-image: url(white_wall2.webp);">
+        <!-- Left column for Disease A and B -->
+        <div class="column is-half" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <!-- Disease A box -->
+          <div class="pastevent mb-2">
+            <h1 class="is-size-2" id="votingTitleA">Castleman Disease</h1>
+            <button id="submitvoteA" class="button">Submit Vote</button>
+          </div>
+          <!-- Disease B box -->
+          <div class="pastevent">
+            <h1 class="is-size-2" id="votingTitleB">Gaucher Disease</h1>
+            <button id="submitvoteB" class="button">Submit Vote</button>
+          </div>
+        </div>
 
-  <!-- Right column for the pie chart -->
-  <div class="column is-half" style="display: flex; justify-content: center; align-items: center;">
-    <div class="chart-container" style="height: 40vh;">
-      <canvas id="myPieChart"></canvas>
-    </div>
-  </div>
-</div>
+        <!-- Right column for the pie chart -->
+        <div class="column is-half" style="display: flex; justify-content: center; align-items: center;">
+          <div class="chart-container" style="height: 40vh;">
+            <canvas id="myPieChart"></canvas>
+          </div>
+        </div>
+      </div>
 
 
-    <h2 class="is-size-1 has-text-centered">Thank you for making a difference.</h2>
+      <h2 class="is-size-1 has-text-centered">Thank you for making a difference.</h2>
     
-    <div id="adminSection" class="column pastevent" style="display: none;">
+      <div id="adminSection" class="column pastevent" style="display: none;">
       <h1 class="is-size-2">Admin Title Change</h1>
       <input id="d_a_box"  class="input" type="text" placeholder="DISEASE A" />
       <input id="d_b_box"  class="input" type="text" placeholder="DISEASE B" />
       <button id="chartReset" class="button">Reset Vote</button>
       <button id="titleChange" class="button">Change Titles</button>
 
-      </div> 
     
 
-    </section>
+  </section>
 
 
     <!-- past events page -->

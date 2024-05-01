@@ -237,10 +237,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // end of chart logic and initialization
 
-  //voting admin availability
+  // voting admin availability
   // Check if the user is logged in and their email is admin@example.com
   // firebase.auth().onAuthStateChanged(function (user) {
-  //   if (user && user.email === "admin@example.com") {
+  //   if (user && user.email === "ardadmin@gmail.com") {
   //     document.getElementById("adminSection").style.display = "block";
   //   } else {
   //     document.getElementById("adminSection").style.display = "none";

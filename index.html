@@ -139,7 +139,20 @@
         overflow-y: auto;
         /* Enable vertical scrollbar if content exceeds max height */
         box-shadow: 0 2px 4px rgba(176, 3, 3, 0.933);
+
       }
+
+      .votingbox {
+        background-color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(176, 3, 3, 0.933);
+        margin: 0; /* Reset margin */
+        padding: 0; /* Reset padding */
+        box-sizing: border-box;
+
+      }
+
 
       .votinghead {
         justify-content: center;
@@ -474,44 +487,60 @@
 
     <!-- header section -->
     <section id="votingPage" style="display: none;">
-      <h1 class="votinghead is-size-2 pb-4">Which disease should we focus on next?
+      <h1 class="w3-container votinghead is-size-2 pb-4">Which disease should we focus on next?
         <p class="is-size-5 votinghead is-size-2"><strong>Date:</strong> June 15, 2024</p>
 
       </h1>
 
 
-      <div class="columns" style="justify-content: center;">
-          <!-- Disease A box -->
-          <div class="column pastevent">
-            <h1 class="is-size-2" id="votingTitleA">Disease A</h1>
-            <button id="submitvoteA" class="button">Submit Vote A</button>
-          </div>
+      <div class="columns is-multiline" style="display: flex;">
+        <!-- Disease A box -->
+        <div class="column votingbox m-3" style="flex: 1;">
+          <h1 class="is-size-2" id="votingTitleA">Disease A</h1>
+          <button id="submitvoteA" class="button">Submit Vote A</button>
+        </div>
       
-          <!-- Disease B box -->
-          <div class="column pastevent">
-            <h1 class="is-size-2" id="votingTitleB">Disease B</h1>
-            <button id="submitvoteB" class="button">Submit Vote B</button>
-          </div>
+        <!-- Picture heart -->
+        <div class="column m-3" style="flex: 1;">
+          <img
+            class="mb-4"
+            src="top-view-world-heart-day-concept.jpg"
+            alt="helpers"
+            style="height: 450px; width: 100%; object-fit: cover;"
+          />
+        </div>
       </div>
+
+
+      
 
 
 
       <!-- pie chart -->
       <div class="columns">
 
-        <div class="chart-container column is-half" style="height: 40vh; width: 80vw; display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+        <div class="chart-container column is-half" style="height: 40vh; width: 80vw;">
           <canvas id="myPieChart"></canvas>
         </div>
-    </div>
 
-    <div id="adminSection" class="column pastevent" style="display: none;">
-      <h1 class="is-size-2">Admin Title Change</h1>
-      <input id="d_a_box"  class="input" type="text" placeholder="DISEASE A" />
-      <input id="d_b_box"  class="input" type="text" placeholder="DISEASE B" />
-      <button id="chartReset" class="button">Reset Vote</button>
-      <button id="titleChange" class="button">Change Titles</button>
+          <!-- Disease B box -->
+        <div class="column pastevent">
+          <h1 class="is-size-2" id="votingTitleB">Disease B</h1>
+          <button id="submitvoteB" class="button">Submit Vote B</button>
+        </div>
+        
+      </div>
 
-    </div>
+
+
+      <div id="adminSection" class="column pastevent" style="display: none;">
+        <h1 class="is-size-2">Admin Title Change</h1>
+        <input id="d_a_box"  class="input" type="text" placeholder="DISEASE A" />
+        <input id="d_b_box"  class="input" type="text" placeholder="DISEASE B" />
+        <button id="chartReset" class="button">Reset Vote</button>
+        <button id="titleChange" class="button">Change Titles</button>
+
+      </div>
     
 
     </section>

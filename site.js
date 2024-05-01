@@ -936,12 +936,13 @@ function deleteExec_doc(id) {
 
 function renderExec(exec) {
   let html = `
-  <div class="votingcontainer">
-    <figure class="image" style="width: 300px; height: auto;">
+  <div class="executiveholder">
+    <figure class="image" style="width: 100%; height: 350px; border-radius: 50%; margin-bottom: 10px;">
       <img src="${exec.imageUrl}" alt="Exec image" />
     </figure>
-    <p class="is-size-5">${exec.position}</p>
+    <p class="is-size-4"><b>${exec.position}</b></p>
     <p class="is-size-5"><strong>Name:</strong> ${exec.name}</p>
+    <br>
     <p class="is-size-5"><strong>Bio:</strong> ${exec.description}</p>
     <button class ="is-hidden" id="deleteExec_${exec.id}" onclick="deleteExec_doc('${exec.id}')">Delete</button>
   </div>

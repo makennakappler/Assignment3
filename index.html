@@ -183,14 +183,21 @@
         box-sizing: border-box;
       }
 
-      .chart-container {
-      height: 40vh;
-      width: 80vw;
-      display: flex;
-      justify-content: center; /* Horizontally center content */
-      align-items: center; /* Vertically center content */
-      margin: 0 auto; /* Center the div on the page */
-    }
+      .box {
+        border: 2px solid red; /* Border around the box */
+        padding: 10px; /* Padding inside the box */
+        padding-bottom: 95px;
+        padding-top: 95px;
+        border-radius: 5px; /* Rounded corners */
+        text-align: center; /* Center text items horizontally */
+        width: 50%;
+      }
+
+      .pie-chart-size {
+        width: 50%; /* Adjust the width as needed */
+      }
+
+
 
     </style>
   </head>
@@ -485,52 +492,33 @@
 
     <!-- voting page -->
 
-    <!-- header section -->
     <section id="votingPage" style="display: none;">
-      <h1 class="w3-container votinghead is-size-2 pb-4">Which disease should we focus on next?
+ 
+      <!-- header section -->
+      <div class="w3-container votinghead is-size-2 pb-4">
+        <h1 >Which disease should we focus on next?</h1>
         <p class="is-size-5 votinghead is-size-2"><strong>Date:</strong> June 15, 2024</p>
-
-      </h1>
-
-
-      <div class="columns is-multiline" style="display: flex;">
+      </div> 
+      
+      <!-- body section -->
+      <div>
         <!-- Disease A box -->
-        <div class="column votingbox m-3" style="flex: 1;">
+        <div class="m-1 box">
           <h1 class="is-size-2" id="votingTitleA">Disease A</h1>
           <button id="submitvoteA" class="button">Submit Vote A</button>
         </div>
-      
-        <!-- Picture heart -->
-        <div class="column m-3" style="flex: 1;">
-          <img
-            class="mb-4"
-            src="top-view-world-heart-day-concept.jpg"
-            alt="helpers"
-            style="height: 450px; width: 100%; object-fit: cover;"
-          />
-        </div>
-      </div>
 
-
-      
-
-
-
-      <!-- pie chart -->
-      <div class="columns">
-
-        <div class="chart-container column is-half" style="height: 40vh; width: 80vw;">
-          <canvas id="myPieChart"></canvas>
-        </div>
-
-          <!-- Disease B box -->
-        <div class="column pastevent">
+        <!-- Disease B box -->
+        <div class="m-1 box">
           <h1 class="is-size-2" id="votingTitleB">Disease B</h1>
           <button id="submitvoteB" class="button">Submit Vote B</button>
         </div>
-        
       </div>
 
+      <!-- Pie chart container -->
+      <div class="pie-chart-size">
+        <canvas id="myPieChart"></canvas>
+      </div>
 
 
       <div id="adminSection" class="column pastevent" style="display: none;">

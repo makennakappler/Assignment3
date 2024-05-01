@@ -241,9 +241,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Check if the user is logged in and their email is admin@example.com
   firebase.auth().onAuthStateChanged(function (user) {
     if (user && user.email === "ardadmin@gmail.com") {
-      document.getElementById("adminSection").style.display = "block";
-    } else {
-      document.getElementById("adminSection").style.display = "none";
+      // document.getElementById("adminSection").style.display = "block";
+      r_e("adminSection").classList.remove("is-hidden");
     }
   });
 

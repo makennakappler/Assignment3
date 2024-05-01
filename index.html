@@ -190,20 +190,17 @@
         padding-top: 95px;
         border-radius: 5px; /* Rounded corners */
         text-align: center; /* Center text items horizontally */
-        width: 50%;
-      }
-
-      .pie-chart-size {
-        width: 50%; /* Adjust the width as needed */
       }
 
       .vote-container { 
         display:flex;
+        justify-content: space-around;
+
       }
 
-      .vote-item {
-        flex-grow: 1;
-      }
+
+
+
 
 
 
@@ -511,7 +508,7 @@
       <!-- body section -->
       <div class="vote-container">
         <!-- make disease boxes one flexbox -->
-        <div class="vote-item">
+        <div class="vote-item" style="flex-grow: 1;">
           <!-- Disease A box -->
           <div class="m-1 box">
             <h1 class="is-size-2" id="votingTitleA">Disease A</h1>
@@ -526,7 +523,7 @@
         </div>
 
         <!-- Pie chart container -->
-        <div class="pie-chart-size vote-item">
+        <div class="vote-item" style="flex-grow: 1;">
           <canvas id="myPieChart"></canvas>
         </div>
       </div>

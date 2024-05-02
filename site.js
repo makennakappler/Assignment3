@@ -93,23 +93,107 @@ document.addEventListener("DOMContentLoaded", function () {
     // testPage.style.display = "none";
   });
 
-  // Initialize Chart.js
-  var db = firebase.firestore();
-  var ctx = r_e("myPieChart").getContext("2d");
-  var myPieChart = new Chart(ctx, {
-    type: "pie",
-    data: {
-      labels: ["Option A", "Option B"],
-      datasets: [
-        {
-          label: "Votes",
-          data: [0, 0],
-          backgroundColor: ["#FF6384", "#36A2EB"],
-          hoverBackgroundColor: ["#FF6384", "#36A2EB"],
-        },
-      ],
-    },
+  // voting admin availability
+  // Check if the user is logged in and their email is admin@example.com
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user && user.email === "ardadmin@gmail.com") {
+      document.getElementById("adminSection").style.display = "block";
+    } else {
+      document.getElementById("adminSection").style.display = "none";
+    }
   });
+
+  // Initialize Firebase Firestore
+  var db = firebase.firestore();
+
+  // Reference to the document in Firestore where you want to store the inputs
+  var docRef = db.collection("votetitle").doc("Z52PouO3nYX49NhFNjyL");
+
+  // this puts info from box into database
+  // Add event listener to the Change Titles button
+  document.getElementById("titleChange").addEventListener("click", () => {
+    var dAValue = document.getElementById("d_a_box").value;
+    var dBValue = document.getElementById("d_b_box").value;
+
+    // Update the document in Firestore with the input values
+    docRef
+      .set({
+        diseaseA: dAValue,
+        diseaseB: dBValue,
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  });
+
+  // Fetch the data from Firestore when HTML loads - this updates the titles to databse
+  docRef
+    .get()
+    .then(function (doc) {
+      if (doc.exists) {
+        // Get the data from the document
+        var data = doc.data();
+
+        // Update the content of votingTitleA and votingTitleB
+        votingTitleA.textContent = data.diseaseA;
+        votingTitleB.textContent = data.diseaseB;
+
+        console.log("Document data loaded successfully!");
+      } else {
+        console.log("No such document!");
+      }
+    })
+    .catch(function (error) {
+      console.error("Error getting document:", error);
+    });
+
+  // Initialize Firebase Firestore
+  var db = firebase.firestore();
+
+  // Reference to the document in Firestore where the labels are stored
+  var docRef = db.collection("votetitle").doc("Z52PouO3nYX49NhFNjyL");
+
+  // Get the canvas element for the pie chart
+  var ctx = r_e("myPieChart").getContext("2d");
+
+  // Initialize Chart.js with default labels
+  var myPieChart;
+
+  // Fetch the data from Firestore when HTML loads
+  docRef
+    .get()
+    .then(function (doc) {
+      if (doc.exists) {
+        // Get the data from the document
+        var data = doc.data();
+
+        // Update the labels for the pie chart
+        myPieChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: [data.diseaseA, data.diseaseB], // Update labels dynamically
+            datasets: [
+              {
+                label: "Votes",
+                data: [0, 0],
+                backgroundColor: ["#FF6384", "#36A2EB"],
+                hoverBackgroundColor: ["#FF6384", "#36A2EB"],
+              },
+            ],
+          },
+        });
+
+        console.log("Document data loaded successfully!");
+      } else {
+        console.log("No such document!");
+      }
+    })
+    .catch(function (error) {
+      console.error("Error getting document:", error);
+    });
 
   // Update Chart Data Function
   function updateChart(votesA, votesB) {
@@ -236,63 +320,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   // end of chart logic and initialization
-
-  // voting admin availability
-  // Check if the user is logged in and their email is admin@example.com
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user && user.email === "ardadmin@gmail.com") {
-      document.getElementById("adminSection").style.display = "block";
-    } else {
-      document.getElementById("adminSection").style.display = "none";
-    }
-  });
-
-  // Initialize Firebase Firestore
-  var db = firebase.firestore();
-
-  // Reference to the document in Firestore where you want to store the inputs
-  var docRef = db.collection("votetitle").doc("Z52PouO3nYX49NhFNjyL");
-
-  // this puts info from box into database
-  // Add event listener to the Change Titles button
-  document.getElementById("titleChange").addEventListener("click", () => {
-    var dAValue = document.getElementById("d_a_box").value;
-    var dBValue = document.getElementById("d_b_box").value;
-
-    // Update the document in Firestore with the input values
-    docRef
-      .set({
-        diseaseA: dAValue,
-        diseaseB: dBValue,
-      })
-      .then(() => {
-        console.log("Document successfully written!");
-      })
-      .catch((error) => {
-        console.error("Error writing document: ", error);
-      });
-  });
-
-  // Fetch the data from Firestore when HTML loads - this updates the titles to databse
-  docRef
-    .get()
-    .then(function (doc) {
-      if (doc.exists) {
-        // Get the data from the document
-        var data = doc.data();
-
-        // Update the content of votingTitleA and votingTitleB
-        votingTitleA.textContent = data.diseaseA;
-        votingTitleB.textContent = data.diseaseB;
-
-        console.log("Document data loaded successfully!");
-      } else {
-        console.log("No such document!");
-      }
-    })
-    .catch(function (error) {
-      console.error("Error getting document:", error);
-    });
 
   // Event listener for reset button
   document.getElementById("chartReset").addEventListener("click", function () {

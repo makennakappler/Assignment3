@@ -824,7 +824,7 @@ function renderAnnouncement(announcement) {
     <div>
       <p>${announcement.description} <button class ="is-hidden" id="deleteAnnounce_${announcement.id}" onclick="deleteAnnounce_doc('${announcement.id}')">Delete</button></p>
       <div style="width: 100%; margin: 0 auto">
-      <hr class="styled-hr" style="border-top: 2px solid crimson; width: 100%"/>
+      <hr class="styled-hr" style="border-top: 2px solid black; width: 100%"/>
       </div>
       
     </div>
@@ -1003,12 +1003,13 @@ function deleteExec_doc(id) {
 
 function renderExec(exec) {
   let html = `
-  <div class="votingcontainer">
-    <figure class="image" style="width: 300px; height: auto;">
+  <div class="executiveholder">
+    <figure class="image" style="width: 100%; height: 350px; border-radius: 50%; margin-bottom: 10px;">
       <img src="${exec.imageUrl}" alt="Exec image" />
     </figure>
-    <p class="is-size-5">${exec.position}</p>
+    <p class="is-size-4"><b>${exec.position}</b></p>
     <p class="is-size-5"><strong>Name:</strong> ${exec.name}</p>
+    <br>
     <p class="is-size-5"><strong>Bio:</strong> ${exec.description}</p>
     <button class ="is-hidden" id="deleteExec_${exec.id}" onclick="deleteExec_doc('${exec.id}')">Delete</button>
   </div>

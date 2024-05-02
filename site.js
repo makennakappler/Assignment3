@@ -552,6 +552,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // reset the form
         // r_e('signup_form').reset();
 
+        // make username appear
+        r_e("userName").innerHTML = user.user.email;
+
         // close the modal + setup correct buttons
         r_e("modalSignUp").classList.remove("is-active");
         r_e("logOut").classList.remove("is-hidden");

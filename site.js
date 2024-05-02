@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var votingLink = document.getElementById("votingLink");
   var pastEventsLink = document.getElementById("pastEventsLink");
   var aboutUsLink = document.getElementById("aboutUsLink");
-  var testLink = document.getElementById("testLink");
 
   // Find the section elements by their IDs
   var homePage = document.getElementById("homePage");
@@ -53,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var votingPage = document.getElementById("votingPage");
   var pastEventsPage = document.getElementById("pastEventsPage");
   var aboutUsPage = document.getElementById("aboutUsPage");
-  // var testPage = document.getElementById("testPage");
 
   // Click home page nav actions
   homePageLink.addEventListener("click", function (event) {
@@ -64,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
     votingPage.style.display = "none";
     pastEventsPage.style.display = "none";
     aboutUsPage.style.display = "none";
-    // testPage.style.display = "none";
   });
 
   // Event listener for executive leaders link
@@ -76,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
     votingPage.style.display = "none";
     pastEventsPage.style.display = "none";
     aboutUsPage.style.display = "none";
-    // testPage.style.display = "none";
   });
 
   // Event listener for voting page link
@@ -90,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
     executiveLeadersPage.style.display = "none";
     pastEventsPage.style.display = "none";
     aboutUsPage.style.display = "none";
-    // testPage.style.display = "none";
   });
 
   // voting admin availability
@@ -386,7 +381,6 @@ document.addEventListener("DOMContentLoaded", function () {
     executiveLeadersPage.style.display = "none";
     votingPage.style.display = "none";
     aboutUsPage.style.display = "none";
-    // testPage.style.display = "none";
   });
 
   // click about us page nav actions
@@ -399,7 +393,6 @@ document.addEventListener("DOMContentLoaded", function () {
     executiveLeadersPage.style.display = "none";
     votingPage.style.display = "none";
     pastEventsPage.style.display = "none";
-    // testPage.style.display = "none";
   });
 
   // login modal

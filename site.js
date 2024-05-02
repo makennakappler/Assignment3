@@ -319,13 +319,60 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-  // end of chart logic and initialization
+  // Reference to the collection in Firestore where the vote counts are stored
+  var votesRef = db.collection("votes");
+  var voterResultsRef = db.collection("voteresults");
 
-  // Event listener for reset button
+  // Add event listener to the chartReset button
   document.getElementById("chartReset").addEventListener("click", function () {
-    // Add logic to reset vote here
-    console.log("Reset vote button clicked.");
+    // Reset counts in Firestore documents
+    votesRef
+      .doc("optionA")
+      .update({
+        count: 0,
+      })
+      .then(function () {
+        console.log("Votes for Option A reset successfully!");
+      })
+      .catch(function (error) {
+        console.error("Error resetting votes for Option A:", error);
+      });
+
+    votesRef
+      .doc("optionB")
+      .update({
+        count: 0,
+      })
+      .then(function () {
+        console.log("Votes for Option B reset successfully!");
+        // Update chart data after resetting votes
+        myPieChart.data.datasets[0].data = [0, 0];
+        myPieChart.update();
+      })
+      .catch(function (error) {
+        console.error("Error resetting votes for Option B:", error);
+      });
+
+    // Clear all vote results documents in the collection
+    voterResultsRef
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          doc.ref
+            .delete()
+            .then(function () {
+              console.log("Document deleted successfully!");
+            })
+            .catch(function (error) {
+              console.error("Error deleting document:", error);
+            });
+        });
+      })
+      .catch(function (error) {
+        console.error("Error getting documents:", error);
+      });
   });
+  // end of chart logic and initialization
 
   // click past events page nav actions
   pastEventsLink.addEventListener("click", function (event) {

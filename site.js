@@ -554,6 +554,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // make username appear
         r_e("userName").innerHTML = user.user.email;
+        r_e("userName").classList.remove("is-hidden");
 
         // close the modal + setup correct buttons
         r_e("modalSignUp").classList.remove("is-active");

@@ -140,8 +140,9 @@
         /* Set max height for the box */
         overflow-y: auto;
         /* Enable vertical scrollbar if content exceeds max height */
-        box-shadow: 0 2px 4px rgba(176, 3, 3, 0.933);
+        box-shadow: 0 2px 4px black;
       }
+
 
       .votinghead {
         justify-content: center;
@@ -453,62 +454,54 @@
     <!-- voting page -->
 
     <!-- header section -->
-
-
-    
     <section id="votingPage" style="display: none;">
-      <style>
-        #votingPage {
-          font-family: "Marcellus", serif;
-        }
-   
-   
-</style>
-<!-- <h1 class="votinghead is-size-2 pb-4">Which disease should we focus on next?
-  <p class="is-size-5 votinghead is-size-2"><strong>Date:</strong> June 15, 2024</p>
 
-</h1> -->
-<h1 class="is-size-1 has-text-centered">
-  What disease should we advocate for next? 
-</h1>
+      <!-- voting page -->
+      <h1 class="is-size-1 has-text-centered">
+        What disease should we advocate for next? 
+      </h1>
 
-<div class="gap-section" style="margin-bottom: 20px;"></div>
+      <div class="gap-section" style="margin-bottom: 20px;"></div>
+
+      <!-- voting formatting -->
+
+      <div class="columns" style="background-image: url(white_wall2.webp);">
+        <!-- Left column for Disease A and B -->
+        <div class="column is-half" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <!-- Disease A box -->
+          <div class="pastevent mb-2">
+            <h1 class="is-size-2" id="votingTitleA">Disease 1</h1>
+            <button id="submitvoteA" class="button">Submit Vote</button>
+          </div>
+          <!-- Disease B box -->
+          <div class="pastevent">
+            <h1 class="is-size-2" id="votingTitleB">Disease 2</h1>
+            <button id="submitvoteB" class="button">Submit Vote</button>
+          </div>
+        </div>
+
+        <!-- Right column for the pie chart -->
+        <div class="column is-half" style="display: flex; justify-content: center; align-items: center;">
+          <div class="chart-container" style="height: 40vh;">
+            <canvas id="myPieChart"></canvas>
+          </div>
+        </div>
+      </div>
 
 
-<div class="columns" style="background-image: url(white_wall2.webp);">
-  <div class="column is-half" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-    <div class="pastevent mb-2">
-      <h1 class="is-size-2" id="votingTitleA">Castleman Disease</h1>
-      <button id="submitvoteA" class="button">Submit Vote</button>
-    </div>
-   
-    <div class="pastevent">
-      <h1 class="is-size-2" id="votingTitleB">Gaucher Disease</h1>
-      <button id="submitvoteB" class="button">Submit Vote</button>
-    </div>
-  </div>
+      <h2 class="is-size-1 has-text-centered">Thank you for making a difference.</h2>
 
+      <div style="display: flex; justify-content: center;">
+        <div id="adminSection" class="pastevent">
+          <h1 class="is-size-2 is-centered">Admin Title Change</h1>
+          <input id="d_a_box"  class="input" type="text" placeholder="DISEASE A" />
+          <input id="d_b_box"  class="input" type="text" placeholder="DISEASE B" />
+          <button id="chartReset" class="button is-centered">Reset Vote</button>
+          <button id="titleChange" class="button is is-centered">Change Titles</button>
+        </div>
+      </div>
 
-  <div class="column is-half" style="display: flex; justify-content: center; align-items: center;">
-    <div class="chart-container" style="height: 40vh;">
-      <canvas id="myPieChart"></canvas>
-    </div>
-  </div>
-</div>
-
-    <h2 class="is-size-1 has-text-centered">Thank you for making a difference.</h2>
-    
-    <div id="adminSection" class="column pastevent" style="display: none;">
-      <h1 class="is-size-2">Admin Title Change</h1>
-      <input id="d_a_box"  class="input" type="text" placeholder="DISEASE A" />
-      <input id="d_b_box"  class="input" type="text" placeholder="DISEASE B" />
-      <button id="chartReset" class="button">Reset Vote</button>
-      <button id="titleChange" class="button">Change Titles</button>
-
-    </div>
-    
-
-    </section>
+  </section>
 
 
     <!-- past events page -->
@@ -712,7 +705,7 @@
     </div>
 
     <!--Footer-->
-    <div class="footer has-background-white-bis">
+    <div class="footer has-background-white-bis m-1">
       <div class="content has-text-centered">
         <p>&copy;Advocates for Rare Diseases</p>
         <p>

@@ -241,10 +241,58 @@ document.addEventListener("DOMContentLoaded", function () {
   // Check if the user is logged in and their email is admin@example.com
   firebase.auth().onAuthStateChanged(function (user) {
     if (user && user.email === "ardadmin@gmail.com") {
-      // document.getElementById("adminSection").style.display = "block";
-      r_e("adminSection").classList.remove("is-hidden");
+      document.getElementById("adminSection").style.display = "block";
+    } else {
+      document.getElementById("adminSection").style.display = "none";
     }
   });
+
+  // Initialize Firebase Firestore
+  var db = firebase.firestore();
+
+  // Reference to the document in Firestore where you want to store the inputs
+  var docRef = db.collection("votetitle").doc("Z52PouO3nYX49NhFNjyL");
+
+  // this puts info from box into database
+  // Add event listener to the Change Titles button
+  document.getElementById("titleChange").addEventListener("click", () => {
+    var dAValue = document.getElementById("d_a_box").value;
+    var dBValue = document.getElementById("d_b_box").value;
+
+    // Update the document in Firestore with the input values
+    docRef
+      .set({
+        diseaseA: dAValue,
+        diseaseB: dBValue,
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  });
+
+  // Fetch the data from Firestore when HTML loads - this updates the titles to databse
+  docRef
+    .get()
+    .then(function (doc) {
+      if (doc.exists) {
+        // Get the data from the document
+        var data = doc.data();
+
+        // Update the content of votingTitleA and votingTitleB
+        votingTitleA.textContent = data.diseaseA;
+        votingTitleB.textContent = data.diseaseB;
+
+        console.log("Document data loaded successfully!");
+      } else {
+        console.log("No such document!");
+      }
+    })
+    .catch(function (error) {
+      console.error("Error getting document:", error);
+    });
 
   // Event listener for reset button
   document.getElementById("chartReset").addEventListener("click", function () {
@@ -276,60 +324,6 @@ document.addEventListener("DOMContentLoaded", function () {
     votingPage.style.display = "none";
     pastEventsPage.style.display = "none";
     // testPage.style.display = "none";
-  });
-
-  // THIS WAS FOR TEST PAGE: Function to animate typing with a delay between sentences and letter-by-letter appearance
-  async function typewriterWithDelay(textElement, delay) {
-    if (!textElement) {
-      console.error("Element not found:", textElement);
-      return;
-    }
-
-    var text = textElement.textContent.trim();
-    textElement.textContent = ""; // Clear existing text
-
-    for (let i = 0; i < text.length; i++) {
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          textElement.textContent += text[i]; // Append each character
-          resolve();
-        }, delay);
-      });
-    }
-  }
-
-  // THIS WAS FOR TEST PAGE: Function to animate typing for each sentence with a delay between sentences
-  async function animateSentences(sentences, delay) {
-    for (const sentence of sentences) {
-      await typewriterWithDelay(sentence, delay);
-      await new Promise((resolve) => setTimeout(resolve, delay * 10)); // Delay between sentences
-    }
-  }
-
-  // THIS WAS FOR TEST PAGE: click test page nav actions
-  testLink.addEventListener("click", async function (event) {
-    // hide other html page
-    homePage.style.display = "none";
-    executiveLeadersPage.style.display = "none";
-    votingPage.style.display = "none";
-    aboutUsPage.style.display = "none";
-    title1.style.display = "none";
-
-    testPage.style.display = "block";
-
-    // THIS WAS FOR TEST PAGE: Prevent the default link behavior
-    event.preventDefault();
-
-    var firstSentence = document.querySelector("#main1");
-    var secondSentence = document.querySelector("#main2");
-    var thirdSentence = document.querySelector("#main3");
-
-    const delay = 100; // Delay between each character in milliseconds
-
-    await animateSentences(
-      [firstSentence, secondSentence, thirdSentence],
-      delay
-    );
   });
 
   // login modal

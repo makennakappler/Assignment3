@@ -622,7 +622,14 @@ function deleteEvent_doc(id) {
   db.collection("events")
     .doc(id)
     .delete()
-    .then(() => alert("user deleted!"));
+    .then(() => {
+      alert("Event deleted!");
+      // Remove the corresponding HTML element from the page
+      const eventElement = document.querySelector(
+        `#deleteEvent_${id}`
+      ).parentNode;
+      eventElement.remove();
+    });
 }
 
 function renderEvent(event) {
@@ -728,7 +735,14 @@ function deleteAnnounce_doc(id) {
   db.collection("announcements")
     .doc(id)
     .delete()
-    .then(() => alert("user deleted!"));
+    .then(() => {
+      alert("announcement deleted!");
+      // Remove the corresponding HTML element from the page
+      const announcementElement = document.querySelector(
+        `#deleteAnnounce_doc${id}`
+      ).parentNode;
+      announcementElement.remove();
+    });
 }
 
 function renderAnnouncement(announcement) {
@@ -917,7 +931,14 @@ function deleteExec_doc(id) {
   db.collection("executive")
     .doc(id)
     .delete()
-    .then(() => alert("user deleted!"));
+    .then(() => {
+      alert("executive deleted!");
+      // Remove the corresponding HTML element from the page
+      const executiveElement = document.querySelector(
+        `#deleteExec_${id}`
+      ).parentNode;
+      executiveElement.remove();
+    });
 }
 
 function renderExec(exec) {

@@ -500,14 +500,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // PAST EVENTS
-// show doc of past events
-// Function to hide the form
-// Function to hide the form
-// function hideEventForm() {
-//   r_e("showFormButton").classList.add("is-hidden");
-//   r_e("hideFormButton").classList.add("is-hidden");
-//   r_e("event_form").classList.add("is-hidden");
-// }
 
 // Function to check if the current user's email matches the allowed email address
 function EventscheckAllowedEmail(id) {
@@ -596,11 +588,17 @@ r_e("showFormButton").addEventListener("click", () => {
           // Store event data into Firestore
           return firebase.firestore().collection("events").add(eventData);
         })
-        .then(() => {
+        .then((docRef) => {
           // After successful upload to Firestore
           console.log("Event data added to Firestore");
           alert("Event data added to Firestore");
-          r_e("eventForm").reset();
+
+          // Get the newly added event data from Firestore
+          return docRef.get();
+        })
+        .then((doc) => {
+          // Render the newly added event
+          renderEvent({ id: doc.id, ...doc.data() });
         })
         .catch((error) => {
           console.error("Error uploading file or adding event data:", error);
@@ -656,33 +654,14 @@ window.addEventListener("load", () => {
       });
 
       // Call the function to check allowed email when the page loads
-      execCheckAllowedEmail("#showFormButton");
+      EventscheckAllowedEmail("#showFormButton");
 
-      // Loop through each delete button and call execCheckAllowedEmail for each
+      // Loop through each delete button and call EventscheckAllowedEmail for each
       querySnapshot.forEach((doc) => {
-        execCheckAllowedEmail(`#deleteEvent_${doc.id}`);
+        EventscheckAllowedEmail(`#deleteEvent_${doc.id}`);
       });
     })
     .catch((error) => console.error("Error getting events: ", error));
-});
-
-//Submit form to dbv
-document.querySelector("#event_form").addEventListener("click", (e) => {
-  let db = firebase.firestore();
-  if (e.target && e.target.id === "submit") {
-    e.preventDefault(); // Prevent default behavior of browser (no page refresh)
-    // Construct event object
-    let event = {
-      name: document.querySelector("#event_name").value,
-      date: date(document.querySelector("#event_date").value),
-      location: document.querySelector("#event_location").value,
-      description: document.querySelector("#event_description").value,
-    };
-    // Store event object into collection
-    db.collection("events")
-      .add(event)
-      .then(() => alert("Event added"));
-  }
 });
 
 //ANNOUNCEMENTS
@@ -904,10 +883,17 @@ r_e("showExecFormButton").addEventListener("click", () => {
           // Store event data into Firestore
           return firebase.firestore().collection("executive").add(execData);
         })
-        .then(() => {
+        .then((docRef) => {
           // After successful upload to Firestore
-          console.log("Event data added to Firestore");
-          alert("Event data added to Firestore");
+          console.log("Exec data added to Firestore with ID: ", docRef.id);
+          alert("Exec data added to Firestore");
+
+          // Get the newly added executive data from Firestore using its ID
+          return docRef.get();
+        })
+        .then((doc) => {
+          // Render the newly added executive on the page
+          renderExec({ id: doc.id, ...doc.data() });
         })
         .catch((error) => {
           console.error("Error uploading file or adding event data:", error);

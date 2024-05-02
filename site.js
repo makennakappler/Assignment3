@@ -144,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Document data loaded successfully!");
       } else {
         console.log("No such document!");
+        configure_message_bar("There was an error changing the titles");
       }
     })
     .catch(function (error) {
@@ -333,6 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then(function () {
         console.log("Votes for Option A reset successfully!");
+        configure_message_bar("Votes reset successfully");
       })
       .catch(function (error) {
         console.error("Error resetting votes for Option A:", error);
@@ -507,6 +509,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .auth()
       .signOut()
       .then(() => {
+        r_e("userName").classList.add("is-hidden");
         console.log("sucessfully signed out");
       })
       .catch((error) => {
@@ -549,6 +552,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // reset the form
         // r_e('signup_form').reset();
+
+        // make username appear
+        r_e("userName").innerHTML = user.user.email;
+        r_e("userName").classList.remove("is-hidden");
 
         // close the modal + setup correct buttons
         r_e("modalSignUp").classList.remove("is-active");

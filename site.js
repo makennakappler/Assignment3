@@ -142,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
         votingTitleB.textContent = data.diseaseB;
 
         console.log("Document data loaded successfully!");
-        configure_message_bar("Titles changed successfully!");
       } else {
         console.log("No such document!");
         configure_message_bar("There was an error changing the titles");

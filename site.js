@@ -509,6 +509,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .auth()
       .signOut()
       .then(() => {
+        r_e("userName").classList.add("is-hidden");
         console.log("sucessfully signed out");
       })
       .catch((error) => {

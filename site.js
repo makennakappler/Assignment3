@@ -142,8 +142,10 @@ document.addEventListener("DOMContentLoaded", function () {
         votingTitleB.textContent = data.diseaseB;
 
         console.log("Document data loaded successfully!");
+        configure_message_bar("Titles changed successfully!");
       } else {
         console.log("No such document!");
+        configure_message_bar("There was an error changing the titles");
       }
     })
     .catch(function (error) {
@@ -333,6 +335,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then(function () {
         console.log("Votes for Option A reset successfully!");
+        configure_message_bar("Votes reset successfully");
       })
       .catch(function (error) {
         console.error("Error resetting votes for Option A:", error);

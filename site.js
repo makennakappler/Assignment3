@@ -93,23 +93,107 @@ document.addEventListener("DOMContentLoaded", function () {
     // testPage.style.display = "none";
   });
 
-  // Initialize Chart.js
-  var db = firebase.firestore();
-  var ctx = r_e("myPieChart").getContext("2d");
-  var myPieChart = new Chart(ctx, {
-    type: "pie",
-    data: {
-      labels: ["Option A", "Option B"],
-      datasets: [
-        {
-          label: "Votes",
-          data: [0, 0],
-          backgroundColor: ["#FF6384", "#36A2EB"],
-          hoverBackgroundColor: ["#FF6384", "#36A2EB"],
-        },
-      ],
-    },
+  // voting admin availability
+  // Check if the user is logged in and their email is admin@example.com
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user && user.email === "ardadmin@gmail.com") {
+      document.getElementById("adminSection").style.display = "block";
+    } else {
+      document.getElementById("adminSection").style.display = "none";
+    }
   });
+
+  // Initialize Firebase Firestore
+  var db = firebase.firestore();
+
+  // Reference to the document in Firestore where you want to store the inputs
+  var docRef = db.collection("votetitle").doc("Z52PouO3nYX49NhFNjyL");
+
+  // this puts info from box into database
+  // Add event listener to the Change Titles button
+  document.getElementById("titleChange").addEventListener("click", () => {
+    var dAValue = document.getElementById("d_a_box").value;
+    var dBValue = document.getElementById("d_b_box").value;
+
+    // Update the document in Firestore with the input values
+    docRef
+      .set({
+        diseaseA: dAValue,
+        diseaseB: dBValue,
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  });
+
+  // Fetch the data from Firestore when HTML loads - this updates the titles to databse
+  docRef
+    .get()
+    .then(function (doc) {
+      if (doc.exists) {
+        // Get the data from the document
+        var data = doc.data();
+
+        // Update the content of votingTitleA and votingTitleB
+        votingTitleA.textContent = data.diseaseA;
+        votingTitleB.textContent = data.diseaseB;
+
+        console.log("Document data loaded successfully!");
+      } else {
+        console.log("No such document!");
+      }
+    })
+    .catch(function (error) {
+      console.error("Error getting document:", error);
+    });
+
+  // Initialize Firebase Firestore
+  var db = firebase.firestore();
+
+  // Reference to the document in Firestore where the labels are stored
+  var docRef = db.collection("votetitle").doc("Z52PouO3nYX49NhFNjyL");
+
+  // Get the canvas element for the pie chart
+  var ctx = r_e("myPieChart").getContext("2d");
+
+  // Initialize Chart.js with default labels
+  var myPieChart;
+
+  // Fetch the data from Firestore when HTML loads
+  docRef
+    .get()
+    .then(function (doc) {
+      if (doc.exists) {
+        // Get the data from the document
+        var data = doc.data();
+
+        // Update the labels for the pie chart
+        myPieChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: [data.diseaseA, data.diseaseB], // Update labels dynamically
+            datasets: [
+              {
+                label: "Votes",
+                data: [0, 0],
+                backgroundColor: ["#FF6384", "#36A2EB"],
+                hoverBackgroundColor: ["#FF6384", "#36A2EB"],
+              },
+            ],
+          },
+        });
+
+        console.log("Document data loaded successfully!");
+      } else {
+        console.log("No such document!");
+      }
+    })
+    .catch(function (error) {
+      console.error("Error getting document:", error);
+    });
 
   // Update Chart Data Function
   function updateChart(votesA, votesB) {
@@ -235,23 +319,60 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-  // end of chart logic and initialization
+  // Reference to the collection in Firestore where the vote counts are stored
+  var votesRef = db.collection("votes");
+  var voterResultsRef = db.collection("voteresults");
 
-  //voting admin availability
-  // Check if the user is logged in and their email is admin@example.com
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user && user.email === "ardadmin@gmail.com") {
-      document.getElementById("adminSection").style.display = "block";
-    } else {
-      document.getElementById("adminSection").style.display = "none";
-    }
-  });
-
-  // Event listener for reset button
+  // Add event listener to the chartReset button
   document.getElementById("chartReset").addEventListener("click", function () {
-    // Add logic to reset vote here
-    console.log("Reset vote button clicked.");
+    // Reset counts in Firestore documents
+    votesRef
+      .doc("optionA")
+      .update({
+        count: 0,
+      })
+      .then(function () {
+        console.log("Votes for Option A reset successfully!");
+      })
+      .catch(function (error) {
+        console.error("Error resetting votes for Option A:", error);
+      });
+
+    votesRef
+      .doc("optionB")
+      .update({
+        count: 0,
+      })
+      .then(function () {
+        console.log("Votes for Option B reset successfully!");
+        // Update chart data after resetting votes
+        myPieChart.data.datasets[0].data = [0, 0];
+        myPieChart.update();
+      })
+      .catch(function (error) {
+        console.error("Error resetting votes for Option B:", error);
+      });
+
+    // Clear all vote results documents in the collection
+    voterResultsRef
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          doc.ref
+            .delete()
+            .then(function () {
+              console.log("Document deleted successfully!");
+            })
+            .catch(function (error) {
+              console.error("Error deleting document:", error);
+            });
+        });
+      })
+      .catch(function (error) {
+        console.error("Error getting documents:", error);
+      });
   });
+  // end of chart logic and initialization
 
   // click past events page nav actions
   pastEventsLink.addEventListener("click", function (event) {
@@ -277,60 +398,6 @@ document.addEventListener("DOMContentLoaded", function () {
     votingPage.style.display = "none";
     pastEventsPage.style.display = "none";
     // testPage.style.display = "none";
-  });
-
-  // THIS WAS FOR TEST PAGE: Function to animate typing with a delay between sentences and letter-by-letter appearance
-  async function typewriterWithDelay(textElement, delay) {
-    if (!textElement) {
-      console.error("Element not found:", textElement);
-      return;
-    }
-
-    var text = textElement.textContent.trim();
-    textElement.textContent = ""; // Clear existing text
-
-    for (let i = 0; i < text.length; i++) {
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          textElement.textContent += text[i]; // Append each character
-          resolve();
-        }, delay);
-      });
-    }
-  }
-
-  // THIS WAS FOR TEST PAGE: Function to animate typing for each sentence with a delay between sentences
-  async function animateSentences(sentences, delay) {
-    for (const sentence of sentences) {
-      await typewriterWithDelay(sentence, delay);
-      await new Promise((resolve) => setTimeout(resolve, delay * 10)); // Delay between sentences
-    }
-  }
-
-  // THIS WAS FOR TEST PAGE: click test page nav actions
-  testLink.addEventListener("click", async function (event) {
-    // hide other html page
-    homePage.style.display = "none";
-    executiveLeadersPage.style.display = "none";
-    votingPage.style.display = "none";
-    aboutUsPage.style.display = "none";
-    title1.style.display = "none";
-
-    testPage.style.display = "block";
-
-    // THIS WAS FOR TEST PAGE: Prevent the default link behavior
-    event.preventDefault();
-
-    var firstSentence = document.querySelector("#main1");
-    var secondSentence = document.querySelector("#main2");
-    var thirdSentence = document.querySelector("#main3");
-
-    const delay = 100; // Delay between each character in milliseconds
-
-    await animateSentences(
-      [firstSentence, secondSentence, thirdSentence],
-      delay
-    );
   });
 
   // login modal
